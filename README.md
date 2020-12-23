@@ -3,7 +3,7 @@
 * Mikrokontróler funguje v režime webservera.
 * ESP riadi na základe navolenej hysterézy a cieľovej teploty výstup - relé ovládané digitálnym vývodom.
 * Pre meranie teploty ESP využíva senzor Dallas DS18B20 na OneWire zbernici v parazitnom / normálnom zapojení
-* **ESP na UART vypíše pridelenú (respektíve statickú) IP adresu**
+* **ESP na UART vypíše pridelenú IP adresu z DHCP servera**
 
 # Schéma zapojenia (ESP8266, ESP32)
 ![Termostat - WiFi - ESP8266](https://i.imgur.com/hFl5T8e.png)
@@ -29,4 +29,3 @@
 
 **Rozšírené informácie k projektu v článku:**
 * http://deadawp.blog.sector.sk/blogclanok/13254/wifi-termostat-esp8266-wifimanager-ota.htm
-
