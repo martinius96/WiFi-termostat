@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="sk-SK">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Spustenie projektu - Izbový termostat - Arduino + Ethernet</title>
+	<meta name="description" content="Návod na inštaláciu a spustenie projektu izbový termostat postavenom na platforme Arduuino Uno a Ethernet shield Wiznet W5100.">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/termostat-ethernet/">
+	<meta property="og:title" content="Spustenie projektu - Izbový termostat - Arduino + Ethernet">
+	<meta property="og:description" content="Návod na inštaláciu a spustenie projektu izbový termostat postavenom na platforme Arduuino Uno a Ethernet shield Wiznet W5100.">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/termostat-ethernet/">
+	<meta property="twitter:title" content="Spustenie projektu - Izbový termostat - Arduino + Ethernet">
+	<meta property="twitter:description" content="Návod na inštaláciu a spustenie projektu izbový termostat postavenom na platforme Arduuino Uno a Ethernet shield Wiznet W5100.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>  
+	<style>
+	table td {
+  border: 1px solid black;
+}	table th {
+  border: 1px solid black;
+}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Termostat - Ethernet</a>
+    </div>
+    <ul class="nav navbar-nav">
+      	<li class=""><a href="index.html">Prehľad</a></li>
+	<li><a href="zapojenie.html">Zapojenie</a></li>      
+	<li class="active"><a href="spustenie.html">Spustenie Ethernet termostatu</a></li>
+      	<li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Projekt k repozitáru - Github: </strong><a href="https://github.com/martinius96/termostat-ethernet/">Termostat - Ethernet</a>
+				</div>	
+<span class="label label-default">Arduino</span>
+<span class="label label-primary">Ethernet</span>
+<span class="label label-success">Wiznet W5100 / W5500</span>
+<span class="label label-info">DS18B20</span>
+<span class="label label-warning">OneWire</span>
+<span class="label label-danger">Dallas</span>
+<span class="label label-default">HTML</span>
+<span class="label label-primary">Webserver</span>
+<span class="label label-success">WebSocket</span>
+<div class="alert alert-info">
+	<strong>MAC adresa Ethernet termostatu: </strong>DE:AD:BE:EF:FE:ED - <strong>Pre potreby statického priradenia IP adresy z DHCP služby</strong>
+</div>	
+<div class="alert alert-warning">
+	<strong>Nahratie programu do Arduina cez avrdude (vzorovo pre COM21 a program sketch.ino.hex):</strong><br>
+	avrdude -CC: avrdude.conf -v -patmega328p -carduino -PCOM21 -b115200 -D -Uflash:w:sketch.ino.hex:i
+</div>	
+<hr><center><h2>Spustenie projektu izbový termostat - Arduino + Ethernet Wiznet W5100 / W5500</h2></center><hr>
+<p>
+Projekt Ethernet (izbový) termostat existuje aj vo verzii zdarma, ktorá je dostupná v repozitári na Githube.
+Verzia obsahuje celkom 6 strojových - predkompilovaných programov pre platformu Arduino Uno.
+Strojový kód (.hex) zaručuje, že daný program je kompatibilný a má totožnú funkčnosť na všetky zariadenia, do ktorých sa nahrá a spustí.
+Kód je tak univerzálny a poskytuje možnosť na ukážku poskytnúť autorovi záujemcom o vyskúšanie projektu jeho build bez prístupu ku zdrojovému (.ino) kódu.
+<div class="alert alert-danger">
+	<b>Free verzia je tak dostupná iba vo forme strojového kódu bez prístupu k aplikácii napísanej v .ino formáte.</b>
+</div>	
+</p>
+<center>
+	<img src="https://i.imgur.com/PwduwOz.jpg" style="display: block; max-width: 100%; height: auto;" alt="Strojový kód aplikácie Ethernet izbový termostat" title="Strojový kód aplikácie Ethernet izbový termostat">	
+</center>
+<b>Rozdelenie strojových kódov na základe Ethernet shieldu:</b>
+<li>Ethernet Wiznet W5100</li>
+<li>Ethernet Wiznet W5500 (W5200 - 5500 compatible)</li>
+<b>Rozdelenie strojových kódov na základe pridelenia IPv4 LAN adresy:</b>
+<li><b>Statická</b> - pridelená staticky priamo v zdrojovom kóde (192.168.4.1 / 192.168.1.254) 24-bit maska</li>
+<li><b>Dynamická</b> - pridelená dynamicky cez DHCP server v  LAN sieti (môže byť priradená staticky na cieľovú MAC adresu)</li>
+<center>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th>Názov firmvéru</th>
+<th align="center">Shield</th>
+<th>IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dynamic_W5100.hex</td>
+<td align="center">W5100</td>
+<td>priradená cez DHCP (obsahuje i maintain pre predĺženie lease time / vyžiadanie novej IP)</td>
+</tr>
+<tr>
+<td>dynamic_W5500.hex</td>
+<td align="center">W5500</td>
+<td>priradená cez DHCP (obsahuje i maintain pre predĺženie lease time / vyžiadanie novej IP)</td>
+</tr>
+<tr>
+<td>static_W5100_1_254.hex</td>
+<td align="center">W5100</td>
+<td>192.168.1.254</td>
+</tr>
+<tr>
+<td>static_W5100_4_1.hex</td>
+<td align="center">W5100</td>
+<td>192.168.4.1</td>
+</tr>
+<tr>
+<td>static_W5500_1_254.hex</td>
+<td align="center">W5500</td>
+<td>192.168.1.254</td>
+</tr>
+<tr>
+<td>static_W5500_4_1.hex</td>
+<td align="center">W5500</td>
+<td>192.168.4.1</td>
+</tr>
+</tbody>
+</table>
+	</div></center>
+<p>
+Pre nahratie strojového kódu do Arduina je možné využiť nástroj AVRDUDE, ktorý pre nahrávanie skompilovaného programu využíva i prostredie Arduino IDE.
+Nástroj je možné spúšťať priamo z príkazového riadku, ale je nutné správne nastaviť všetky konfigurovateľné údaje a tak nie je vhodný pre menej skúsených programátorov, či laikov.
+XLoader je Windows aplikácia (nástroj) s jednoduchým grafickým rozhraním, ktoré umožňuje výber firmvéru - strojového kódu (.hex), cieľovej platformy a vie dynamicky ukázať COM port, na ktorom sa zariadenie nachádza.
+Umožňuje vypalovať firmvér do AVR platforiem t.j. Arduino Uno, Nano, Duemilanove (AtMega328 / AtMega168), Arduino Mega (AtMega1280 / AtMega2560).
+Jednoduchým kliknutím na Upload je možné strojový kód automatizovane nahrať (XLoader využíva podobne ako Arduino IDE nástroj AVRDUDE). Okno XLoadera informuje o úspešnom uploade formou výpisu počtu uploadovaných bajtov.
+</p>				
+<center>
+	<img src="https://i.imgur.com/9dMxWT5.png" style="display: block; max-width: 100%; height: auto;" alt="XLoader - Arduino - AVRDUDE - Termostat - Ethernet" title="XLoader - Arduino - AVRDUDE - Termostat - Ethernet">	
+</center>
+<b>Po úspešnom nahratí strojového kódu do Arduina je termostat plne pripravený a je dostupný na svojej IP adrese. Program funguje na základe schémy zapojenia projektu a logiky z popisu.</b>
+				<hr><center><h2>Videonávod pre upload firmvéru do Arduina cez XLoader</h2></center><hr>
+<center><iframe width="50%" height="315" src="https://www.youtube.com/embed/fAUKYuYNkMo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>	
+			</div>
+		</div>
+</div>
+</body>
+</html>
