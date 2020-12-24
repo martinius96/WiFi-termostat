@@ -1,9 +1,9 @@
 # WiFi-termostat
 * Termostat postavený na platforme Espressif - ESP8266 a ESP32
-* Mikrokontróler funguje v režime webservera.
+* Mikrokontróler funguje v režime webservera, kde vizualizuje aktuálne dáta pre používateľa.
 * ESP riadi na základe navolenej hysterézy a cieľovej teploty výstup - relé ovládané digitálnym vývodom.
 * Pre meranie teploty ESP využíva senzor Dallas DS18B20 na OneWire zbernici v parazitnom / normálnom zapojení
-* **ESP na UART vypíše pridelenú IP adresu z DHCP servera**
+* **ESP na UART vypíše pridelenú IP adresu z DHCP servera, ale aj informácie o logike a aktuálnom stave výstupu**
 
 # Schéma zapojenia (ESP8266, ESP32)
 ![Termostat - WiFi - ESP8266](https://i.imgur.com/hFl5T8e.png)
@@ -12,7 +12,7 @@
 * Údaje o hysteréze a referenčnej teplote uložené v EEPROM pamäti, ktorá je softvérovo emulovaná vo flash pamäti
 
 **HTML stránky bežiace na Arduine:**
-* **/** - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu
+* **/** - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu, možnosť zadania nových riadiach teplôt
 * **/action.html** - spracúvava hodnoty z formulára, zapisuje ich do EEPROM pamäte, presmeruje používateľa späť na root stránku
 * **/get_data.json** - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréze v JSON formáte
 
