@@ -2,21 +2,21 @@
 <html lang="sk-SK">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Izbový termostat - Arduino - Ethernet Wiznet W5100 - Webserver</title>
-	<meta name="description" content="Izbový termostat navrhnutý na platforme Arduino Uno + Ethernet shield Wiznet W5100 / W5500. Termostat pre vykurovanie / chladenie.">
+	<title>WiFi termostat - ESP8266 / ESP32 - Webserver</title>
+	<meta name="description" content="Izbový termostat navrhnutý na platforme Espressif - ESP8266 / ESP32. Termostat pre vykurovanie domácnosti s ovládaním plynového kotla.">
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://martinius96.github.io/termostat-ethernet/">
-	<meta property="og:title" content="Izbový termostat - Arduino - Ethernet Wiznet W5100">
-	<meta property="og:description" content="Izbový termostat navrhnutý na platforme Arduino Uno + Ethernet shield Wiznet W5100 / W5500. Termostat pre vykurovanie / chladenie.">
+	<meta property="og:url" content="https://martinius96.github.io/WiFi-termostat/">
+	<meta property="og:title" content="WiFi termostat - ESP8266 / ESP32 - Webserver">
+	<meta property="og:description" content="Izbový termostat navrhnutý na platforme Espressif - ESP8266 / ESP32. Termostat pre vykurovanie domácnosti s ovládaním plynového kotla.">
 	<meta property="og:image" content="">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
-	<meta property="twitter:url" content="https://martinius96.github.io/termostat-ethernet/">
-	<meta property="twitter:title" content="Izbový termostat - Arduino - Ethernet Wiznet W5100">
-	<meta property="twitter:description" content="Izbový termostat navrhnutý na platforme Arduino Uno + Ethernet shield Wiznet W5100 / W5500. Termostat pre vykurovanie / chladenie.">
+	<meta property="twitter:url" content="https://martinius96.github.io/WiFi-termostat/">
+	<meta property="twitter:title" content="WiFi termostat - ESP8266 / ESP32 - Webserver">
+	<meta property="twitter:description" content="Izbový termostat navrhnutý na platforme Espressif - ESP8266 / ESP32. Termostat pre vykurovanie domácnosti s ovládaním plynového kotla.">
 	<meta property="twitter:image" content="">
 	
 	<link rel="icon" type="image/png" href="favicon.png">
@@ -55,10 +55,7 @@
   </div>
 </nav>  
 				<div class="alert alert-success">
-					<strong>Projekt k repozitáru - Github: </strong><a href="https://github.com/martinius96/termostat-ethernet/">Termostat - Ethernet</a>
-				</div>	
-				<div class="alert alert-info">
-					<strong>Článok k projektu na Chiptron.cz: </strong><a href="https://chiptron.cz/articles.php?article_id=273">Izbový termostat - Arduino + Ethernet</a>
+					<strong>Projekt k repozitáru - Github: </strong><a href="https://github.com/martinius96/WiFi-termostat/">WiFi termostat</a>
 				</div>	
 <span class="label label-default">ESP8266</span>
 <span class="label label-primary">ESP32</span>
@@ -69,32 +66,23 @@
 <span class="label label-default">HTML</span>
 <span class="label label-primary">Webserver</span>
 <span class="label label-success">WebSocket</span>
-<div class="alert alert-danger">
-	<b>Update: 2. Okt. 2020 - </b>
-	<li>Opravený JSON output (prehodené riadiace teploty) k opačným entitám</li>
-	<li>Opravený Content-type pre JSON output z text/html na application/json</li>
-	<li>Všetky statické časti HTML stránok presunuté do ROM pamäte cez F() makro</li>
-	<li>Maximálne ohľahčená RAM pamäť pre bezproblémový beh low-latency webservera.</li>
-	<li>Pre DHCP príklad použitá funkcia Ethernet.maintain() pre renew času DHCP poolu.</li>
-	<li>(predĺženie rovnakej IP adresy / vyžiadanie novej - v závislosti od konfigurácie DHCP služby)</li>
-	<li>Zmena názvu JSON súboru z get_data na get_data.json</li>
-	<li>Zobrazený uptime zariadenia - dni, hodiny, minúty, sekundy</li>
-	<li>HTTP 404 - Not Found pri zobrazení umiestnenia, na ktoré nemá webserver callback</li>
-</div>
-<hr><center><h2>Izbový termostat - Arduino + Ethernet Wiznet W5100 / W5500</h2></center><hr>
+<hr><center><h2>WiFi termostat - ESP8266 / ESP32</h2></center><hr>
 <p>
-Arduino je šikovná embeeded platforma, ktorú je možné využiť napríklad aj na stavbu izbového termostatu, ktorý si dnes ukážeme. 
-Implementácia využíva Arduino v kombinácii s Ethernet shieldom Wiznet W5100, ktorý funguje v režime webservera a dokáže prijímať požiadavky od klientov v sieti po HTTP protokole a odosielať na ne odpoveď - HTML kód.
-Termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu. 
+Programová implementácia je navrhnutá pre mikrokontrólerové platformy od výrobcu Espressif Systems. 
+Konkrétne mikrokontróler ESP8266 vo verzii 12E až F využívaný v platformách Wemos D1 Mini, NodeMCU v2, v3.
+Mikrokontroléry ESP8266-01 / ESP8266-01S a podobné standalone čipy nie sú kompatibilné pre projekt z hľadiska nahrávania programu, nakoľko nevyužívajú flash metódu DIO.
+Pre mikrokontrolér z rady ESP32 je možné využívať standalone čipy ESP-32S od AI-Thinker, ESP-WROOM32 od Espressif Systems. Ale aj DevKity obsiahnuté s týmito čipmi, sú plné kompatibilné (napríklad DevKit v1 / DevKiTC-v4).
+Termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu.
+Okrem dostupnosti termostatu na konkrétnej IP adrese je možné termostat doplniť o mDNS záznam, ktorý generuje lokálnu doménu prístupnú iba v LAN sieti v rámci tejto multicastovej služby. 
+Konfigurácia termostatu na domácu LAN sieť je zabezpečená prostredníctvom WiFiManagera.
 Webserver umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktoré môžu mať informatívny, alebo aj funkcionálny charakter. Webserver beží na porte 80 - HTTP.
 </p>
 <b>Po hardvérovej stránke projekt využíva:</b>
-<li>Arduino Uno / Mega 2560</li>
-<li>Ethernet shield Wiznet W5100 / Ethernet modul Wiznet W5200-W5500</li>
+<li>ESP8266 / ESP32</li>
 <li>Teplotný senzor DS18B20 na OneWire zbernici</li>
 <li>Relé SRD-5VDC-SL-C slúžiace na spínanie kotla (Active-LOW signál)</li>
 <p>
-<b>HTML stránky bežiace na Arduine:</b>
+<b>HTML stránky bežiace na platforme ESP8266:</b>
 <li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu</li>
 <li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
 <li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontróler, iný klient...) v JSON formáte</li>
@@ -105,7 +93,7 @@ Prípadne je pre schému zapojenia plne kompatibilné aj SSR relé OMRON G3MB-20
 Maximálny spínaný výkon 460W (230V, 2A). Logika systému sa vykonáva každých 10 sekúnd nezávisle na webserveri, nevyžaduje sa keep-alive spojenie pre vykonanie logiky. 
 </p>
 
-<b>Webové rozhranie pre Ethernet termostat umožňuje:</b>
+<b>Webové rozhranie pre WiFi termostat umožňuje:</b>
 <li>Prehliadať v reálnom čase teplotu zo senzora DS18B20</li>
 <li>Prehliadať v reálnom čase stav relé s dynamickou zmenou výstupu na stránke</li>
 <li>Modifikovať cieľovú (referenčnú) teplotu v rozsahu 5 až 50°C s 0,25°C krokom</li>
@@ -115,18 +103,16 @@ Maximálny spínaný výkon 460W (230V, 2A). Logika systému sa vykonáva každ�
 <img src="https://www.dixell.cz/wp-content/uploads/GRAF3-1024x509.jpg" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">        			    
 <p>
 Webové rozhranie je navrhnuté pre prispôsobenie sa väčším i menším obrazovkám. Je reponzívne, podporuje širokouhlé obrazovky s vysokým rozlíšením, ale aj mobilné zariadenia. 
-Rozhranie využíva importované CSS štýly Bootstrap frameworku z externého CDN servera, ktorý načíta client-side zariadenie pri otvorení stránky bežiacej na Arduine. 
-Nakoľko je Arduino Uno limitované pamäťou, dokáže spustiť iba stránky s veľkosťou pár kB. Importovaním CSS štýlov z externého servera umožní žnížiť výkonové a pamäťové zaťaženie Arduina.  
-Programová implementácia (pri Arduine Uno) využíva 70% flash pamäte (32kB - 4kB Bootloader) a 44% RAM pamäte (2kB).
-Statické časti webovej stránky (hlavička a pätička HTML dokumentu, linkovanie Bootstrap CSS, meta tagy, HTTP response hlavička, Content Type, formulár a ďalšie) sú uložené priamo vo flash pamäti Arduina, čo dokáže výrazne redukovať veľkosť používanej RAM pamäte pre obsah generovaný používateľovi. 
-Webserver je tak stabilnejší a zvláda aj multi-pripojenie viacerých zariadení v sieti súčasne.
+Rozhranie využíva importované CSS štýly Bootstrap frameworku z externého CDN servera, ktorý načíta client-side zariadenie pri otvorení stránky bežiacej na ESP. 
+Nakoľko je Arduino Uno limitované pamäťou, dokáže spustiť iba stránky s veľkosťou pár kB. Importovaním CSS štýlov z externého servera umožní žnížiť výkonové a pamäťové zaťaženie mikrokontroléru.  
 </p>
 <hr>
 <p>
-Aby ostali nastavené hodnoty zachované aj po výpadku napájania, sú uložené do EEPROM pamäte Arduina. 
+Aby ostali nastavené hodnoty termostatu zachované aj po výpadku napájania, sú uložené do EEPROM pamäte ESP, ktorá je emulovaná vo flash pamäti, nakoľko platforma nemá fyzicky EEPROM čip (pamäť). 
 Referenčná teplota na offset 10, hysteréza na offset 100. Každá z hodnôt zaberá maximálne 5B v EEPROM pamäti + ukončovací znak. 
-Limit prepisov EEPROM je na úrovni 100-tisíc prepisov. Dáta sa prepisujú iba pri odoslaní HTML formulára, prevádzka termostatu je tak maximálne šetrná k EEPROM pamäti. 
-V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenutých EEPROM offsetoch, vykoná sa automatický zápis s predvolenými hodnotami - referencia: 20.25 °C, hysteréza 0.25 °C, tzv. fail-safe riešenie.
+Dáta sa prepisujú iba pri odoslaní HTML formulára, prevádzka termostatu je tak maximálne šetrná k EEPROM pamäti pre jej maximálnu trvácnosť. 
+Stav výstupu existuje iba v RAM pamäti, neukladá sa do flash pamäte.
+V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenutých EEPROM offsetoch, vykoná sa automatický zápis s predvolenými hodnotami - referencia: 20.25 °C, hysteréza 0.00 °C, tzv. fail-safe riešenie.
 </p>
 
 <p>
@@ -146,10 +132,10 @@ Na webovej stránke termostatu nájde používateľ aj informácie o uptime zari
 <b>JSON výstup webservera v prehliadači / klientovi cez websocket:</b>
 <center><img src="https://chiptron.cz/images/articles/IzbovyTermostat/json.jpg" style="display: block; max-width: 100%; height: auto;" alt="Ethernet termostat - JSON output" title="Ethernet termostat - JSON output"></center>        		
 
-<b>Výstup do UART monitoru - logika systému + nastavenie Ethernet adaptéru:</b>
-<center><img src="https://i.imgur.com/r5jNZf5.png" style="display: block; max-width: 100%; height: auto;" alt="Ethernet termostat - UART" title="Ethernet termostat - UART"></center>        		
+<b>Výstup do UART monitoru - logika systému + nastavená IP adresa, mDNS záznam:</b>
+<center><img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="Ethernet termostat - UART" title="Ethernet termostat - UART"></center>        		
 
-<b>Rozšírená verzia tohto termostatu obsahuje navyše - <font color="red">NIE JE OBSIAHNUTÁ V GITHUB REPOZITÁRI SO STROJOVÝMI KÓDMI:</font></b>
+<b>Rozšírená verzia tohto termostatu obsahuje navyše - <font color="red">NIE JE OBSIAHNUTÁ V GITHUB REPOZITÁRI SO SKOMPILOVANÝM FIRMVÉROM:</font></b>
 <div class="alert alert-info">
 	<b>Pri záujme o plnú verziu projektu - </b>martinius96@gmail.com
 </div>
@@ -161,141 +147,6 @@ Na webovej stránke termostatu nájde používateľ aj informácie o uptime zari
 <li>PID regulácia teploty pre termostat</b>
 <li>Možnosť využitia platforiem ESP8266, ESP32 pre termostat</li>
 <hr>
-<center><h2>Fragmenty zdrojových kódov (bez backendu)</h2></center>
-<hr>		
-<h3><font color="#2ECC71">Fragment zdrojového kódu pre logiku termostatu - Rozhodovací threshold</font></h3>
-<li>Vykonáva sa každých 10 sekúnd bez ohľadu na webserver, či pripojenie klienta</li>
-<pre style="background-color:#2ECC71;">
-    teplota = sensorsA.getTempCByIndex(0);
-    String referencia = read_String(10);
-    String hystereza = read_String(100);
-    float referencia_teplota = referencia.toFloat();
-    float hystereza_teplota = hystereza.toFloat();
-    float minus_hystereza_teplota = (-1 * hystereza_teplota);
-    float rozdiel = referencia_teplota - teplota;
-    if (rozdiel > hystereza_teplota) {
-      Serial.println("RELE ZAP");
-      stav = "ZAP";
-      digitalWrite(rele, LOW);
-    } else if (rozdiel < minus_hystereza_teplota) {
-      Serial.println("RELE VYP");
-      stav = "VYP";
-      digitalWrite(rele, HIGH);
-    }
-    sensorsA.requestTemperatures();
-</pre>	
-<h3><font color="#3498DB">Fragment zdrojového kódu pre stránku Hlavného prehľadu - bez spracovania údajov z HTML formuláru</font></h3>
-<pre style="background-color:#3498DB;">
-  	  client.println(F("HTTP/1.1 200 OK"));
-          client.println(F("Content-Type: text/html"));
-          client.println();
-          client.println(F("&lt;!DOCTYPE html>"));
-          client.println(F("&lt;html>"));
-          client.println(F("&lt;head>"));
-          client.println(F("&lt;meta charset='utf-8'>"));
-          client.println(F("&lt;meta name='author' content='Martin Chlebovec'>"));
-          client.println(F("&lt;meta http-equiv='Refresh' content='10'; />"));
-          client.println(F("&lt;meta name='viewport' content='width=device-width, initial-scale=1'>"));
-          client.println(F("&lt;link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>"));
-          client.println(F("&lt;script type='text/javascript'>"));
-          client.println(F("var timeleft = 10;"));
-          client.println(F("var downloadTimer = setInterval(function(){"));
-          client.println(F("if(timeleft &lt;= 0){"));
-          client.println(F("clearInterval(downloadTimer);"));
-          client.println(F("document.getElementById(\"countdown\").innerHTML = \"Reštart...\";"));
-          client.println(F("} else {"));
-          client.println(F("document.getElementById(\"countdown\").innerHTML = timeleft + \" sekúnd do reštartu\";"));
-          client.println(F("}"));
-          client.println(F("timeleft -= 1;"));
-          client.println(F("}, 1000);"));
-          client.println(F("&lt;/script>"));
-          client.println(F("&lt;title>HTTP webserver - Arduino + Ethernet&lt;/title>"));
-          client.println(F("&lt;/head>"));
-          client.println(F("&lt;body>"));
-          client.println(F("&lt;center>&lt;h3>Zadajte dáta pre webserver (budú uložené do EEPROM):&lt;/h3>"));
-          client.println(F("&lt;form action='/action.html' method='get'>"));
-          client.println("&lt;b>Referenčná teplota:&lt;/b>&lt;br>&lt;input type='number' id='fname' name='fname' min='5' max='50' step='0.25' value=" + read_String(10) + ">&lt;br>");
-          client.println("&lt;b>Hysteréza:&lt;/b>&lt;br>&lt;input type='number' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + read_String(100) + ">&lt;br>");
-          client.println(F("&lt;input type='submit' class='btn btn-success' value='Zapísať'>"));
-          client.println(F("&lt;/form>&lt;hr>"));
-          if (stav == "ZAP") {
-            client.println(F("&lt;b>&lt;font color='green'>Výstup: Zapnutý&lt;/font>&lt;/b>"));
-          }
-          if (stav == "VYP") {
-            client.println(F("&lt;b>&lt;font color='red'>Výstup: Vypnutý&lt;/font>&lt;/b>"));
-          }
-          client.println(F("&lt;div id=\"countdown\">&lt;/div>"));
-          client.print(F("&lt;b>Aktuálna teplota senzora DS18B20:&lt;/b> "));
-          client.print(teplota);
-          client.println(F(" °C"));
-          client.print(F("&lt;hr>"));
-          client.print(F("&lt;b>Uptime: &lt;/b>"));
-          client.print(days);
-          client.print(F("d"));
-          client.print(F(" "));
-          client.print(hours);
-          client.print(F("h"));
-          client.print(F(" "));
-          client.print(minutes);
-          client.print(F("m"));
-          client.print(F(" "));
-          client.print(seconds);
-          client.print(F("s"));
-          client.println(F("&lt;h3>Autor: Martin Chlebovec - martinius96@gmail.com - https://martinius96.github.io/termostat-ethernet/&lt;/h3>"));
-          client.println(F("&lt;h4>Verzia free - 1.0.2 build: 01. Oct 2020&lt;/h4>"));
-          client.println(F("&lt;/center>"));
-          client.println(F("&lt;/body>"));
-          client.println(F("&lt;/html>"));
-          delay(1);
-          client.stop();
-          client.flush();
-</pre>
-<h3><font color="#D35400">Fragment zdrojového kódu s výpisom nastavených riadiacich dát po odoslaní HTML formuláru</font></h3>
-<li>S následným presmerovaním používateľa späť na hlavnú stránku po 5-tich sekundách od spracovania - tzv. lazy loading... (Spracovanie neobsiahnuté vo fragmente)</li>
-<pre style="background-color:#D35400;">
-            client.println(F("HTTP/1.1 200 OK"));
-            client.println(F("Content-Type: text/html"));
-            client.println();
-            client.println(F("&lt;!DOCTYPE html>"));
-            client.println(F("&lt;html>"));
-            client.println(F("&lt;head>"));
-            client.println(F("&lt;meta charset='utf-8'>"));
-            client.println(F("&lt;meta http-equiv='Refresh' content='5; url=/' />"));
-            client.println(F("&lt;title>HTTP webserver - Arduino + Ethernet&lt;/title>"));
-            client.println(F("&lt;/head>"));
-            client.println(F("&lt;body>"));
-            client.println(F("&lt;center>&lt;h3>Server prijal data z formulára:&lt;/h3>"));
-            client.println("&lt;li>&lt;b>Referenčná teplota: &lt;/b>" + String(H_1) + "&lt;/li>");
-            client.println("&lt;li>&lt;b>Hysteréza: &lt;/b>" + String(H_2) + "&lt;/li>");
-            client.println(F("&lt;b>Presmerovanie... Prosim cakajte&lt;/b>&lt;/center>"));
-            client.println(F("&lt;/body>"));
-            client.println(F("&lt;/html>"));
-            delay(1);
-            client.stop();
-            client.flush();
-</pre>
-
-
-
-	<h3><font color="#C0392B">Fragment zdrojového kódu pre JSON output</font></h3>
-<pre style="background-color:#C0392B;">
-	  client.println(F("HTTP/1.1 200 OK"));
-          client.println(F("Content-Type: application/json"));
-          client.println();
-          client.println(F("{"));
-          client.print(F("\"Hysteresis\":"));
-          client.print(read_String(100));
-          client.println(F(","));
-          client.print(F("\"Target_Temperature\":"));
-          client.print(read_String(10));
-          client.println(F(","));
-          client.print(F("\"Actual_Temperature\":"));
-          client.println(String(teplota));
-          client.println(F("}"));
-          delay(1);
-          client.stop();
-          client.flush();
-</pre>
 <h3><font color="#C0392B">Ukážkový výpis - JSON output pre ďalších klientov, spracovanie</font></h3>
 <div class="alert alert-danger">
 {<br>
@@ -305,8 +156,6 @@ Na webovej stránke termostatu nájde používateľ aj informácie o uptime zari
 }
 </div>
 <p>
-Programovú implementáciu v strojových kódoch pre izbový (Ethernet) termostat je možné nájsť na: <a href="https://github.com/martinius96/termostat-ethernet/">https://github.com/martinius96/termostat-ethernet/</a>. 
-Implmentácia obsahuje programy pre statickú / dynamickú IPv4 adresu priradenú k Ethernet shieldu. 
 <b>Termostat je určený iba pre interiérové teploty!</b> (nad 0°C), čomu je prispôsobená aj logika systému! 
 Termostatom je možné nahradiť už existujúci izbový termostat, možno dočasne nahradiť ohrievač v akváriu / teráriu pre udržiavanie stálej teploty.
 </p>
