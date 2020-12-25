@@ -2,21 +2,21 @@
 <html lang="sk-SK">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>Spustenie projektu - Izbový termostat - Arduino + Ethernet</title>
-	<meta name="description" content="Návod na inštaláciu a spustenie projektu izbový termostat postavenom na platforme Arduuino Uno a Ethernet shield Wiznet W5100.">
+	<title>Spustenie projektu - WiFi termostat - ESP8266 / ESP32</title>
+	<meta name="description" content="Návod na inštaláciu a spustenie projektu WiFi termostat postavenom na WiFi platforme ESP8266 a ESP32.">
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://martinius96.github.io/termostat-ethernet/">
-	<meta property="og:title" content="Spustenie projektu - Izbový termostat - Arduino + Ethernet">
-	<meta property="og:description" content="Návod na inštaláciu a spustenie projektu izbový termostat postavenom na platforme Arduuino Uno a Ethernet shield Wiznet W5100.">
+	<meta property="og:url" content="https://martinius96.github.io/WiFi-termostat/spustenie.html">
+	<meta property="og:title" content="Spustenie projektu - WiFi termostat - ESP8266 / ESP32">
+	<meta property="og:description" content="Návod na inštaláciu a spustenie projektu WiFi termostat postavenom na WiFi platforme ESP8266 a ESP32.">
 	<meta property="og:image" content="">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
-	<meta property="twitter:url" content="https://martinius96.github.io/termostat-ethernet/">
-	<meta property="twitter:title" content="Spustenie projektu - Izbový termostat - Arduino + Ethernet">
-	<meta property="twitter:description" content="Návod na inštaláciu a spustenie projektu izbový termostat postavenom na platforme Arduuino Uno a Ethernet shield Wiznet W5100.">
+	<meta property="twitter:url" content="https://martinius96.github.io/WiFi-termostat/spustenie.html">
+	<meta property="twitter:title" content="Spustenie projektu - WiFi termostat - ESP8266 / ESP32">
+	<meta property="twitter:description" content="Návod na inštaláciu a spustenie projektu WiFi termostat postavenom na WiFi platforme ESP8266 a ESP32.">
 	<meta property="twitter:image" content="">
 	
 	<link rel="icon" type="image/png" href="favicon.png">
@@ -62,7 +62,7 @@
   </div>
 </nav>  
 				<div class="alert alert-success">
-					<strong>Projekt k repozitáru - Github: </strong><a href="https://github.com/martinius96/termostat-ethernet/">Termostat - Ethernet</a>
+					<strong>Projekt k repozitáru - Github: </strong><a href="https://github.com/martinius96/WiFi-termostat">WiFi termostat</a>
 				</div>	
 <span class="label label-default">ESP8266</span>
 <span class="label label-primary">ESP32</span>
@@ -73,88 +73,62 @@
 <span class="label label-default">HTML</span>
 <span class="label label-primary">Webserver</span>
 <span class="label label-success">WebSocket</span>
-<div class="alert alert-info">
-	<strong>MAC adresa Ethernet termostatu: </strong>DE:AD:BE:EF:FE:ED - <strong>Pre potreby statického priradenia IP adresy z DHCP služby</strong>
-</div>	
-<div class="alert alert-warning">
-	<strong>Nahratie programu do Arduina cez avrdude (vzorovo pre COM21 a program sketch.ino.hex):</strong><br>
-	avrdude -CC: avrdude.conf -v -patmega328p -carduino -PCOM21 -b115200 -D -Uflash:w:sketch.ino.hex:i
-</div>	
-<hr><center><h2>Spustenie projektu izbový termostat - Arduino + Ethernet Wiznet W5100 / W5500</h2></center><hr>
+<hr><center><h2>Spustenie projektu WiFi termostat - ESP8266 / ESP32</h2></center><hr>
 <p>
-Projekt Ethernet (izbový) termostat existuje aj vo verzii zdarma, ktorá je dostupná v repozitári na Githube.
-Verzia obsahuje celkom 6 strojových - predkompilovaných programov pre platformu Arduino Uno.
-Strojový kód (.hex) zaručuje, že daný program je kompatibilný a má totožnú funkčnosť na všetky zariadenia, do ktorých sa nahrá a spustí.
-Kód je tak univerzálny a poskytuje možnosť na ukážku poskytnúť autorovi záujemcom o vyskúšanie projektu jeho build bez prístupu ku zdrojovému (.ino) kódu.
+Projekt WiFi termostat existuje existuje vo viacerých verziách, ktoré sú dostupné na Githube v repozitári celého projektu.
+Verzie sa funkčnosťou líšia iba v rozšírených možnostiach použitia a možnosti vzdialenej aktualizácie firmvéru.
+Firmvér je dostupný v skompilovanom - binárnom tvare, ktorý je spustiteľný pre cieľovú platformu.
+Tým pádom je vopred vyskúšaný, skompilovaný pre vás. Firmvér je univerzálny, čo zaručuje, že bude fungovať s klonovaným - binárnym programom na všetkých mikrokontroléroch rovnako.
 <div class="alert alert-danger">
 	<b>Free verzia je tak dostupná iba vo forme strojového kódu bez prístupu k aplikácii napísanej v .ino formáte.</b>
 </div>	
 </p>
-<center>
-	<img src="https://i.imgur.com/PwduwOz.jpg" style="display: block; max-width: 100%; height: auto;" alt="Strojový kód aplikácie Ethernet izbový termostat" title="Strojový kód aplikácie Ethernet izbový termostat">	
-</center>
-<b>Rozdelenie strojových kódov na základe Ethernet shieldu:</b>
-<li>Ethernet Wiznet W5100</li>
-<li>Ethernet Wiznet W5500 (W5200 - 5500 compatible)</li>
-<b>Rozdelenie strojových kódov na základe pridelenia IPv4 LAN adresy:</b>
-<li><b>Statická</b> - pridelená staticky priamo v zdrojovom kóde (192.168.4.1 / 192.168.1.254) 24-bit maska</li>
-<li><b>Dynamická</b> - pridelená dynamicky cez DHCP server v  LAN sieti (môže byť priradená staticky na cieľovú MAC adresu)</li>
-<center>
+<b>Rozdelenie firmvéru na základe platforiem:</b>
+<li><b>ESP8266</b> - cieľová platforma s čipom ESP8266 vo verzii 12E až 12F (podmienené flash metódou DIO)</li>
+<li><b>ESP32</b> - cieľová platforma s čipom ESP-32S (AI-Thinker), ESP-WROOM32 (Espressif Systems)</li>
+<b>Rozdelenie firmvéru na základe funkcie:</b>
+			<center>
 <div class="table-responsive">   
 <table class="table" style="border: 1px solid black;">
 <thead>
 <tr>
-<th>Názov firmvéru</th>
-<th align="center">Shield</th>
-<th>IPv4</th>
+<th>Názov zložky firmvéru</th>
+<th>Funkcie firmvéru</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>dynamic_W5100.hex</td>
-<td align="center">W5100</td>
-<td>priradená cez DHCP (obsahuje i maintain pre predĺženie lease time / vyžiadanie novej IP)</td>
+<td>WiFi_TERMOSTAT</td>
+<td>Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti</td>
 </tr>
 <tr>
-<td>dynamic_W5500.hex</td>
-<td align="center">W5500</td>
-<td>priradená cez DHCP (obsahuje i maintain pre predĺženie lease time / vyžiadanie novej IP)</td>
+<td>WiFi_TERMOSTAT_mDNS</td>
+<td>Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti. mDNS záznam pre možnosť spustenia termostatu na lokálnej doméne v rámci LAN siete</td>
 </tr>
 <tr>
-<td>static_W5100_1_254.hex</td>
-<td align="center">W5100</td>
-<td>192.168.1.254</td>
-</tr>
-<tr>
-<td>static_W5100_4_1.hex</td>
-<td align="center">W5100</td>
-<td>192.168.4.1</td>
-</tr>
-<tr>
-<td>static_W5500_1_254.hex</td>
-<td align="center">W5500</td>
-<td>192.168.1.254</td>
-</tr>
-<tr>
-<td>static_W5500_4_1.hex</td>
-<td align="center">W5500</td>
-<td>192.168.4.1</td>
+<td>WiFi_TERMOSTAT_OTA</td>
+<td>Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti. mDNS záznam pre možnosť spustenia termostatu na lokálnej doméne v rámci LAN siete s možnosťou aktualizácie firmvéru prostredníctvom Web OTA Updater služby.</td>
 </tr>
 </tbody>
 </table>
 	</div></center>
 <p>
-Pre nahratie strojového kódu do Arduina je možné využiť nástroj AVRDUDE, ktorý pre nahrávanie skompilovaného programu využíva i prostredie Arduino IDE.
-Nástroj je možné spúšťať priamo z príkazového riadku, ale je nutné správne nastaviť všetky konfigurovateľné údaje a tak nie je vhodný pre menej skúsených programátorov, či laikov.
-XLoader je Windows aplikácia (nástroj) s jednoduchým grafickým rozhraním, ktoré umožňuje výber firmvéru - strojového kódu (.hex), cieľovej platformy a vie dynamicky ukázať COM port, na ktorom sa zariadenie nachádza.
-Umožňuje vypalovať firmvér do AVR platforiem t.j. Arduino Uno, Nano, Duemilanove (AtMega328 / AtMega168), Arduino Mega (AtMega1280 / AtMega2560).
-Jednoduchým kliknutím na Upload je možné strojový kód automatizovane nahrať (XLoader využíva podobne ako Arduino IDE nástroj AVRDUDE). Okno XLoadera informuje o úspešnom uploade formou výpisu počtu uploadovaných bajtov.
+Pre nahratie binárneho programu do platformy ESP je potrebné použiť nástroj ESPTOOL.
+Nástroj využíva aj prostredie Arduino IDE pre nahratie programu po kompilácii.
+<b>Pri platforme ESP32 je potrebné do začiatku procesu nahrávania držať tlačidlo BOOT, respektíve urobiť pulldown na GPIO 0 (ak doska nemá BOOT tlačidlo vyvedené).</b>
+V priečinku každého firmvéru je pripravený automatizovaný script (vzorovo pre port COM7), ktorý spustí priložený ESPTOOL a vykoná nahratie programu s konkrétnym firmvérom, ktorý sa v danej zložke nachádza.
+Programová implementácia predpokladá, že má doska nahraté základné časti flash pamäte - tabuľka partícii a podobne...
+Binárny program je výlučne aplikáciou termostatu bez ďalších pribalených častí programu.
 </p>				
 <center>
 	<img src="https://i.imgur.com/9dMxWT5.png" style="display: block; max-width: 100%; height: auto;" alt="XLoader - Arduino - AVRDUDE - Termostat - Ethernet" title="XLoader - Arduino - AVRDUDE - Termostat - Ethernet">	
 </center>
-<b>Po úspešnom nahratí strojového kódu do Arduina je termostat plne pripravený a je dostupný na svojej IP adrese. Program funguje na základe schémy zapojenia projektu a logiky z popisu.</b>
-				<hr><center><h2>Videonávod pre upload firmvéru do Arduina cez XLoader</h2></center><hr>
+<b>Po úspešnom nahratí binárneho je termostat plne pripravený.</b> 
+<p>V prípade, že v jeho flash pamäti nie sú uložené údaje k existujúcej WiFi sieti, začne vysielať vlastné SSID. 
+	
+	a je dostupný na svojej IP adrese, respektíve aj na lokálnom mDNS . Program funguje na základe schémy zapojenia projektu a logiky z popisu.</b>
+		</p>				
+		<hr><center><h2>Videonávod pre upload firmvéru do Arduina cez XLoader</h2></center><hr>
 <center><iframe width="50%" height="315" src="https://www.youtube.com/embed/fAUKYuYNkMo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>	
 			</div>
 		</div>
