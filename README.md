@@ -17,7 +17,18 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * Serial monitor: 115200 baud/s
 * Údaje o hysteréze a referenčnej teplote uložené v EEPROM pamäti, ktorá je softvérovo emulovaná vo flash pamäti
 
-**HTML stránky bežiace na Arduine:**
+# AAA
+* Termostat vysiela vlastné SSID WiFi_TERMOSTAT_AP, pokým nezíska údaje o existujúcej WiFi sieti, na ktorú sa dokáže pripojiť
+* Prideľuje klientom IP adresu v sieti 192.168.4.0 / 24 v rozsahu 192.168.4.2 - 192.168.4.254
+* Na adrese 192.168.4.1 poskytuje WiFi termostat rozhranie WiFiManager, kde je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa pripojí
+* Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do STA (Station) módu a funguje už v režime termostatu
+* Zadané údaje o WiFi sieti sú uložené do flash pamäte termostatu a už ich nie je nutné zadávať znova
+* V prípade, že daná sieť nie je dostupná, začne ESP opäť vysielať vlastné SSID --> WiFi_TERMOSTAT_AP
+![WiFi termostat - prístupový bod](https://i.imgur.com/cJb6DR9.png)
+![WiFi termostat - UART - spustenie WiFi managera](https://i.imgur.com/bikirYM.png)
+![WiFi termostat - Pridelená IP v LAN sieti, termostat funkčný](https://i.imgur.com/66P3IVy.png)
+
+**HTML stránky bežiace na platforme ESP8266 / ESP32:**
 * **/** - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu, možnosť zadania nových riadiach teplôt
 * **/action.html** - spracúvava hodnoty z formulára, zapisuje ich do EEPROM pamäte, presmeruje používateľa späť na root stránku
 * **/get_data.json** - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréze v JSON formáte
