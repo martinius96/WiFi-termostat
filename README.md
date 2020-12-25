@@ -7,7 +7,9 @@
 
 Názov zložky firmvéru | Funkcie firmvéru
 ------------ | -------------
-WiFi_Termostat  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti
+WiFi_TERMOSTAT  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti
+WiFi_TERMOSTAT_mDNS  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti. mDNS záznam pre možnosť spustenia termostatu na lokálnej doméne v rámci LAN siete
+WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti. mDNS záznam pre možnosť spustenia termostatu na lokálnej doméne v rámci LAN siete s možnosťou aktualizácie firmvéru prostredníctvom Web OTA Updater služby.
 
 # Schéma zapojenia (ESP8266, ESP32)
 ![Termostat - WiFi - ESP8266](https://i.imgur.com/hFl5T8e.png)
