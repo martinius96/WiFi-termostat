@@ -42,7 +42,6 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * Watchdog timer
 * Dostupné senzory SHT21, SHT31, DHT22, BME280, BMP280 a iné
 * Režim chladenia
-* Ovládanie a konfigurácia po RS232 / UART nezávisle na Ethernete
 * PID regulácia teploty pre termostat
 * Basic OTA
 * Interakcia s Amazon Alexa Echo Dot s možnosťou hlasového ovládania termostatu
