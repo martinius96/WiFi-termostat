@@ -31,6 +31,7 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * Lokálny mDNS príznak funguje nezávisle na IP adrese termostatu, nie je tak nutné hľadať konkrétnu IP, na ktorej je termostat dostupný
 * ![WiFi termostat - prístupový bod](https://i.imgur.com/cJb6DR9.png)
 * ![WiFi termostat - UART - spustenie WiFi managera](https://i.imgur.com/bikirYM.png)
+* ![Konfigurácia WiFi termostatu na domácu WiFi sieť - WiFi Manager](https://i.imgur.com/M3dqgf5.png)
 * ![WiFi termostat - Pridelená IP v LAN sieti, termostat funkčný](https://i.imgur.com/66P3IVy.png)
 
 **HTML stránky bežiace na platforme ESP8266 / ESP32:**
