@@ -95,7 +95,10 @@ Webserver umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktor�
 Elektromagnetické relé SRD-5VDC-SL-C, ktoré je v projekte použité umožňuje spínať až 10A pri 230V - výkon 2300W. 
 V prípade spínania jednosmerného obvodu (záťaže) je možné spínať 300W (10A pri 30V DC). 
 Prípadne je pre schému zapojenia plne kompatibilné aj SSR relé OMRON G3MB-202P, ktoré je vhodné iba pre neindukčnú záťaž a výhradne pre obvod so striedavým napätím. 
-Maximálny spínaný výkon 460W (230V, 2A). Logika systému sa vykonáva každých 10 sekúnd nezávisle na webserveri, nevyžaduje sa keep-alive spojenie pre vykonanie logiky. 
+Maximálny spínaný výkon 460W (230V, 2A). Logika termostatu sa vykonáva každých 10 sekúnd nezávisle na webserveri, nevyžaduje sa keep-alive spojenie pre jej vykonanie. 
+Vždy pri vykonaní logiky vypíše na UART termostat aj informáciu o aktuálnej IP adrese, respektíve aj mDNS zázname (ak sa s mDNS firmvér používa) a dá tak používateľovi informáciu, kde v LAN sieti je termostat dosiahnuteľný so svojim webovým rozhraním.
+Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na úrovni 40 až 44kB a taktiež aj aktuálny stav výstupu s oznámením zmeny (ak pretečie rozhodovací threshold do + respektíve do -).
+3V3 operačná logika GPIO mikrokontrolérov ESP8266 a ESP32 postačuje pre digitálny signál zmeny, relé však musí byť napájané na 5V.
 </p>
 
 <b>Webové rozhranie pre WiFi termostat umožňuje:</b>
@@ -120,8 +123,8 @@ Referenčná teplota na offset 10, hysteréza na offset 100. Každá z hodnôt z
 Dáta sa prepisujú iba pri odoslaní HTML formulára, prevádzka termostatu je tak maximálne šetrná k EEPROM pamäti pre jej maximálnu trvácnosť. 
 Stav výstupu existuje iba v RAM pamäti, neukladá sa do flash pamäte.
 V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenutých EEPROM offsetoch, vykoná sa automatický zápis s predvolenými hodnotami - referencia: 20.25 °C, hysteréza 0.00 °C, tzv. fail-safe riešenie.
+ESP8266 a ESP32 pre prácu s EEPROM pamäťou využíva funkcie EEPROM.put() v spojitosti s EEPROM.commit() a pre čítanie dát z EEPROM EEPROM.get(), ktoré podporujú akýkoľvek dátový typ, v našom prípade float().
 </p>
-
 <p>
 Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 10 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky orientačný čas do refreshu. 
 Do tohto času je potrebné stihnúť zapísať zmenu pre termostat, inak sa input okná resetujú pri obnovení stránky. 
