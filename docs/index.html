@@ -10,14 +10,12 @@
 	<meta property="og:url" content="https://martinius96.github.io/WiFi-termostat/">
 	<meta property="og:title" content="WiFi termostat - ESP8266 / ESP32 - Webserver">
 	<meta property="og:description" content="Izbový termostat navrhnutý na platforme Espressif - ESP8266 / ESP32. Termostat pre vykurovanie domácnosti s ovládaním plynového kotla.">
-	<meta property="og:image" content="">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://martinius96.github.io/WiFi-termostat/">
 	<meta property="twitter:title" content="WiFi termostat - ESP8266 / ESP32 - Webserver">
 	<meta property="twitter:description" content="Izbový termostat navrhnutý na platforme Espressif - ESP8266 / ESP32. Termostat pre vykurovanie domácnosti s ovládaním plynového kotla.">
-	<meta property="twitter:image" content="">
 	
 	<link rel="icon" type="image/png" href="favicon.png">
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
@@ -101,17 +99,16 @@ Maximálny spínaný výkon 460W (230V, 2A). Logika systému sa vykonáva každ�
 </p>
 
 <b>Webové rozhranie pre WiFi termostat umožňuje:</b>
-<li>Prehliadať v reálnom čase teplotu zo senzora DS18B20</li>
-<li>Prehliadať v reálnom čase stav relé s dynamickou zmenou výstupu na stránke</li>
-<li>Modifikovať cieľovú (referenčnú) teplotu v rozsahu 5 až 50°C s 0,25°C krokom</li>
-<li>Modifikovať hysterézu v rozsahu 0 až 10°C s 0,25°C krokom</li>
+<li>Prehliadať v reálnom čase teplotu zo senzora DS18B20, uptime zariadenia, hodnotu výstupu s dynamickou zmenou, aktuálne nastavené konfiguračné údaje pre termostat t.j. cieľovú teplotu a hysterézu</li>
+<li>Modifikovať cieľovú (referenčnú) teplotu v rozsahu 5 až 50 °C s 0,25 °C krokom</li>
+<li>Modifikovať hysterézu v rozsahu 0 až 10 °C s 0,25 °C krokom</li>
 
 <b>ZAP/VYP regulácia kotla:</b> 
-<li>Príklad ZAP/VYP regulácie vykurovania - štandardný izbový termostat - <font color="red">Nereprezentuje tento projekt</font></li>	
+<li>Príklad ZAP/VYP regulácie vykurovania - <font color="red">VIZUALIZÁCIA NIE JE SÚČASŤOU PROJEKTU</font></li>	
 <li>Kotol je aktívny po dobu dostiahnutia cieľovej teploty + hysterézy</li>
-<li>Na vizualizácii teplôt vody je patrný tzv. dobeh a následné chladnutie vody</li>		
-<img src="https://i.imgur.com/IDWLuOr.png" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">        			    
-<p>
+<li>Na vizualizácii teplôt vody je patrný tzv. dobeh vykurovania a následné chladnutie vody až do opätovnej aktivity vykurovania, kedy je nameraná teplota pod nastavenú cieľovú teplotu - hystérzu</li>		
+<img src="https://i.imgur.com/IDWLuOr.png" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">   
+
 Webové rozhranie je navrhnuté pre prispôsobenie sa väčším i menším obrazovkám. Je reponzívne, podporuje širokouhlé obrazovky s vysokým rozlíšením, ale aj mobilné zariadenia. 
 Rozhranie využíva importované CSS štýly Bootstrap frameworku z externého CDN servera, ktorý načíta client-side zariadenie pri otvorení stránky bežiacej na ESP. 
 Importovaním CSS štýlov z externého servera umožní znížiť výkonové a pamäťové zaťaženie mikrokontroléru.  
@@ -128,7 +125,6 @@ V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenut�
 <p>
 Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 10 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky orientačný čas do refreshu. 
 Do tohto času je potrebné stihnúť zapísať zmenu pre termostat, inak sa input okná resetujú pri obnovení stránky. 
-Nakoľko built-in knižnica Ethernet neobsahuje využitie asynchrónneho webservera (podobne ako u ESP8266 / ESP32), je nutné prepisovať celú stránku. 
 Dynamický údaj, ktorý sa predovšetkým mení je aktuálna hodnota výstupu- Zapnutý / Vypnutý, ktorý informuje prevádzkovateľa o skutočnom stave výstupu spoločne aj s farebným označením.
 Na webovej stránke termostatu nájde používateľ aj informácie o uptime zariadenia (ako dlho beží), t.j. čas v dňoch, hodinách, minútach a sekundách.
 </p>
@@ -172,7 +168,7 @@ Na webovej stránke termostatu nájde používateľ aj informácie o uptime zari
 Termostatom je možné nahradiť už existujúci izbový termostat, možno dočasne nahradiť ohrievač v akváriu / teráriu pre udržiavanie stálej teploty.
 </p>
  </div>
-		</div>
+</div>
 </div>
 </body>
 </html>
