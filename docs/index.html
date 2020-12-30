@@ -126,11 +126,28 @@ V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenut�
 ESP8266 a ESP32 pre prácu s EEPROM pamäťou využíva funkcie EEPROM.put() v spojitosti s EEPROM.commit() a pre čítanie dát z EEPROM EEPROM.get(), ktoré podporujú akýkoľvek dátový typ, v našom prípade float().
 </p>
 <p>
-Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 10 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky orientačný čas do refreshu. 
-Do tohto času je potrebné stihnúť zapísať zmenu pre termostat, inak sa input okná resetujú pri obnovení stránky. 
-Dynamický údaj, ktorý sa predovšetkým mení je aktuálna hodnota výstupu- Zapnutý / Vypnutý, ktorý informuje prevádzkovateľa o skutočnom stave výstupu spoločne aj s farebným označením.
+Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 10 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky aj orientačný čas do refreshu. 
+Do tohto času je potrebné stihnúť zapísať zmenu pre termostat, inak sa input okná pre číselné vstupy do formulára resetujú pri obnovení stránky. 
+Nakoľko built-in knižnica Ethernet neobsahuje využitie asynchrónneho webservera (ktorý je možné využiť napríklad u mikrokontrolérov Espressif ESP8266 / ESP32), je nutné prepisovať celú stránku. 
+Dynamický údaj, ktorý sa predovšetkým mení je aktuálna hodnota výstupu - <b><font color="#27AE60">Zapnutý</font></b> / <b><font color="red">Vypnutý</font></b>, ktorý informuje prevádzkovateľa o skutočnom stave výstupu spoločne aj s farebným označením. 
+Nakoľko sa logika systému  vykonáva nezávisle na webserveri, do refreshu môže už byť výstup v inom stave, ako aktuálne vypísanom vo webaplikácii. Zmena výstupu je ihneď vypísaná napríklad na UART monitor.
 Na webovej stránke termostatu nájde používateľ aj informácie o uptime zariadenia (ako dlho beží), t.j. čas v dňoch, hodinách, minútach a sekundách.
 </p>
+
+<b>Hlavná stránka pre modifikáciu cieľovej teploty a hysterézy - ukážka zapnutého:</b>
+<div class="alert alert-info">
+	<strong>Ukážkové dáta</strong>
+	<li><b>Cieľová teplota:<b>  22.75 °C</li>
+	<li><b>Hysteréza:<b>  0.25 °C</li>
+	<li><b>Namerané dáta:<b>  21.59 °C</li>
+	<li><b>Výstup:<b>  <font color="#27AE60">Zapnutý</font></li>
+	<hr>
+	<p>
+		Termostat vykuruje od nameranej teploty 22.49 °C a nižšej. 
+		V prípade dosiahnutia teploty 23.01 °C sa výstup vypne, signalizačné relé sa rozpojí a plynový kotol prestáva kúriť. 
+		Nastáva dobeh vykurovania a chladnutie miestnosti v ktorej sa vykonávajú merania. Termostat sa opäť aktivuje až pri dosiahnutí teploty 22.49 °C, alebo nižšej.	
+	</p>	
+</div>
 
 <b>Hlavná stránka pre modifikáciu cieľovej teploty a hysterézy:</b>
 <img src="https://i.imgur.com/YX7W2Z8.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Hlavný prehľad s modifikáciou cieľovej teploty a hysterézy - Vypnutý" title="WiFi termostat - Hlavný prehľad s modifikáciou cieľovej teploty a hysterézy - Vypnutý">        			
