@@ -32,7 +32,7 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * ![WiFi termostat - prístupový bod](https://i.imgur.com/cJb6DR9.png)
 * ![WiFi termostat - UART - spustenie WiFi managera](https://i.imgur.com/bikirYM.png)
 * ![Konfigurácia WiFi termostatu na domácu WiFi sieť - WiFi Manager](https://i.imgur.com/M3dqgf5.png)
-* ![WiFi termostat - Pridelená IP v LAN sieti, termostat funkčný](https://i.imgur.com/66P3IVy.png)
+* ![WiFi termostat - Pridelená IP v LAN sieti, termostat funkčný, mDNS záznam](https://i.imgur.com/f1mF6Fk.png)
 
 **HTML stránky bežiace na platforme ESP8266 / ESP32:**
 * **/** - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu, možnosť zadania nových riadiach teplôt
