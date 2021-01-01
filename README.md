@@ -18,7 +18,7 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 ![Termostat - WiFi - ESP32](https://i.imgur.com/PtMinUm.png)
 **Dôležité informácie:**
 * Serial monitor: 115200 baud/s
-* Údaje o hysteréze a referenčnej teplote uložené v EEPROM pamäti, ktorá je softvérovo emulovaná vo flash pamäti
+* Údaje o hysteréze a referenčnej teplote uložené v softvérovo emulovanej EEPROM pamäti, nakoľko mikrokontróler nemá fyzickú EEPROM pamäť.
 
 # WiFi konfigurácia termostatu
 * Termostat vysiela vlastné SSID WiFi_TERMOSTAT_AP, pokým nezíska údaje o existujúcej WiFi sieti, na ktorú sa dokáže pripojiť
