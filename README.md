@@ -15,6 +15,7 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 
 # Schéma zapojenia (ESP8266, ESP32)
 ![Termostat - WiFi - ESP8266](https://i.imgur.com/hFl5T8e.png)
+![Termostat - WiFi - ESP32](https://i.imgur.com/PtMinUm.png)
 **Dôležité informácie:**
 * Serial monitor: 115200 baud/s
 * Údaje o hysteréze a referenčnej teplote uložené v EEPROM pamäti, ktorá je softvérovo emulovaná vo flash pamäti
