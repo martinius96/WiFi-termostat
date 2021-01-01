@@ -86,7 +86,7 @@
 <p>
 Programová implementácia je navrhnutá pre mikrokontrólerové platformy od výrobcu Espressif Systems. 
 Konkrétne mikrokontróler ESP8266 vo verzii 12E až F využívaný v platformách Wemos D1 Mini, NodeMCU v2, v3.
-Mikrokontroléry ESP8266-01 / ESP8266-01S a podobné standalone čipy nie sú kompatibilné pre projekt z hľadiska nahrávania programu, nakoľko nevyužívajú flash metódu DIO.
+<b>Mikrokontroléry ESP8266-01 / ESP8266-01S a podobné standalone čipy pred generáciou 12E nie sú kompatibilné pre projekt z hľadiska nahrávania programu, nakoľko nevyužívajú flash metódu DIO, pre ktorú sú navrhnuté volania nástroja ESPTOOL v projekte.</b>
 Pre mikrokontrolér z rady ESP32 je možné využívať standalone čipy ESP-32S od AI-Thinker, ESP-WROOM32 od Espressif Systems. Ale aj DevKity obsiahnuté s týmito čipmi, sú plné kompatibilné (napríklad DevKit v1 / DevKiTC-v4).
 Termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu.
 Okrem dostupnosti termostatu na konkrétnej IP adrese je možné termostat doplniť o mDNS záznam, ktorý generuje lokálnu doménu prístupnú iba v LAN sieti v rámci tejto multicastovej služby. 
@@ -194,6 +194,14 @@ Na webovej stránke termostatu nájde používateľ aj informácie o uptime zari
 	"Actual_Temperature":21.43<br>
 }
 </div>
+		<hr>
+<h3>JSON client - výstup do Serial monitoru, parsovanie dát</h3>
+<li>Client umožňuje načítať JSON dáta, ktoré WiFI termostat distribuuje</li>
+<li>Získa aktuálnu konfiguráciu cieľovej teploty a hysterézy a aktuálne nameranú teplotu senzorom DS18B20</li>
+<li>JSON client je navrhnutý pre ESP32, ESP8266 a Arduino s Ethernet shieldom / modulom Wiznet W5100 / W5500</li>
+<li>Dáta dokáže vyparsovať aj systém pre domácu automatizáciu, kde dokáže tieto hodnoty vizualizovať</li>
+<li>Možnosť Publishu dát na MQTT Broker, napríklad slovenský free Broker - <a href="https://mqtt.iotindustries.sk/sk/">Iot Industries Slovakia</a></li>
+<center><img src="https://i.imgur.com/4Cm5z8o.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client pre WiFi termostat - UART výstup" title="JSON client pre WiFi termostat - UART výstup"></center>       		
 <p>
 <b>Termostat je určený iba pre interiérové teploty!</b> (nad 0°C), čomu je prispôsobená aj logika systému! 
 Termostatom je možné nahradiť už existujúci izbový termostat, možno dočasne nahradiť ohrievač v akváriu / teráriu pre udržiavanie stálej teploty.
