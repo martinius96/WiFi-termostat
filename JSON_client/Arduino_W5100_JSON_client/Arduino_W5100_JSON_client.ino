@@ -1,3 +1,12 @@
+/*|-------------------------------------------------|*/
+/*|Projekt: JSON client - Arduino + Ethernet W5100  |*/
+/*|Popis: Pripojenie k WiFi termostatu v LAN sieti  |*/
+/*|stiahnutie JSON dat, vyparsovanie hodnot, vypis  |*/
+/*|Autor: Martin Chlebovec                          |*/
+/*|E-mail: martinius96@gmail.com                    |*/
+/*|Revízia: 1. Januar 2021                          |*/
+/*|-------------------------------------------------|*/
+
 #include <Ethernet.h>
 #include <ArduinoJson.h>
 const char* host = "192.168.1.XX"; //IP adresa WiFi termostatu
