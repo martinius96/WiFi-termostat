@@ -9,6 +9,7 @@
 * Nastavená cieľová teplota
 * Aktuálne nameraná teplota
 ![JSON client - WiFi termostat](https://i.imgur.com/4Cm5z8o.png)
+
 **Možná práca s hodnotami:**
 * Informatívny výpis na UART
 * Možnosť Publishovať dáta na MQTT Broker, napríklad https://mqtt.iotindustries.sk/sk/, do aplikácia Blynk (nie je súčasťou programových implementácii)
