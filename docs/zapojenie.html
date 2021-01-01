@@ -74,12 +74,12 @@
 <span class="label label-success">WebSocket</span>
 <h3>Pinout senzora DS18B20 v puzdre TO-92, alebo vo vodotestom vyhotovení</h3>				
 <center><img src="https://i.imgur.com/IeVkEgU.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Pinout OneWire senzora DS18B20" title="WiFi termostat - Pinout OneWire senzora DS18B20"></center>								
-<h3>Tabuľkové zapojenie vývodov</h3>
+<h3>Tabuľkové zapojenie vývodov - ESP8266</h3>
 <div class="table-responsive">   
 <table class="table" style="border: 1px solid black;">
 <thead>
 <tr>
-<td align="left" style="background-color:#27AE60"><strong>ESP9266</strong></td>
+<td align="left" style="background-color:#27AE60"><strong>ESP8266</strong></td>
 <td align="right" style="background-color:#27AE60"><strong>Relé</strong></td>
 </tr>
 <tr>
@@ -113,11 +113,54 @@
 </tbody>
 </table>
 </div>
-<h2>Schéma zapojenia - WiFi termostat:</h2>
-<li>ESP8266 (NodeMCU, Wemos D1 Mini)</li>
+<h2>Schéma zapojenia - WiFi termostat - ESP8266 (NodeMCU, Wemos D1 Mini):</h2>
 <img src="https://i.imgur.com/hFl5T8e.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Schéma zapojenia - plynové kúrenie" title="WiFi termostat - Schéma zapojenia - plynové kúrenie">        			
 <h2>Zapojený WiFi termostat - vývojový kit NodeMCU v3 Lolin v so senzorom DS18B20 na OneWire zbernici cez breadboard:</h2>
-<img src="https://i.imgur.com/k82TGwg.jpg" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Zapojenie cez breadboard" title="WiFi termostat - Zapojenie cez breadboard"> 		 
+<img src="https://i.imgur.com/k82TGwg.jpg" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Zapojenie cez breadboard" title="WiFi termostat - Zapojenie cez breadboard"> 	
+				
+<h3>Tabuľkové zapojenie vývodov - ESP32</h3>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<td align="left" style="background-color:#27AE60"><strong>ESP32</strong></td>
+<td align="right" style="background-color:#27AE60"><strong>Relé</strong></td>
+</tr>
+<tr>
+<td align="left">GND</td>
+<td align="right">GND</td>
+</tr>
+<tr>
+<td align="left">VIN</td>
+<td align="right">Vcc</td>
+</tr>
+<tr>
+<td align="left">D22 (GPIO 22)</td>
+<td align="right">IO</td>
+</tr>	
+<tr>
+<td align="left" style="background-color:#C0392B"><strong>ESP32</strong></td>
+<td align="right" style="background-color:#C0392B"><strong>DS18B20</strong></td>
+</tr>
+<tr>
+<td align="left">GND</td>
+<td align="right">GND</td>
+</tr>
+<tr>
+<td align="left">3V3</td>
+<td align="right">Vcc (PIO)</td>
+</tr>
+<tr>
+<td align="left">D23 (GPIO 23)</td>
+<td align="right">DATA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Schéma zapojenia - WiFi termostat - ESP32 (DevKit):</h2>
+XXXX - comming soon       			
+<h2>Zapojený WiFi termostat - vývojový kit ESP32 Devkit V1 so senzorom DS18B20, SSR relé OMRON G3MB-202P:</h2>
+<img src="https://i.imgur.com/cShsCEl.jpeg" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Zapojenie cez breadboard - SSR relé OMRON G3MB-202P, OneWire DS18B20, ESP32" title="WiFi termostat - Zapojenie cez breadboard - SSR relé OMRON G3MB-202P, OneWire DS18B20, ESP32"> 					
 			</div>
 		</div>
 </div>
