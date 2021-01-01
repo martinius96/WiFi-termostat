@@ -1,3 +1,12 @@
+/*|-------------------------------------------------|*/
+/*|Projekt: JSON client - ESP32                     |*/
+/*|Popis: Pripojenie k WiFi termostatu v LAN sieti  |*/
+/*|stiahnutie JSON dat, vyparsovanie hodnot, vypis  |*/
+/*|Autor: Martin Chlebovec                          |*/
+/*|E-mail: martinius96@gmail.com                    |*/
+/*|Revízia: 1. Januar 2021                          |*/
+/*|-------------------------------------------------|*/
+
 #include <WiFi.h>
 #include <ArduinoJson.h>
 const char* ssid = "MOJE SSID"; //SSID vasej WiFi siete
