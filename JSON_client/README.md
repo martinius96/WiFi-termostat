@@ -8,6 +8,7 @@
 * Nastavená hysteréza
 * Nastavená cieľová teplota
 * Aktuálne nameraná teplota
+
 ![JSON client - WiFi termostat](https://i.imgur.com/4Cm5z8o.png)
 
 **Možná práca s hodnotami:**
