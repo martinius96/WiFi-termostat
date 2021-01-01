@@ -13,5 +13,5 @@
 
 **Možná práca s hodnotami:**
 * Informatívny výpis na UART
-* Možnosť Publishovať dáta na MQTT Broker, napríklad https://mqtt.iotindustries.sk/sk/, do aplikácia Blynk (nie je súčasťou programových implementácii)
-* Prebratie hodnoty a ovládanie iných periférii, napríklad odvetrávanie, ventilátor, klimatizácia a iné...
+* Možnosť Publishovať dáta na MQTT Broker, napríklad https://mqtt.iotindustries.sk/sk/, do aplikácie Blynk, GET / POST requestom nahrávať dáta do MySQL databázy pre vlastné vizualizácie (nie je súčasťou programových implementácii)
+* Prebratie hodnoty a ovládanie iných periférii na základe načítaných hodnôt, napríklad odvetrávanie, ventilátor, klimatizácia a iné...
