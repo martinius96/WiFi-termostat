@@ -78,7 +78,7 @@
 <span class="label label-primary">Webserver</span>
 <span class="label label-success">WebSocket</span>
 <hr><center><h2>Spustenie projektu WiFi termostat - ESP8266 / ESP32</h2></center><hr>
-<p>
+<p style="text-align: justify;">
 Projekt WiFi termostat existuje existuje vo viacerých verziách, ktoré sú dostupné na Githube v repozitári celého projektu.
 Verzie sa funkčnosťou líšia iba v rozšírených možnostiach použitia a možnosti vzdialenej aktualizácie firmvéru.
 Firmvér je dostupný v skompilovanom - binárnom tvare, ktorý je spustiteľný pre cieľovú platformu.
@@ -116,7 +116,7 @@ Tým pádom je vopred vyskúšaný, skompilovaný pre vás. Firmvér je univerz�
 </tbody>
 </table>
 	</div></center>
-<p>
+<p style="text-align: justify;">
 Pre nahratie binárneho programu do platformy ESP je potrebné použiť nástroj ESPTOOL.
 Nástroj využíva napríklad aj prostredie Arduino IDE pre nahratie programu po kompilácii, alebo aj vývojový framework od Espressif Systems - ESP-IDF.
 <b>Pri platforme ESP32 je potrebné do začiatku procesu nahrávania držať tlačidlo BOOT, respektíve urobiť pulldown na GPIO 0 (ak doska nemá BOOT tlačidlo vyvedené).</b>
@@ -130,7 +130,7 @@ Po nahratí programu sa okno programu ESPTOOL automaticky vypne a vykoná softv�
 	<img src="https://i.imgur.com/Nz4Uryz.png" style="display: block; max-width: 100%; height: auto;" alt="XLoader - Arduino - AVRDUDE - Termostat - Ethernet" title="XLoader - Arduino - AVRDUDE - Termostat - Ethernet">	
 </center>
 <b>Po úspešnom nahratí binárneho je termostat plne pripravený.</b> 
-<p>
+<p style="text-align: justify;">
 V prípade, že v jeho flash pamäti nie sú uložené údaje k existujúcej WiFi sieti, začne vysielať vlastné SSID - <b>WiFi_TERMOSTAT_AP</b>. 
 Po pripojení smartfónom / počítačom do tejto WiFi siete je na adrese <b>192.168.4.1</b> dostupné webové rozhranie WiFi Manager, ktoré poskytuje možnosť konfigurácie WiFi termostatu pre vašu domácu WiFi sieť.
 V rozhraní je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa WiFi termostat pripojí. 
