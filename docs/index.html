@@ -83,7 +83,7 @@
   <div class="col-sm-4"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"></center></div>
 </div>					
 <hr><center><h2>WiFi termostat - ESP8266 / ESP32</h2></center><hr>
-<p>
+<p style="text-align: justify;">
 Programová implementácia je navrhnutá pre mikrokontrólerové platformy od výrobcu Espressif Systems. 
 Konkrétne mikrokontróler ESP8266 vo verzii 12E až F využívaný v platformách Wemos D1 Mini, NodeMCU v2, v3.
 <b>Mikrokontroléry ESP8266-01 / ESP8266-01S a podobné standalone čipy pred generáciou 12E nie sú kompatibilné pre projekt z hľadiska nahrávania programu, nakoľko nevyužívajú flash metódu DIO, pre ktorú sú navrhnuté volania nástroja ESPTOOL v projekte.</b>
@@ -97,7 +97,7 @@ Webserver umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktor�
 <li>ESP8266 / ESP32</li>
 <li>Teplotný senzor DS18B20 na OneWire zbernici</li>
 <li>Relé SRD-5VDC-SL-C slúžiace na spínanie kotla (Active-LOW signál)</li>
-<p>
+<p style="text-align: justify;">
 <b>HTML stránky bežiace na platforme ESP8266:</b>
 <li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu</li>
 <li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
@@ -128,7 +128,7 @@ Rozhranie využíva importované CSS štýly Bootstrap frameworku z externého C
 Importovaním CSS štýlov z externého servera umožní znížiť výkonové a pamäťové zaťaženie mikrokontroléru.  
 </p>
 <hr>
-<p>
+<p style="text-align: justify;">
 Aby ostali nastavené hodnoty termostatu zachované aj po výpadku napájania, sú uložené do EEPROM pamäte ESP, ktorá je emulovaná vo flash pamäti, nakoľko platforma nemá fyzicky EEPROM čip (pamäť). 
 Referenčná teplota na offset 10, hysteréza na offset 100. Každá z hodnôt zaberá maximálne 5B v EEPROM pamäti + ukončovací znak. 
 Dáta sa prepisujú iba pri odoslaní HTML formulára, prevádzka termostatu je tak maximálne šetrná k EEPROM pamäti pre jej maximálnu trvácnosť. 
@@ -136,7 +136,7 @@ Stav výstupu existuje iba v RAM pamäti, neukladá sa do flash pamäte.
 V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenutých EEPROM offsetoch, vykoná sa automatický zápis s predvolenými hodnotami - referencia: 20.25 °C, hysteréza 0.00 °C, tzv. fail-safe riešenie.
 ESP8266 a ESP32 pre prácu s EEPROM pamäťou využíva funkcie EEPROM.put() v spojitosti s EEPROM.commit() a pre čítanie dát z EEPROM EEPROM.get(), ktoré podporujú akýkoľvek dátový typ, v našom prípade float().
 </p>
-<p>
+<p style="text-align: justify;">
 Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 10 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky aj orientačný čas do refreshu. 
 Do tohto času je potrebné stihnúť zapísať zmenu pre termostat, inak sa input okná pre číselné vstupy do formulára resetujú pri obnovení stránky. 
 Nakoľko built-in knižnica Ethernet neobsahuje využitie asynchrónneho webservera (ktorý je možné využiť napríklad u mikrokontrolérov Espressif ESP8266 / ESP32), je nutné prepisovať celú stránku. 
@@ -153,7 +153,7 @@ Na webovej stránke termostatu nájde používateľ aj informácie o uptime zari
 	<li><b>Namerané dáta:</b>  21.59 °C</li>
 	<li><b>Výstup:</b>  <font color="#27AE60">Zapnutý</font></li>
 	<hr>
-	<p>
+	<p style="text-align: justify;">
 		Termostat vykuruje od nameranej teploty 22.49 °C a nižšej. 
 		V prípade dosiahnutia teploty 23.01 °C sa výstup vypne, signalizačné relé sa rozpojí a plynový kotol prestáva kúriť. 
 		Nastáva dobeh vykurovania a chladnutie miestnosti v ktorej sa vykonávajú merania. Termostat sa opäť aktivuje až pri dosiahnutí teploty 22.49 °C, alebo nižšej.	
@@ -202,7 +202,7 @@ Na webovej stránke termostatu nájde používateľ aj informácie o uptime zari
 <li>Dáta dokáže vyparsovať aj systém pre domácu automatizáciu, kde dokáže tieto hodnoty vizualizovať</li>
 <li>Možnosť Publishu dát na MQTT Broker, napríklad slovenský MQTT Broker zdarma pre vývojárov - <a href="https://mqtt.iotindustries.sk/sk/">IoT Industries Slovakia</a></li>
 <center><img src="https://i.imgur.com/4Cm5z8o.png" style="display: block; max-width: 100%; height: auto;" alt="JSON client pre WiFi termostat - UART výstup" title="JSON client pre WiFi termostat - UART výstup"></center>       		
-<p>
+<p style="text-align: justify;">
 <b>Termostat je určený iba pre interiérové teploty!</b> (nad 0°C), čomu je prispôsobená aj logika systému! 
 Termostatom je možné nahradiť už existujúci izbový termostat, možno dočasne nahradiť ohrievač v akváriu / teráriu pre udržiavanie stálej teploty.
 </p>
