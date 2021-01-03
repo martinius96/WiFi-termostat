@@ -109,7 +109,7 @@ Prípadne je pre schému zapojenia plne kompatibilné aj SSR relé OMRON G3MB-20
 Maximálny spínaný výkon 460W (230V, 2A). Logika termostatu sa vykonáva každých 10 sekúnd nezávisle na webserveri, nevyžaduje sa keep-alive spojenie pre jej vykonanie. 
 Vždy pri vykonaní logiky vypíše na UART termostat aj informáciu o aktuálnej IP adrese, respektíve aj mDNS zázname (ak sa s mDNS firmvér používa) a dá tak používateľovi informáciu, kde v LAN sieti je termostat dosiahnuteľný so svojim webovým rozhraním.
 Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na úrovni 40 až 44kB a taktiež aj aktuálny stav výstupu s oznámením zmeny (ak pretečie rozhodovací threshold do + respektíve do -).
-3V3 operačná logika GPIO mikrokontrolérov ESP8266 a ESP32 postačuje pre digitálny signál zmeny, relé však musí byť napájané na 5V.
+<b>3V3 operačná logika GPIO mikrokontrolérov ESP8266 a ESP32 postačuje pre digitálny signál zmeny, relé však musí byť napájané na 5V z VUSB, respektíve VIN.</b>
 </p>
 
 <b>Webové rozhranie pre WiFi termostat umožňuje:</b>
