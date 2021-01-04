@@ -134,6 +134,9 @@ Po nahratí programu sa okno programu ESPTOOL automaticky vypne a vykoná softv�
 V prípade, že v jeho flash pamäti nie sú uložené údaje k existujúcej WiFi sieti, začne vysielať vlastné SSID - <b>WiFi_TERMOSTAT_AP</b>. 
 Po pripojení smartfónom / počítačom do tejto WiFi siete je na adrese <b>192.168.4.1</b> dostupné webové rozhranie WiFi Manager, ktoré poskytuje možnosť konfigurácie WiFi termostatu pre vašu domácu WiFi sieť.
 V rozhraní je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa WiFi termostat pripojí. 
+<div class="alert alert-danger">
+<strong>Funkcia termostatu je spustená až po pripojení ESP mikrokontroléru do vašej LAN siete! Po pridelení IP adresy pre konektivitu vo vašej sieti.</strong>
+</div>	
 Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do STA (Station) módu a funguje už v režime termostatu
 Zadané údaje o WiFi sieti sú uložené do flash pamäte termostatu a už ich nie je nutné zadávať znova pri opätovnom spustení termostatu, výpadku napájania, reštartu zariadenia.
 V prípade, že daná sieť nie je dostupná, začne ESP opäť vysielať vlastné SSID: <b>WiFi_TERMOSTAT_AP</b> a opätovne je možné zadať prihlasovacie informácie.
