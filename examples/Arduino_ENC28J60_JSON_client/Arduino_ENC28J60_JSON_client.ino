@@ -1,11 +1,11 @@
-/*|-------------------------------------------------|*/
-/*|Projekt: JSON client - Arduino + Ethernet W5100  |*/
-/*|Popis: Pripojenie k WiFi termostatu v LAN sieti  |*/
-/*|stiahnutie JSON dat, vyparsovanie hodnot, vypis  |*/
-/*|Autor: Martin Chlebovec                          |*/
-/*|E-mail: martinius96@gmail.com                    |*/
-/*|Revízia: 1. Januar 2021                          |*/
-/*|-------------------------------------------------|*/
+/*|-----------------------------------------------------|*/
+/*|Projekt: JSON client - Arduino + Ethernet ENC28J60   |*/
+/*|Popis: Pripojenie k WiFi termostatu v LAN sieti      |*/
+/*|stiahnutie JSON dat, vyparsovanie hodnot, vypis      |*/
+/*|Autor: Martin Chlebovec                              |*/
+/*|E-mail: martinius96@gmail.com                        |*/
+/*|Revízia: 1. Januar 2021                              |*/
+/*|-----------------------------------------------------|*/
 
 #include <UIPEthernet.h>
 #include <ArduinoJson.h>
