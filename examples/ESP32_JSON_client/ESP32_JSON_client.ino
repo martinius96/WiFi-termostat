@@ -55,7 +55,7 @@ void loop() {
       }
       DynamicJsonDocument doc(512);
       String line = client.readString(); //PAYLOAD
-      //Serial.println(line);
+      Serial.println(line);
       deserializeJson(doc, line);
       JsonObject obj = doc.as<JsonObject>();
       float hystereza = obj[String("Hysteresis")];
