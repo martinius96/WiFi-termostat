@@ -28,7 +28,7 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do STA (Station) módu a funguje už v režime termostatu
 * Zadané údaje o WiFi sieti sú uložené do flash pamäte termostatu a už ich nie je nutné zadávať znova
 * V prípade, že daná sieť nie je dostupná, začne ESP opäť vysielať vlastné SSID --> WiFi_TERMOSTAT_AP
-* Ak sa používa firmvér s označením mDNS / OTA, existuje v sieti mDNS príznak pre termostat --> http://WiFi-termostat.local
+* Ak sa používa firmvér s označením mDNS / OTA, existuje v sieti mDNS príznak pre termostat --> http://wifi-termostat.local
 * mDNS musí byť podporovaná zariadením s ktorým sa ku termostatu pripájate a zároveň služba musí byť spustená i na sieti
 * Lokálny mDNS príznak funguje nezávisle na IP adrese termostatu, nie je tak nutné hľadať konkrétnu IP, na ktorej je termostat dostupný
 * ![WiFi termostat - prístupový bod](https://i.imgur.com/cJb6DR9.png)
