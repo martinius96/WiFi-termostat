@@ -1,8 +1,9 @@
 # WiFi Termostat
 * Termostat postavený na WiFi platforme Espressif - ESP8266 a ESP32
 * Rozšírený popis k projektu, schéma zapojenia, dokumentácia: https://martinius96.github.io/WiFi-termostat/
-* Mikrokontróler funguje v režime webservera, na ktorom bežia webové - HTML stránky
+* Mikrokontróler funguje v režime webservera, na ktorom bežia webové - HTML stránky a JSON stránka
 * Stránky majú informatívny (výpis), alebo aj funkcionálny charakter (spracovanie dát, zápis do EEPROM)
+* JSON stránka distribuuje informácie o aktuálne nameranej teplote, hysteréze a cieľovej teplote
 * Používateľ systému získa informácie o nastavenej teplote, hysteréze a aktuálne nameranej teplote, stave výstupu i voľnej HEAP pamäti
 * ESP riadi automaticky na základe navolenej hysterézy a cieľovej teploty výstup - relé ovládané digitálnym vývodom.
 * Pre meranie teploty ESP využíva senzor Dallas DS18B20 na OneWire zbernici v parazitnom / normálnom zapojení
@@ -23,13 +24,13 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * Údaje o hysteréze a referenčnej teplote uložené v softvérovo emulovanej EEPROM pamäti, nakoľko mikrokontróler nemá fyzickú EEPROM pamäť.
 
 # WiFi konfigurácia termostatu
-* Termostat vysiela vlastné SSID WiFi_TERMOSTAT_AP, pokým nezíska údaje o existujúcej WiFi sieti, na ktorú sa dokáže pripojiť
+* **Mikrokontróler vysiela vlastné SSID WiFi_TERMOSTAT_AP, pokým nezíska údaje o existujúcej WiFi sieti, na ktorú sa dokáže pripojiť**
 * Prideľuje klientom IP adresu v sieti 192.168.4.0 / 24 v rozsahu 192.168.4.2 - 192.168.4.254
 * Na adrese 192.168.4.1 poskytuje WiFi termostat rozhranie WiFiManager, kde je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa pripojí
-* Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do STA (Station) módu a funguje už v režime termostatu
+* **Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do STA (Station) módu a funguje už aj s logikou termostatu**
 * Zadané údaje o WiFi sieti sú uložené do flash pamäte termostatu a už ich nie je nutné zadávať znova
 * V prípade, že daná sieť nie je dostupná, začne ESP opäť vysielať vlastné SSID --> WiFi_TERMOSTAT_AP
-* Ak sa používa firmvér s označením mDNS / OTA, existuje v sieti mDNS príznak pre termostat --> http://wifi-termostat.local
+* Ak sa používa firmvér s označením mDNS, respektíve i OTA, existuje v sieti mDNS príznak pre termostat --> http://wifi-termostat.local
 * mDNS musí byť podporovaná zariadením s ktorým sa ku termostatu pripájate a zároveň služba musí byť spustená i na sieti
 * Lokálny mDNS príznak funguje nezávisle na IP adrese termostatu, nie je tak nutné hľadať konkrétnu IP, na ktorej je termostat dostupný
 * ![WiFi termostat - prístupový bod](https://i.imgur.com/cJb6DR9.png)
