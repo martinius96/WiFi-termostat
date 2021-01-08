@@ -57,4 +57,4 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * martinius96@gmail.com
 
 **Rozšírené informácie k projektu v článku:**
-* http://deadawp.blog.sector.sk/blogclanok/13254/wifi-termostat-esp8266-wifimanager-ota.htm
+* http://deadawp.blog.sector.sk/blogclanok/13275/wifi-termostat-esp8266-1021-json-clients.htm
