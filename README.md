@@ -1,5 +1,6 @@
 # WiFi Termostat
 * Termostat postavený na WiFi platforme Espressif - ESP8266 a ESP32
+* Rozšírený popis k projektu, schéma zapojenia, dokumentácia: https://martinius96.github.io/WiFi-termostat/
 * Mikrokontróler funguje v režime webservera, na ktorom bežia webové - HTML stránky
 * Stránky majú informatívny (výpis), alebo aj funkcionálny charakter (spracovanie dát, zápis do EEPROM)
 * Používateľ systému získa informácie o nastavenej teplote, hysteréze a aktuálne nameranej teplote, stave výstupu i voľnej HEAP pamäti
