@@ -127,10 +127,11 @@ Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na 
 <li>Na vizualizácii teplôt vody je patrný tzv. dobeh vykurovania a následné chladnutie vody až do opätovnej aktivity vykurovania, kedy je nameraná teplota pod nastavenú cieľovú teplotu - hystérzu</li>		
 <img src="https://i.imgur.com/IDWLuOr.png" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">   
 
-Webové rozhranie je navrhnuté pre prispôsobenie sa väčším i menším obrazovkám. Je reponzívne, podporuje širokouhlé obrazovky s vysokým rozlíšením, ale aj mobilné zariadenia. 
+Webové rozhranie je navrhnuté pre prispôsobenie sa väčším i menším obrazovkám. Je responzívne, podporuje širokouhlé obrazovky s vysokým rozlíšením, ale aj mobilné zariadenia. 
 Rozhranie využíva importované CSS štýly Bootstrap frameworku z externého CDN servera, ktorý načíta client-side zariadenie pri otvorení stránky bežiacej na ESP. 
 Importovaním CSS štýlov z externého servera umožní znížiť výkonové a pamäťové zaťaženie mikrokontroléru.  
 </p>
+<center><img src="https://i.imgur.com/8shZ0K3.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - webové rozhranie vizualizované v systéme Android - Chrome" title="WiFi termostat - webové rozhranie vizualizované v systéme Android - Chrome"></center>   		
 <hr>
 <p style="text-align: justify;">
 Aby ostali nastavené hodnoty termostatu zachované aj po výpadku napájania, sú uložené do EEPROM pamäte ESP, ktorá je emulovaná vo flash pamäti, nakoľko platforma nemá fyzicky EEPROM čip (pamäť). 
