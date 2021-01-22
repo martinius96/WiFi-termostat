@@ -60,13 +60,13 @@
   </div>
 </nav>  
 <div class="alert alert-success">
-	<strong>Projekt k repozitáru - Github: </strong><a href="https://github.com/martinius96/WiFi-termostat/">WiFi termostat - posledný release kompilovaný z najnovšieho buildu Arduino Core 2.7.4.</a>
+	<strong>Repozitár projektu so strojovými kódmi: </strong><a href="https://github.com/martinius96/WiFi-termostat/">WiFi termostat - posledný release kompilovaný z najnovšieho buildu Arduino Core 2.7.4.</a>
+</div>	
+<div class="alert alert-danger">
+	<strong>Verzia 1.0.3 projektu WiFi termostat je posledným updatom verzie zdarma. Ďalšie chyby, bugy a bezpečnostné chyby nebudú riešené.</strong>
 </div>	
 <div class="alert alert-info">
 	<strong>Článok k projektu na deadawp.blog.sector.sk: </strong><a href="http://deadawp.blog.sector.sk/blogclanok/13275/wifi-termostat-esp8266-1021-json-clients.htm">WiFi termostat - ESP8266 - 1.0.2.1 - JSON clients</a>
-</div>	
-<div class="alert alert-danger">
-	<strong>Podporte projekt pre pridanie nových funkcionalít do free verzie, sprístupnenie zdrojového kódu (.ino) k free verzii zdarma: </strong><a href="https://www.paypal.com/paypalme/chlebovec">PayPal</a>
 </div>	
 <span class="label label-default">ESP8266</span>
 <span class="label label-primary">ESP32</span>
@@ -142,7 +142,7 @@ V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenut�
 ESP8266 a ESP32 pre prácu s EEPROM pamäťou využíva funkcie EEPROM.put() v spojitosti s EEPROM.commit() a pre čítanie dát z EEPROM EEPROM.get(), ktoré podporujú akýkoľvek dátový typ, v našom prípade float().
 </p>
 <p style="text-align: justify;">
-Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 10 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky aj orientačný čas do refreshu. 
+Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 30 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky aj orientačný čas do refreshu. 
 Do tohto času je potrebné stihnúť zapísať zmenu pre termostat, inak sa input okná pre číselné vstupy do formulára resetujú pri obnovení stránky. 
 Nakoľko built-in knižnica Ethernet neobsahuje využitie asynchrónneho webservera (ktorý je možné využiť napríklad u mikrokontrolérov Espressif ESP8266 / ESP32), je nutné prepisovať celú stránku. 
 Dynamický údaj, ktorý sa predovšetkým mení je aktuálna hodnota výstupu - <b><font color="#27AE60">Zapnutý</font></b> / <b><font color="red">Vypnutý</font></b>, ktorý informuje prevádzkovateľa o skutočnom stave výstupu spoločne aj s farebným označením. 
