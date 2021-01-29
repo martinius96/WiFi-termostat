@@ -61,14 +61,14 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * http://deadawp.blog.sector.sk/blogclanok/13275/wifi-termostat-esp8266-1021-json-clients.htm
 
 # JSON klienti
-* WiFi termostat distribuuje na podstránke /get_data.json dáta o aktuálnej, cieľovej teplote a hysteréze.
-* Tieto dáta sú enkódované ako JSON, ktorý je nutné deserializovať a dáta vyparsovať.
-* Pripojiť sa k termostatu je možné aj iným mikrokontorlérom, ktorý dokáže tieto dáta získať
-* Následne vie dáta vyparsovať a pracovať s nimi, môže na ich základe ovládať iné periférie, napríklad - solenoidový ventil na radiátoroch
-* Nájde využitie aj v iných aplikáciách, ktoré využívajú dáta z kotla a kúrenia vôbec
-* Pripájanie sa realizuje každých 15 sekúnd k termostatu cez websocket
-* V rozšírenej MQTT implementácii JSON klienta je možné dáta nahrávať aj na externú MQTT službu - Broker IoT Industries Slovakia
-* Broker je verejný a tak môžu byť dáta zmenené, prepísané, čítané akýkoľvek používateľom služby
-* JSON MQTT Client Publishuje dáta na mqtt broker do troch topicov pod hlavný topic esp32
+* Programové implementácia pre klientov na platforme Arduino, ESP8266, ESP32, ktorí sa dokážu pripojiť k WiFi termostatu
+* Dokážu načítať dáta, ktoré termostat distribuuje - hysteréza, cieľová teplota, nameraná teplota
+* Dáta z JSON formátu deserializujú, vyparsujú pre ďalšie použitie, archivácia, upload do MySQL databázy
+* Možnosť na základe dát riadiť perifériu (solenoid radiátora, ohrev, ventilátor, notifikácie)
+* Pripájanie JSON klienta sa realizuje každých 15 sekúnd k termostatu cez websocket
+* V rozšírenej MQTT implementácii JSON klienta sa dáta posielajú na dostupný MQTT Broker - IoT Industries Slovakia
+* Dáta sa Publishujú do hlavného topicu esp32, pričom je každá entita rozdelená subtopicom
 * Subtopicy sú: hysteresis, actual_temp, target_temp
+* **Tento MQTT Broker je verejný a tak môžu byť dáta zmenené, prepísané, čítané akýkoľvek používateľom služby**
+* Možno prispôsobiť pre váš MQTT broker a systém inteligentnej domácnosti, kde môžete mať dáta z termostatu - Hassio, Domoticz, MQTT Mosquitto
 ![JSON klient - Arduino, ESP8266, ESP32](https://i.imgur.com/Ee9GvTI.png)
