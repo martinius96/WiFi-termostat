@@ -83,6 +83,7 @@ void loop() {
     delay(500);
     Serial.print(".");
   }
+  client.loop();
   if ((millis() - timer) >= interval || timer == 0) {
     timer = millis();
     klient.stop();
