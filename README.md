@@ -64,6 +64,11 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * WiFi termostat distribuuje na podstránke /get_data.json dáta o aktuálnej, cieľovej teplote a hysteréze.
 * Tieto dáta sú enkódované ako JSON, ktorý je nutné deserializovať a dáta vyparsovať.
 * Pripojiť sa k termostatu je možné aj iným mikrokontorlérom, ktorý dokáže tieto dáta získať
-* V MQTT implementácii JSON klienta je možné dáta nahrávať aj na externú MQTT službu - Broker IoT Industries Slovakia
+* Následne vie dáta vyparsovať a pracovať s nimi, môže na ich základe ovládať iné periférie, napríklad - solenoidový ventil na radiátoroch
+* Nájde využitie aj v iných aplikáciách, ktoré využívajú dáta z kotla a kúrenia vôbec
+* Pripájanie sa realizuje každých 15 sekúnd k termostatu cez websocket
+* V rozšírenej MQTT implementácii JSON klienta je možné dáta nahrávať aj na externú MQTT službu - Broker IoT Industries Slovakia
 * Broker je verejný a tak môžu byť dáta zmenené, prepísané, čítané akýkoľvek používateľom služby
+* JSON MQTT Client Publishuje dáta na mqtt broker do troch topicov pod hlavný topic esp32
+* Subtopicy sú: hysteresis, actual_temp, target_temp
 ![JSON klient - Arduino, ESP8266, ESP32](https://i.imgur.com/Ee9GvTI.png)
