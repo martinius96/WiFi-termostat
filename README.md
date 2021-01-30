@@ -74,4 +74,6 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * **Ak do svojho mikrokontroléru nahrá firmvér JSON klienta bez zmeny akýkoľvek iný používateľ, bude vám prepisovať dáta v preddefinovanom topicu**
 * Možno prispôsobiť pre váš MQTT broker a systém inteligentnej domácnosti, kde môžete mať dáta z termostatu - Hassio, Domoticz, MQTT Mosquitto, Loxone
 * Pre súkromný MQTT broker je možné využiť aj autentizáciu menom a heslom, viz. dokumentácia: https://pubsubclient.knolleary.net/api
-![JSON klient - Arduino, ESP8266, ESP32](https://i.imgur.com/Ee9GvTI.png)
+* K dispozícii je aj firmvér pre JSON MQTT klientov s označením MQTTS - využívajú šifrované spojenie cez socket s MQTT brokerom
+* Tento typ firmvéru je dostupný iba pre ESP8266 a ESP32. Arduino s Ethernetom nepodporuje šifrovanie
+![JSON klient - Arduino, ESP8266, ESP32](https://i.imgur.com/5BtdmFH.png)
