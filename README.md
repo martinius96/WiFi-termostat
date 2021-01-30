@@ -60,15 +60,18 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 **Rozšírené informácie k projektu v článku:**
 * http://deadawp.blog.sector.sk/blogclanok/13275/wifi-termostat-esp8266-1021-json-clients.htm
 
-# JSON klienti
+# JSON klienti - sťahovanie dát z termostatu
 * Programové implementácia pre klientov na platforme Arduino, ESP8266, ESP32, ktorí sa dokážu pripojiť k WiFi termostatu
-* Dokážu načítať dáta, ktoré termostat distribuuje - hysteréza, cieľová teplota, nameraná teplota
-* Dáta z JSON formátu deserializujú, vyparsujú pre ďalšie použitie, archivácia, upload do MySQL databázy
-* Možnosť na základe dát riadiť perifériu (solenoid radiátora, ohrev, ventilátor, notifikácie)
+* Dokážu načítať dáta, ktoré termostat distribuuje - hysteréza, cieľová teplota, nameraná teplota na podstránke /get_data.json
+* Dáta z JSON formátu klient deserializuje, vyparsuje pre ďalšie použitie, archiváciu, upload do MySQL databázy, cloud
+* Možnosť na základe dát riadiť perifériu (solenoid radiátora, ohrev, ventilátor, notifikácie o teplote pre Android, iOS zariadenia)
 * Pripájanie JSON klienta sa realizuje každých 15 sekúnd k termostatu cez websocket
-* V rozšírenej MQTT implementácii JSON klienta sa dáta posielajú na dostupný MQTT Broker - IoT Industries Slovakia
-* Dáta sa Publishujú do hlavného topicu esp32, pričom je každá entita rozdelená subtopicom
+* V rozšírenej implementácii JSON klienta o MQTT sa dáta posielajú na dostupný free MQTT Broker - IoT Industries Slovakia
+* Dáta sa Publishujú do hlavného topicu termostat, pričom je každá entita rozdelená subtopicom
 * Subtopicy sú: hysteresis, actual_temp, target_temp
+* JSON klient má k daným subtopicom prihlásený Subscribe prostredníctvom čítania hlavného topicu termostat/#
 * **Tento MQTT Broker je verejný a tak môžu byť dáta zmenené, prepísané, čítané akýkoľvek používateľom služby**
-* Možno prispôsobiť pre váš MQTT broker a systém inteligentnej domácnosti, kde môžete mať dáta z termostatu - Hassio, Domoticz, MQTT Mosquitto
+* **Ak do svojho mikrokontroléru nahrá firmvér JSON klienta bez zmeny akýkoľvek iný používateľ, bude vám prepisovať dáta v preddefinovanom topicu**
+* Možno prispôsobiť pre váš MQTT broker a systém inteligentnej domácnosti, kde môžete mať dáta z termostatu - Hassio, Domoticz, MQTT Mosquitto, Loxone
+* Pre súkromný MQTT broker je možné využiť aj autentizáciu menom a heslom, viz. dokumentácia: https://pubsubclient.knolleary.net/api
 ![JSON klient - Arduino, ESP8266, ESP32](https://i.imgur.com/Ee9GvTI.png)
