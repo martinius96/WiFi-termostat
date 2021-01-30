@@ -44,7 +44,7 @@ void reconnect() {
     if (client.connect("ESP32_Client_Termostat")) {
       Serial.println("connected");
       // Subscribe
-      client.subscribe("esp32/#");
+      client.subscribe("termostat/#");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -110,17 +110,17 @@ void loop() {
       Serial.println(hystereza);
       char pole_hysteresis[32];
       dtostrf(hystereza, 1, 2, pole_hysteresis);
-      client.publish("esp32/hysteresis", pole_hysteresis);
+      client.publish("termostat/hysteresis", pole_hysteresis);
       Serial.print("Cielova teplota: ");
       Serial.println(cielova_teplota);
       char pole_cielova_teplota[32];
       dtostrf(cielova_teplota, 1, 2, pole_cielova_teplota);
-      client.publish("esp32/target_temp", pole_cielova_teplota);
+      client.publish("termostat/target_temp", pole_cielova_teplota);
       Serial.print("Namerana (aktualna) teplota: ");
       Serial.println(actual_temperature);
       char pole_actual_teplota[32];
       dtostrf(actual_temperature, 1, 2, pole_actual_teplota);
-      client.publish("esp32/actual_temp", pole_actual_teplota);
+      client.publish("termostat/actual_temp", pole_actual_teplota);
     } else if (!klient.connect(host, httpPort)) {
       Serial.println("Nepodarilo sa pripojenie k termostatu, ani nacitanie JSON data");
     }
