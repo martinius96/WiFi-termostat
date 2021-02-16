@@ -106,6 +106,7 @@ Webserver umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktor�
 <li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu</li>
 <li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
 <li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontróler, iný klient...) v JSON formáte</li>
+<li>a iné systémové pre ovládanie výstupu, zmenu režimu</li>
 <hr>				
 Elektromagnetické relé SRD-5VDC-SL-C, ktoré je v projekte použité umožňuje spínať až 10A pri 230V - výkon 2300W. 
 V prípade spínania jednosmerného obvodu (záťaže) je možné spínať 300W (10A pri 30V DC). 
@@ -122,12 +123,12 @@ Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na 
 <li>Modifikovať cieľovú (referenčnú) teplotu v rozsahu 5 až 50 °C s 0,25 °C krokom</li>
 <li>Modifikovať hysterézu v rozsahu 0 až 10 °C s 0,25 °C krokom</li>
 
-<b>ZAP/VYP regulácia kotla:</b> 
+<b>ZAP/VYP regulácia kotla - automatický režim:</b> 
 <li>Príklad ZAP/VYP regulácie vykurovania - <font color="red">VIZUALIZÁCIA NIE JE SÚČASŤOU PROJEKTU</font></li>	
 <li>Kotol je aktívny po dobu dostiahnutia cieľovej teploty + hysterézy</li>
 <li>Na vizualizácii teplôt vody je patrný tzv. dobeh vykurovania a následné chladnutie vody až do opätovnej aktivity vykurovania, kedy je nameraná teplota pod nastavenú cieľovú teplotu - hystérzu</li>		
 <img src="https://i.imgur.com/IDWLuOr.png" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">   
-
+<b>Do základnej verzie WiFi termostatu (bez mDNS záznamu) bol implementovaný manuálny režim ovládania (natvrdo ZAP/VYP) s možnosťou prepínania medzi manuálnym a automatickým režimom.</b>
 Webové rozhranie je navrhnuté pre prispôsobenie sa väčším i menším obrazovkám. Je responzívne, podporuje širokouhlé obrazovky s vysokým rozlíšením, ale aj mobilné zariadenia. 
 Rozhranie využíva importované CSS štýly Bootstrap frameworku z externého CDN servera, ktorý načíta client-side zariadenie pri otvorení stránky bežiacej na ESP. 
 Importovaním CSS štýlov z externého servera umožní znížiť výkonové a pamäťové zaťaženie mikrokontroléru.  
