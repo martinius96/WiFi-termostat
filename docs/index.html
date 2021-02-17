@@ -201,6 +201,64 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 	"Actual_Temperature":21.43<br>
 }
 </div>
+
+<h3><font color="#2980B9">Termostat - zdrojový kód</font></h3>
+<li>Logika termostatu - minimálna implementácia (bez webservera, WiFi, emulovanej EEPROM) - všeobecná implementácia</li>
+<li>Vzor použitý pre projekt WiFi termostat</li>
+<pre style="background-color:#2980B9;">
+//Projekt: Minimálna implementácia - termostat
+//Autor: Martin Chlebovec
+//Hardver: Arduino Uno + DS18B20 (1x OneWire bus)
+//Revizia: 23. Mar. 2020
+
+#include &lt;OneWire.h>
+#include &lt;DallasTemperature.h>
+
+#define ONE_WIRE_BUS 5 //datovy vovod OneWire zbernica na pin D5
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensorsA(&oneWire);
+float nastavena_teplota = 24.50;
+float hystereza = 0.50;
+//float hystereza2 = 0.50;
+const int rele = 6;
+//const int rele2 = 7;
+unsigned long timer = 0;
+unsigned long interval = 15000; //ako casto chceme logiku spustit --> v ms (milisekundy)
+void setup() {
+  sensorsA.begin();
+  Serial.begin(115200);
+  Serial.println("UART ready");
+  pinMode(rele, OUTPUT);
+  // pinMode(rele2, OUTPUT);
+}
+
+void loop() {
+  if ((millis() - timer) >= interval || timer == 0) {
+    timer = millis();
+    sensorsA.requestTemperatures();
+    delay(2000); //cakame na teploty
+    float  teplota1 = sensorsA.getTempCByIndex(0);
+    //float  teplota2 = sensorsA.getTempCByIndex(1);
+    float rozdiel = nastavena_teplota - teplota1;
+    if (rozdiel > hystereza) {
+      digitalWrite(rele, HIGH); //zopnutie rele
+      Serial.println("Rele bolo zopnute - Vystup aktivny");
+    } else if (rozdiel &lt; (-1 * hystereza)) {
+      digitalWrite(rele, LOW); //rozopnutie rele
+      Serial.println("Rele bolo rozopnute - Vystup neaktivny");
+    }
+
+    /*
+      float rozdiel2 = nastavena_teplota2 - teplota2;
+      if (rozdiel2 > hystereza2) {
+      digitalWrite(rele2, HIGH); //zopnutie rele
+      } else if (rozdiel2 &lt; (-1 * hystereza2)) {
+      digitalWrite(rele2, LOW); //rozopnutie rele
+      }
+    */
+  }
+}
+</pre>
  </div>
 </div>
 </div>
