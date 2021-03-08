@@ -2,7 +2,7 @@
 <html lang="sk-SK">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>WiFi termostat - ESP8266 / ESP32 - Webserver</title>
+	<title>WiFi termostat - ESP8266 / ESP32 - Webserver - riadenie kotla s hysterézou</title>
 	<meta name="description" content="Izbový termostat navrhnutý na platforme Espressif - ESP8266 / ESP32. Termostat pre vykurovanie domácnosti s ovládaním plynového kotla.">
 	<meta name="keywords" content="Termostat, digitálny, arduino ide, wemos d1 mini, nodemcu, wifi, esp8266, vykurovanie, kúrenie, webserver, socket, http, web, ip, ipv4, ds18b20, onewire, 1-wire">
 	<!-- Open Graph / Facebook -->
@@ -152,7 +152,9 @@ Nakoľko sa logika systému  vykonáva nezávisle na webserveri, do refreshu mô
 Na webovej stránke termostatu nájde používateľ aj informácie o uptime zariadenia (ako dlho beží), t.j. čas v dňoch, hodinách, minútach a sekundách. <b>Termostat je určený iba pre interiérové teploty!</b> (nad 0°C), čomu je prispôsobená aj logika systému! 
 Termostatom je možné nahradiť už existujúci izbový termostat, možno dočasne nahradiť ohrievač v akváriu / teráriu pre udržiavanie stálej teploty.
 </p>
-
+<div class="alert alert-danger">
+	<strong>Autor WiFi termostatu nezodpovedá za funkčnosť termostatu, poruchu kotla, úraz elektrickým prúdom pri neodbornej montáži termostatu do siete.</strong> Termostat je šírený pod MIT licenciou.
+</div>	
 <b>Hlavná stránka pre modifikáciu cieľovej teploty a hysterézy - ukážka zapnutého:</b>
 <div class="alert alert-info">
 	<strong>Ukážkové dáta</strong>
