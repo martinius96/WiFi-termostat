@@ -88,24 +88,27 @@
 </div>					
 <hr><center><h2>WiFi termostat - ESP8266 / ESP32</h2></center><hr>
 <p style="text-align: justify;">
-Programová implementácia je navrhnutá pre mikrokontrólerové platformy od výrobcu Espressif Systems. 
+Programová implementácia je navrhnutá pre mikrokontrólerové platformy od výrobcu Espressif Systems s WiFi konektivitou. 
 Konkrétne mikrokontróler ESP8266 vo verzii 12E až F využívaný v platformách Wemos D1 Mini, NodeMCU v2, v3.
-<b>Mikrokontroléry ESP8266-01 / ESP8266-01S a podobné standalone čipy pred generáciou 12E nie sú kompatibilné pre projekt z hľadiska nahrávania programu, nakoľko nevyužívajú flash metódu DIO, pre ktorú sú navrhnuté volania nástroja ESPTOOL v projekte.</b>
-Pre mikrokontrolér z rady ESP32 je možné využívať standalone čipy ESP-32S od AI-Thinker, ESP-WROOM32 od Espressif Systems. Ale aj DevKity obsiahnuté s týmito čipmi, sú plné kompatibilné (napríklad DevKit v1 / DevKiTC-v4).
-Termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu.
-Okrem dostupnosti termostatu na konkrétnej IP adrese je možné termostat doplniť o mDNS záznam, ktorý generuje lokálnu doménu prístupnú iba v LAN sieti v rámci tejto multicastovej služby. 
-Konfigurácia termostatu na domácu WiFi LAN sieť je zabezpečená prostredníctvom WiFiManagera.
-Webserver umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktoré môžu mať informatívny, alebo aj funkcionálny charakter. Webserver beží na porte 80 - HTTP.
+<b>Mikrokontroléry ESP8266-01 / ESP8266-01S a podobné standalone čipy pred generáciou 12E nie sú kompatibilné pre projekt z hľadiska nahrávania programu, nakoľko nevyužívajú flash metódu DIO, pre ktorú sú navrhnuté volania nástroja ESPTOOL v projekte, úpravou flash metódy je možné zabezpečiť nahratie firmvéru aj do týchto zariadení.</b>
+Pre mikrokontrolér z rady ESP32 je možné využívať standalone čipy ESP32-WROOM-32 od Espressifu i ekvivalent ESP-32S od AI-Thinker. 
+Kompatibilné sú aj všetky DevKity obsiahnuté s týmito čipmi, sú plné kompatibilné (napríklad DevKit v1 / DevKiTC-v4).
+WiFi termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu.
+Okrem dostupnosti termostatu na konkrétnej IP adrese je možné termostat doplniť o mDNS záznam, ktorý generuje lokálnu doménu (hostname.local) prístupnú iba v LAN sieti v rámci tejto multicastovej služby. 
+Konfigurácia termostatu na domácu WiFi LAN sieť je zabezpečená prostredníctvom WiFiManagera, ktorý údaje o WiFi sieti (SSID a heslo) ukladá do flash pamäte mikrokontroléru.
+Uloženie je jednorázové a zariadenie si konfiguráciu pamätá permanentne. Po nadobudnutí konektivity (priradení IP adresy od routra vašej domácej WiFi siete) je možné termostat používať.
+Webserver bežiaci na mikrokontorléri ESP umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktoré môžu mať informatívny, alebo aj funkcionálny charakter. 
+Webserver beží na porte 80 - HTTP.
 </p>
 <b>Po hardvérovej stránke projekt využíva:</b>
 <li>ESP8266 / ESP32</li>
 <li>Teplotný senzor DS18B20 na OneWire zbernici</li>
-<li>Relé SRD-5VDC-SL-C slúžiace na spínanie kotla (Active-LOW signál)</li>
-<b>HTML stránky bežiace na platforme ESP8266:</b>
-<li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu</li>
-<li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
-<li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontróler, iný klient...) v JSON formáte</li>
-<li>a iné systémové pre ovládanie výstupu, zmenu režimu</li>
+<li>Relé SRD-5VDC-SL-C / OMRON G3MB-202P slúžiace na spínanie kotla (Active-LOW signál)</li>
+<b>HTML stránky bežiace na platforme ESP8266 / ESP32:</b>
+<li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, aktuálnu a cieľovú teplotu teplotu, hysterézu</li>
+<li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do emulovanej EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
+<li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontróler, iný klient...) v JSON formáte - možno využiť s príkladom JSON klient, ktorý dáta vie odoslať na MQTT Broker, napríklad do domácej automatizácie</li>
+<li>a iné systémové podstránky pre ovládanie výstupu, zmenu režimu</li>
 <hr>	
 <p style="text-align: justify;">			
 Elektromagnetické relé SRD-5VDC-SL-C, ktoré je v projekte použité umožňuje spínať až 10A pri 230V - výkon 2300W. 
@@ -114,14 +117,14 @@ Prípadne je pre schému zapojenia plne kompatibilné aj SSR relé OMRON G3MB-20
 Maximálny spínaný výkon 460W (230V, 2A). <b>Termostat je možné používať celoročne. V prípade nepotrebného riadenia je možné výstup fyzicky odpojiť a termostat využívať ako WiFi teplomer pre zisk dát z miestnosti, kde sa nachádza.</b> 
 Logika termostatu sa vykonáva každých 10 sekúnd nezávisle na webserveri a pripojených klientoch, nevyžaduje sa keep-alive spojenie pre jej vykonanie. 
 Vždy pri vykonaní logiky vypíše na UART termostat aj informáciu o aktuálnej IP adrese, respektíve aj mDNS zázname (ak sa s mDNS firmvér používa) a dá tak používateľovi informáciu, kde v LAN sieti je termostat dosiahnuteľný so svojim webovým rozhraním.
-Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na úrovni 40 až 44kB a taktiež aj aktuálny stav výstupu s oznámením zmeny (ak pretečie rozhodovací threshold do + respektíve do -).
+Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na úrovni 40 až 44kB a taktiež aj aktuálny stav výstupu s oznámením zmeny ak k nej dôjde --> (ak pretečie rozhodovací threshold do + respektíve do -).
 <b>3V3 operačná logika GPIO mikrokontrolérov ESP8266 a ESP32 postačuje pre digitálny signál zmeny, relé však musí byť napájané na 5V z VUSB, respektíve VIN.</b>
 </p>
 
 <b>Webové rozhranie pre WiFi termostat umožňuje:</b>
 <li>Prehliadať v reálnom čase teplotu zo senzora DS18B20, uptime zariadenia, hodnotu výstupu s dynamickou zmenou, aktuálne nastavené konfiguračné údaje pre termostat t.j. cieľovú teplotu a hysterézu</li>
-<li>Modifikovať cieľovú (referenčnú) teplotu v rozsahu 5 až 50 °C s 0,25 °C krokom</li>
-<li>Modifikovať hysterézu v rozsahu 0 až 10 °C s 0,25 °C krokom</li>
+<li>Modifikovať cieľovú (referenčnú) teplotu <del>v rozsahu 5 až 50 °C s 0,25 °C krokom</del></li>
+<li>Modifikovať hysterézu <del>v rozsahu 0 až 10 °C s 0,25 °C krokom</del></li>
 
 <b>ZAP/VYP regulácia kotla - automatický režim:</b> 
 <li>Príklad ZAP/VYP regulácie vykurovania - <font color="red">VIZUALIZÁCIA NIE JE SÚČASŤOU PROJEKTU</font></li>	
