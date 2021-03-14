@@ -101,13 +101,13 @@ Webserver umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktor�
 <li>ESP8266 / ESP32</li>
 <li>Teplotný senzor DS18B20 na OneWire zbernici</li>
 <li>Relé SRD-5VDC-SL-C slúžiace na spínanie kotla (Active-LOW signál)</li>
-<p style="text-align: justify;">
 <b>HTML stránky bežiace na platforme ESP8266:</b>
 <li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, teplotu</li>
 <li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
 <li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontróler, iný klient...) v JSON formáte</li>
 <li>a iné systémové pre ovládanie výstupu, zmenu režimu</li>
-<hr>				
+<hr>	
+<p style="text-align: justify;">			
 Elektromagnetické relé SRD-5VDC-SL-C, ktoré je v projekte použité umožňuje spínať až 10A pri 230V - výkon 2300W. 
 V prípade spínania jednosmerného obvodu (záťaže) je možné spínať 300W (10A pri 30V DC). 
 Prípadne je pre schému zapojenia plne kompatibilné aj SSR relé OMRON G3MB-202P, ktoré je vhodné iba pre neindukčnú záťaž a výhradne pre obvod so striedavým napätím. 
@@ -128,6 +128,7 @@ Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na 
 <li>Kotol je aktívny po dobu dostiahnutia cieľovej teploty + hysterézy</li>
 <li>Na vizualizácii teplôt vody je patrný tzv. dobeh vykurovania a následné chladnutie vody až do opätovnej aktivity vykurovania, kedy je nameraná teplota pod nastavenú cieľovú teplotu - hystérzu</li>		
 <img src="https://i.imgur.com/IDWLuOr.png" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">   
+<p style="text-align: justify;">
 <b>Do základnej verzie WiFi termostatu (bez mDNS záznamu) bol implementovaný manuálny režim ovládania (natvrdo ZAP/VYP) s možnosťou prepínania medzi manuálnym a automatickým režimom.</b>
 Webové rozhranie je navrhnuté pre prispôsobenie sa väčším i menším obrazovkám. Je responzívne, podporuje širokouhlé obrazovky s vysokým rozlíšením, ale aj mobilné zariadenia. 
 Rozhranie využíva importované CSS štýly Bootstrap frameworku z externého CDN servera, ktorý načíta client-side zariadenie pri otvorení stránky bežiacej na ESP. 
