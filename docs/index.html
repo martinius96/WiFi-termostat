@@ -94,11 +94,11 @@ Konkrétne mikrokontróler ESP8266 vo verzii 12E až F využívaný v platformá
 Pre mikrokontrolér z rady ESP32 je možné využívať standalone čipy ESP32-WROOM-32 od Espressifu i ekvivalent ESP-32S od AI-Thinker. 
 Kompatibilné sú aj všetky DevKity obsiahnuté s týmito čipmi, sú plné kompatibilné (napríklad DevKit v1 / DevKiTC-v4).
 WiFi termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu.
+Termostat riadi kotol na základe nameranej, cieľovej teploty a hysterézy nezávisle na webaplikácii, ktorá slúži na konfiguráciu a rozhodovací prah termostatu.
 Okrem dostupnosti termostatu na konkrétnej IP adrese je možné termostat doplniť o mDNS záznam, ktorý generuje lokálnu doménu (hostname.local) prístupnú iba v LAN sieti v rámci tejto multicastovej služby. 
-Konfigurácia termostatu na domácu WiFi LAN sieť je zabezpečená prostredníctvom WiFiManagera, ktorý údaje o WiFi sieti (SSID a heslo) ukladá do flash pamäte mikrokontroléru.
-Uloženie je jednorázové a zariadenie si konfiguráciu pamätá permanentne. Po nadobudnutí konektivity (priradení IP adresy od routra vašej domácej WiFi siete) je možné termostat používať.
-Webserver bežiaci na mikrokontorléri ESP umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktoré môžu mať informatívny, alebo aj funkcionálny charakter. 
-Webserver beží na porte 80 - HTTP.
+Konfigurácia termostatu (z pohľadu konektivity) na domácu WiFi LAN sieť je zabezpečená prostredníctvom WiFiManagera, ktorý údaje o WiFi sieti (SSID a heslo) ukladá do flash pamäte mikrokontroléru.
+Uloženie je jednorázové a zariadenie si konfiguráciu pamätá permanentne. Po nadobudnutí konektivity (priradení IP adresy od routra vašej domácej WiFi siete) je možné termostat plne používať.
+HTTP webserver bežiaci na mikrokontorléri ESP8266 / ESP32 umožňuje beh niekoľkých na sebe nezávislých HTML stránok, ktoré môžu mať informatívny, alebo aj funkcionálny charakter.
 </p>
 <b>Po hardvérovej stránke projekt využíva:</b>
 <li>ESP8266 / ESP32</li>
