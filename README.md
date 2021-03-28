@@ -14,6 +14,7 @@ Názov zložky firmvéru | Funkcie firmvéru
 ------------ | -------------
 WiFi_TERMOSTAT  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti
 WiFi_TERMOSTAT_mDNS  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti. mDNS záznam pre možnosť spustenia termostatu na lokálnej doméne v rámci LAN siete
+WiFi_TERMOSTAT_MANUAL_experimental  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti. Experimentálna možnosť manuálneho ovládania výstupu SW tlačidlom z webservera. Prepínanie režimov automat / manual.
 WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v automatickom režime vykurovanie v domácnosti. mDNS záznam pre možnosť spustenia termostatu na lokálnej doméne v rámci LAN siete s možnosťou aktualizácie firmvéru prostredníctvom Web OTA Updater služby.
 
 # Schéma zapojenia (ESP8266, ESP32)
@@ -35,7 +36,7 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 * Lokálny mDNS príznak funguje nezávisle na IP adrese termostatu, nie je tak nutné hľadať konkrétnu IP, na ktorej je termostat dostupný
 * ![WiFi termostat - prístupový bod](https://i.imgur.com/cJb6DR9.png)
 * ![WiFi termostat - UART - spustenie WiFi managera](https://i.imgur.com/bikirYM.png)
-* ![Konfigurácia WiFi termostatu na domácu WiFi sieť - WiFi Manager](https://i.imgur.com/M3dqgf5.png)
+* ![Konfigurácia WiFi termostatu na domácu WiFi sieť - WiFi Manager](https://i.imgur.com/2oizcO6.png)
 * ![WiFi termostat - Pridelená IP v LAN sieti, termostat funkčný, mDNS záznam](https://i.imgur.com/f1mF6Fk.png)
 
 **HTML stránky bežiace na platforme ESP8266 / ESP32:**
@@ -45,7 +46,6 @@ WiFi_TERMOSTAT_OTA  | Projekt termostatu. Možnosť nastavovať a riadiť v auto
 
 **Rozšírená verzia tohto projektu obsahuje:**
 * Zdrojový kód (.ino)
-* Manuálny režim pre relé (neobmedzená doba, natvrdo ZAP/VYP)
 * Watchdog timer
 * Dostupné senzory SHT21, SHT31, DHT22, BME280, BMP280 a iné
 * Režim chladenia
