@@ -211,160 +211,209 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 }
 </div>
 
-<h3><font color="#2ECC71">Termostat - zdrojový kód</font></h3>
-<li>Logika termostatu - minimálna implementácia (bez webservera, WiFi, emulovanej EEPROM) - všeobecná implementácia</li>
-<li>Vzor použitý pre projekt WiFi termostat</li>
+<h3><font color="#2ECC71">WiFi termostat - zdrojový kód - ESP32 - experimental</font></h3>
 <pre style="background-color:#2ECC71;">
-//Projekt: Minimálna implementácia - termostat
-//Autor: Martin Chlebovec
-//Hardver: Arduino Uno + DS18B20 (1x OneWire bus)
-//Revizia: 23. Mar. 2020
+/*|----------------------------------------------------------|*/
+/*|HTTP webserver - FORM - HTML - PROCESSING - EEPROM        |*/
+/*|AUTHOR: Martin Chlebovec                                  |*/
+/*|----------------------------------------------------------|*/
+#include <WiFi.h>
+#include <WebServer.h>
+#include <EEPROM.h>
+WebServer server(80);
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
-#include &lt;OneWire.h>
-#include &lt;DallasTemperature.h>
-
-#define ONE_WIRE_BUS 5 //datovy vovod OneWire zbernica na pin D5
+#define ONE_WIRE_BUS 23 //D23
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensorsA(&oneWire);
-float nastavena_teplota = 24.50;
-float hystereza = 0.50;
-//float hystereza2 = 0.50;
-const int rele = 6;
-//const int rele2 = 7;
-unsigned long timer = 0;
-unsigned long interval = 15000; //ako casto chceme logiku spustit --> v ms (milisekundy)
+const int rele = 22; //D22
+unsigned long cas = 0;
+float teplota;
+String stav;
+
+const char * ssid = "NAZOV_WIFI_SIETE"; //meno wifi siete
+const char * password = "HESLO_WIFI_SIETE"; //heslo na wifi siet
+
+void writeString(char add, String data)
+{
+  int _size = data.length();
+  int i;
+  for (i = 0; i < _size; i++)
+  {
+    EEPROM.write(add + i, data[i]);
+    EEPROM.commit();
+  }
+  EEPROM.write(add + _size, '\0'); //Add termination null character for String Data
+  EEPROM.commit();
+}
+
+
+String read_String(char add)
+{
+  int i;
+  char data[100]; //Max 100 Bytes
+  int len = 0;
+  unsigned char k;
+  k = EEPROM.read(add);
+  while (k != '\0' && len < 500) //Read until null character
+  {
+    k = EEPROM.read(add + len);
+    data[len] = k;
+    len++;
+  }
+  data[len] = '\0';
+  return String(data);
+}
+
+
+void handleRoot() {
+  String stranka = "<!DOCTYPE html>";
+  stranka += "<html>";
+  stranka += "<head>";
+  stranka += "<meta charset='utf-8'>";
+  stranka += "<meta name='author' content='Martin Chlebovec'>";
+  stranka += "<meta http-equiv='Refresh' content='10'; />";
+  stranka += "<meta name='viewport' content='width=device-width, initial-scale=1'>";
+  stranka += "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>";
+  stranka += "<script type='text/javascript'>";
+  stranka += "var timeleft = 10;";
+  stranka += "var downloadTimer = setInterval(function(){";
+  stranka += "if(timeleft <= 0){";
+  stranka += "clearInterval(downloadTimer);";
+  stranka += "document.getElementById(\"countdown\").innerHTML = \"Reštart...\";";
+  stranka += "} else {";
+  stranka += "document.getElementById(\"countdown\").innerHTML = timeleft + \" sekúnd do reštartu\";";
+  stranka += "}";
+  stranka += "timeleft -= 1;";
+  stranka += "}, 1000);";
+  stranka += "</script>";
+  stranka += "<title>HTTP webserver - ESP8266</title>";
+  stranka += "</head>";
+  stranka += "<body>";
+  stranka += "<center><h3>Zadajte dáta pre webserver:</h3>";
+  stranka += "<form action='/action.html' method='get'>";
+  stranka += "<b>Referenčná teplota:</b><br><input type='number' id='fname' name='fname' min='5' max='50' step='0.25' value=" + read_String(100) + "><br>";
+  stranka += "<b>Hysteréza:</b><br><input type='number' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + read_String(10) + "><br>";
+  stranka += "<input type='submit' class='btn btn-success' value='Zapísať'>";
+  stranka += "</form><hr>";
+  if (stav == "ZAP") {
+    stranka += "<b><font color='green'>Výstup: Zapnutý</font></b>";
+  }
+  if (stav == "VYP") {
+    stranka += "<b><font color='red'>Výstup: Vypnutý</font></b>";
+  }
+  stranka += "<div id=\"countdown\"></div>";
+  stranka += "<b>Aktuálna teplota senzora DS18B20:</b> ";
+  stranka += String(teplota);
+  stranka += " °C";
+  stranka += "</center>";
+  stranka += "</body>";
+  stranka += "</html>";
+  server.send(200, "text/html", stranka);
+}
+
+void handleBody() {
+  if (server.hasArg("fname")) {
+    float cielova_teplota = server.arg("fname").toFloat();
+    Serial.println("Dostali sme tieto data --> ref. teplota:");
+    Serial.println(cielova_teplota);
+    writeString(100, String(cielova_teplota));
+  }
+  if (server.hasArg("fname2")) {
+    float hystereza = server.arg("fname2").toFloat();
+    Serial.println("Dostali sme tieto data --> hystereza:");
+    Serial.println(hystereza);
+    writeString(10, String(hystereza));
+  }
+  String stranka = "<!DOCTYPE html>";
+  stranka += "<html>";
+  stranka += "<head>";
+  stranka += "<meta charset='utf-8'>";
+  stranka += "<meta http-equiv='Refresh' content='5; url=/' />";
+  stranka += "<title>HTTP webserver - Arduino + Ethernet</title>";
+  stranka += "</head>";
+  stranka += "<body>";
+  stranka += "<center><h3>Server prijal data z formulára:</h3>";
+  stranka += "<li><b>Referenčná teplota: </b>" + String(server.arg("fname")) + "</li>";
+  stranka += "<li><b>Hysteréza: </b>" + String(server.arg("fname2")) + "</li>";
+  stranka += "<b>Presmerovanie... Prosim cakajte</b></center>";
+  stranka += "</body>";
+  stranka += "</html>";
+  server.send(200, "text/html", stranka);
+}
+
+void handleGet() {
+  String stranka = "{\n";
+  stranka += "\"Hysteresis\":";
+  stranka += read_String(10);
+  stranka += ",\n";
+  stranka += "\"Target_Temperature\":";
+  stranka += read_String(100);
+  stranka += ",\n";
+  stranka += "\"Actual_Temperature\":";
+  stranka += String(teplota) + "\n";
+  stranka += "}\n";
+  server.send(200, "application/json", stranka);
+}
+
 void setup() {
-  sensorsA.begin();
   Serial.begin(115200);
-  Serial.println("UART ready");
+  EEPROM.begin(512);
+  String a = read_String(10);
+  String b = read_String(100);
+  if (a == "" || a == NULL) {
+    writeString(10, "0.25");
+  }
+  if (b == "" || b == NULL) {
+    writeString(100, "20.25");
+  }
+  sensorsA.begin();
   pinMode(rele, OUTPUT);
-  // pinMode(rele2, OUTPUT);
+  digitalWrite(rele, HIGH);
+  sensorsA.requestTemperatures();
+  delay(750);
+  WiFi.begin(ssid, password); //pripoj sa na wifi siet s heslom
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+  Serial.println("Ready");
+  Serial.println("");
+  Serial.println("WiFi connected.");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+  server.on("/", handleRoot);
+  server.on("/get_data.json", handleGet);
+  server.on("/action.html", HTTP_GET, handleBody);
+  server.begin();
 }
 
 void loop() {
-  if ((millis() - timer) >= interval || timer == 0) {
-    timer = millis();
-    sensorsA.requestTemperatures();
-    delay(2000); //cakame na teploty
-    float  teplota1 = sensorsA.getTempCByIndex(0);
-    //float  teplota2 = sensorsA.getTempCByIndex(1);
-    float rozdiel = nastavena_teplota - teplota1;
-    if (rozdiel > hystereza) {
-      digitalWrite(rele, HIGH); //zopnutie rele
-      Serial.println("Rele bolo zopnute - Vystup aktivny");
-    } else if (rozdiel &lt; (-1 * hystereza)) {
-      digitalWrite(rele, LOW); //rozopnutie rele
-      Serial.println("Rele bolo rozopnute - Vystup neaktivny");
+  if ((millis() - cas) >= 10000 || cas == 0) {
+    cas = millis();
+    teplota = sensorsA.getTempCByIndex(0);
+    String referencia = read_String(100);
+    String hystereza = read_String(10);
+    float referencia_teplota = referencia.toFloat();
+    float hystereza_teplota = hystereza.toFloat();
+    float minus_hystereza_teplota = (-1 * hystereza_teplota);
+    float rozdiel = referencia_teplota - teplota;
+    if (rozdiel > hystereza_teplota) {
+      Serial.println("RELE ZAP");
+      stav = "ZAP";
+      digitalWrite(rele, LOW);
+    } else if (rozdiel < minus_hystereza_teplota) {
+      Serial.println("RELE VYP");
+      stav = "VYP";
+      digitalWrite(rele, HIGH);
     }
-
-    /*
-      float rozdiel2 = nastavena_teplota2 - teplota2;
-      if (rozdiel2 > hystereza2) {
-      digitalWrite(rele2, HIGH); //zopnutie rele
-      } else if (rozdiel2 &lt; (-1 * hystereza2)) {
-      digitalWrite(rele2, LOW); //rozopnutie rele
-      }
-    */
+    sensorsA.requestTemperatures();
   }
+  server.handleClient();
+  yield();
 }
-</pre>
-<h3><font color="#3498DB">Fragment zdrojového kódu pre stránku Hlavného prehľadu - bez spracovania údajov z HTML formuláru</font></h3>
-<pre style="background-color:#3498DB;">
-          Client handling  
-          HTTP header
-  int days = millis() / day ;                                //number of days
-  unsigned int hours = (millis() % day) / hour;                       //the remainder from days division (in milliseconds) divided by hours, this gives the full hours
-  unsigned int minutes = ((millis() % day) % hour) / minute ;         //and so on...
-  unsigned int seconds = (((millis() % day) % hour) % minute) / second;
-  String stranka = F("&lt;!DOCTYPE html>");
-  stranka += F("&lt;html>");
-  stranka += F("&lt;head>");
-  stranka += F("&lt;meta charset='utf-8'>");
-  stranka += F("&lt;meta name='author' content='Martin Chlebovec'>");
-  stranka += F("&lt;meta http-equiv='Refresh' content='30'; />");
-  stranka += F("&lt;meta name='viewport' content='width=device-width, initial-scale=1'>");
-  stranka += F("&lt;link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
-  stranka += F("&lt;script type='text/javascript'>");
-  stranka += F("var timeleft = 30;");
-  stranka += F("var downloadTimer = setInterval(function(){");
-  stranka += F("if(timeleft &lt;= 0){");
-  stranka += F("clearInterval(downloadTimer);");
-  stranka += F("document.getElementById(\"countdown\").innerHTML = \"Reštart...\";");
-  stranka += F("} else {");
-  stranka += F("document.getElementById(\"countdown\").innerHTML = timeleft + \" sekúnd do reštartu\";");
-  stranka += F("}");
-  stranka += F("timeleft -= 1;");
-  stranka += F("}, 1000);");
-  stranka += F("&lt;/script>");
-  stranka += F("&lt;title>WiFi termostat - ESP8266&lt;/title>");
-  stranka += F("&lt;/head>");
-  stranka += F("&lt;body>");
-  stranka += F("&lt;center>&lt;h3>Zadajte dáta pre webserver:&lt;/h3>");
-  stranka += F("&lt;form action='/action.html' method='post'>");
-  stranka += "&lt;b>Referenčná teplota:&lt;/b>&lt;br>&lt;input type='text' id='fname' name='fname' min='5' max='50' step='0.25' value=" + String(read_String(10)) + ">&lt;br>";
-  stranka += "&lt;b>Hysteréza:&lt;/b>&lt;br>&lt;input type='text' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + String(read_String(100)) + ">&lt;br>";
-  stranka += F("&lt;input type='submit' class='btn btn-success' value='Zapísať'>");
-  stranka += F("&lt;/form>&lt;hr>");
-  if (stav == "ZAP") { //Glob premenna drziaca stav vystupu na zaklade prepoctu mimo HTML stranky
-    stranka += F("&lt;b>&lt;font color='green'>Výstup: Zapnutý&lt;/font>&lt;/b>");
-  }
-  if (stav == "VYP") {
-    stranka += F("&lt;b>&lt;font color='red'>Výstup: Vypnutý&lt;/font>&lt;/b>");
-  }
-  stranka += F("&lt;div id=\"countdown\">&lt;/div>");
-  stranka += F("&lt;b>Aktuálna teplota senzora DS18B20:&lt;/b> ");
-  stranka += String(teplota);
-  stranka += F(" °C");
-  stranka += F("&lt;hr>");
-  stranka += F("&lt;b>Uptime: &lt;/b>");
-  stranka += String(days);
-  stranka += F("d");
-  stranka += F(" ");
-  stranka += String(hours);
-  stranka += F("h");
-  stranka += F(" ");
-  stranka += String(minutes);
-  stranka += F("m");
-  stranka += F(" ");
-  stranka += String(seconds);
-  stranka += F("s");
-  stranka += F("&lt;h3>Autor: Martin Chlebovec - martinius96@gmail.com - https://martinius96.github.io/WiFi-termostat/&lt;/h3>");
-  stranka += F("&lt;h4>Verzia free - 1.0.3 build: 22. Jan. 2021&lt;/h4>");
-  stranka += F("&lt;/center>");
-  stranka += F("&lt;div class='alert alert-info'>");
-  stranka += F("Finálny build projektu WiFi termostat. Ďakujem za vyskúšanie webaplikácie. Rozšírené verzie projektu sú platené.&lt;br>&lt;strong>Obsah platených verzií:&lt;/strong>&lt;li>Async Webserver - AJAX update&lt;/li>&lt;li>Manuálny režim&lt;/li>&lt;li>OTA aktualizácie&lt;/li>&lt;li>Ovládanie hlasom cez Amazon Alexa&lt;/li>&lt;li>Ovládanie cez UDP callbacky&lt;/li>&lt;li>Možnosť publikácie dát na MQTT Broker (Loxone, IoT Industries Slovakia, Blynk...),&lt;/li>&lt;li>Dostupné senzory Bosch, Sensirion, DHT&lt;/li>&lt;li>Watchdog Timer&lt;/li>&lt;li>Zdrojový kód (.ino) pre aplikáciu.&lt;/li>&lt;li>Auto-test periférii, fail-safe riešenie&lt;/li>&lt;li>JSON output rozšírený o systémové dáta (WiFi sieť, RSSI, uptime, napájacie napätie...)&lt;/li>");
-  stranka += F("&lt;/div>");
-  stranka += F("&lt;/body>");
-  stranka += F("&lt;/html>");
-	  SEND TO CLIENT
-	  FLUSH CLIENT
-	  STOP CLIENT
-</pre>
-<h3><font color="#D35400">Fragment zdrojového kódu s výpisom nastavených riadiacich dát po odoslaní HTML formuláru</font></h3>
-<li>S následným presmerovaním používateľa späť na hlavnú stránku po 5-tich sekundách od spracovania - tzv. lazy loading... (Spracovanie neobsiahnuté vo fragmente)</li>
-<pre style="background-color:#D35400;">
-	    backend_spracovanie dát z HTML formuláru (NEDOSTUPNÉ)
-	    .
-	    .
-	    .
-            HTTP header
-  String stranka = F("&lt;!DOCTYPE html>");
-  stranka += F("&lt;html>");
-  stranka += F("&lt;head>");
-  stranka += F("&lt;meta charset='utf-8'>");
-  stranka += F("&lt;meta http-equiv='Refresh' content='5; url=/' />");
-  stranka += F("&lt;title>WiFi termostat - ESP8266 - spracovanie riadiach dát&lt;/title>");
-  stranka += F("&lt;/head>");
-  stranka += F("&lt;body>");
-  stranka += F("&lt;center>&lt;h3>Server prijal data z formulára:&lt;/h3>");
-  stranka += "&lt;li>&lt;b>Referenčná teplota: &lt;/b>" + String(read_String(10)) + " °C&lt;/li>";
-  stranka += "&lt;li>&lt;b>Hysteréza: &lt;/b>" + String(read_String(100)) + " °C&lt;/li>";
-  stranka += F("&lt;b>Presmerovanie... Prosím čakajte&lt;/b>&lt;/center>");
-  stranka += F("&lt;/body>");
-  stranka += F("&lt;/html>");
-	    SEND TO CLIENT
-	    FLUSH CLIENT
-	    STOP CLIENT
+
 </pre>
  </div>
 </div>
