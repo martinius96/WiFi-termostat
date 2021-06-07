@@ -189,10 +189,7 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 <b>Výstup do UART monitoru - logika systému + nastavená IP adresa, mDNS záznam:</b>
 <center><img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART" title="WiFi termostat - UART"></center>        		
 
-<b>Rozšírená verzia tohto termostatu obsahuje navyše - <font color="red">NIE JE OBSIAHNUTÁ V GITHUB REPOZITÁRI SO SKOMPILOVANÝM FIRMVÉROM:</font></b>
-<div class="alert alert-info">
-	<b>Pri záujme o kúpu plnej verzie projektu so zdrojovým kódom (.ino) - </b>martinius96@gmail.com
-</div>
+<b>Rozšírená verzia tohto termostatu obsahuje navyše: </b>
 <li>Zdrojový kód (.ino)</li>
 <li>Watchdog timer</li>
 <li>Dostupné senzory SHT21, SHT31, DHT22, BME280, BMP280 a iné</li>
@@ -211,7 +208,10 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 }
 </div>
 
-<h3><font color="#2ECC71">WiFi termostat - zdrojový kód - ESP32 - experimental</font></h3>
+<h3><font color="#2ECC71">WiFi termostat - zdrojový kód - ESP32</font></h3>
+<li>Basic DEMO</li>
+<li>Automatický režim ovládania so zohľadnením referenčnej teploty a hysterézy</li>
+<li>Build z verzie 1.0.2</li>
 <pre style="background-color:#2ECC71;">
 /*|----------------------------------------------------------|*/
 /*|HTTP webserver - FORM - HTML - PROCESSING - EEPROM        |*/
@@ -288,7 +288,7 @@ void handleRoot() {
   stranka += "timeleft -= 1;";
   stranka += "}, 1000);";
   stranka += "</script>";
-  stranka += "<title>HTTP webserver - ESP8266</title>";
+  stranka += "<title>HTTP webserver - ESP32</title>";
   stranka += "</head>";
   stranka += "<body>";
   stranka += "<center><h3>Zadajte dáta pre webserver:</h3>";
