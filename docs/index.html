@@ -217,12 +217,12 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 /*|HTTP webserver - FORM - HTML - PROCESSING - EEPROM        |*/
 /*|AUTHOR: Martin Chlebovec                                  |*/
 /*|----------------------------------------------------------|*/
-#include <WiFi.h>
-#include <WebServer.h>
-#include <EEPROM.h>
+#include &lt;WiFi.h>
+#include &lt;WebServer.h>
+#include &lt;EEPROM.h>
 WebServer server(80);
-#include <OneWire.h>
-#include <DallasTemperature.h>
+#include &lt;OneWire.h>
+#include &lt;DallasTemperature.h>
 
 #define ONE_WIRE_BUS 23 //D23
 OneWire oneWire(ONE_WIRE_BUS);
@@ -239,7 +239,7 @@ void writeString(char add, String data)
 {
   int _size = data.length();
   int i;
-  for (i = 0; i < _size; i++)
+  for (i = 0; i &lt; _size; i++)
   {
     EEPROM.write(add + i, data[i]);
     EEPROM.commit();
@@ -256,7 +256,7 @@ String read_String(char add)
   int len = 0;
   unsigned char k;
   k = EEPROM.read(add);
-  while (k != '\0' && len < 500) //Read until null character
+  while (k != '\0' && len &lt; 500) //Read until null character
   {
     k = EEPROM.read(add + len);
     data[len] = k;
@@ -268,18 +268,18 @@ String read_String(char add)
 
 
 void handleRoot() {
-  String stranka = "<!DOCTYPE html>";
-  stranka += "<html>";
-  stranka += "<head>";
-  stranka += "<meta charset='utf-8'>";
-  stranka += "<meta name='author' content='Martin Chlebovec'>";
-  stranka += "<meta http-equiv='Refresh' content='10'; />";
-  stranka += "<meta name='viewport' content='width=device-width, initial-scale=1'>";
-  stranka += "<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>";
-  stranka += "<script type='text/javascript'>";
+  String stranka = "&lt;!DOCTYPE html>";
+  stranka += "&lt;html>";
+  stranka += "&lt;head>";
+  stranka += "&lt;meta charset='utf-8'>";
+  stranka += "&lt;meta name='author' content='Martin Chlebovec'>";
+  stranka += "&lt;meta http-equiv='Refresh' content='10'; />";
+  stranka += "&lt;meta name='viewport' content='width=device-width, initial-scale=1'>";
+  stranka += "&lt;link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>";
+  stranka += "&lt;script type='text/javascript'>";
   stranka += "var timeleft = 10;";
   stranka += "var downloadTimer = setInterval(function(){";
-  stranka += "if(timeleft <= 0){";
+  stranka += "if(timeleft &lt;= 0){";
   stranka += "clearInterval(downloadTimer);";
   stranka += "document.getElementById(\"countdown\").innerHTML = \"Reštart...\";";
   stranka += "} else {";
@@ -287,29 +287,29 @@ void handleRoot() {
   stranka += "}";
   stranka += "timeleft -= 1;";
   stranka += "}, 1000);";
-  stranka += "</script>";
-  stranka += "<title>HTTP webserver - ESP32</title>";
-  stranka += "</head>";
-  stranka += "<body>";
-  stranka += "<center><h3>Zadajte dáta pre webserver:</h3>";
-  stranka += "<form action='/action.html' method='get'>";
-  stranka += "<b>Referenčná teplota:</b><br><input type='number' id='fname' name='fname' min='5' max='50' step='0.25' value=" + read_String(100) + "><br>";
-  stranka += "<b>Hysteréza:</b><br><input type='number' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + read_String(10) + "><br>";
-  stranka += "<input type='submit' class='btn btn-success' value='Zapísať'>";
-  stranka += "</form><hr>";
+  stranka += "&lt;/script>";
+  stranka += "&lt;title>HTTP webserver - ESP32&lt;/title>";
+  stranka += "&lt;/head>";
+  stranka += "&lt;body>";
+  stranka += "&lt;center>&lt;h3>Zadajte dáta pre webserver:&lt;/h3>";
+  stranka += "&lt;form action='/action.html' method='get'>";
+  stranka += "&lt;b>Referenčná teplota:&lt;/b>&lt;br>&lt;input type='number' id='fname' name='fname' min='5' max='50' step='0.25' value=" + read_String(100) + ">&lt;br>";
+  stranka += "&lt;b>Hysteréza:&lt;/b>&lt;br>&lt;input type='number' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + read_String(10) + ">&lt;br>";
+  stranka += "&lt;input type='submit' class='btn btn-success' value='Zapísať'>";
+  stranka += "&lt;/form>&lt;hr>";
   if (stav == "ZAP") {
-    stranka += "<b><font color='green'>Výstup: Zapnutý</font></b>";
+    stranka += "&lt;b>&lt;font color='green'>Výstup: Zapnutý&lt;/font>&lt;/b>";
   }
   if (stav == "VYP") {
-    stranka += "<b><font color='red'>Výstup: Vypnutý</font></b>";
+    stranka += "&lt;b>&lt;font color='red'>Výstup: Vypnutý&lt;/font>&lt;/b>";
   }
-  stranka += "<div id=\"countdown\"></div>";
-  stranka += "<b>Aktuálna teplota senzora DS18B20:</b> ";
+  stranka += "&lt;div id=\"countdown\">&lt;/div>";
+  stranka += "&lt;b>Aktuálna teplota senzora DS18B20:&lt;/b> ";
   stranka += String(teplota);
   stranka += " °C";
-  stranka += "</center>";
-  stranka += "</body>";
-  stranka += "</html>";
+  stranka += "&lt;/center>";
+  stranka += "&lt;/body>";
+  stranka += "&lt;/html>";
   server.send(200, "text/html", stranka);
 }
 
@@ -326,20 +326,20 @@ void handleBody() {
     Serial.println(hystereza);
     writeString(10, String(hystereza));
   }
-  String stranka = "<!DOCTYPE html>";
-  stranka += "<html>";
-  stranka += "<head>";
-  stranka += "<meta charset='utf-8'>";
-  stranka += "<meta http-equiv='Refresh' content='5; url=/' />";
-  stranka += "<title>HTTP webserver - Arduino + Ethernet</title>";
-  stranka += "</head>";
-  stranka += "<body>";
-  stranka += "<center><h3>Server prijal data z formulára:</h3>";
-  stranka += "<li><b>Referenčná teplota: </b>" + String(server.arg("fname")) + "</li>";
-  stranka += "<li><b>Hysteréza: </b>" + String(server.arg("fname2")) + "</li>";
-  stranka += "<b>Presmerovanie... Prosim cakajte</b></center>";
-  stranka += "</body>";
-  stranka += "</html>";
+  String stranka = "&lt;!DOCTYPE html>";
+  stranka += "&lt;html>";
+  stranka += "&lt;head>";
+  stranka += "&lt;meta charset='utf-8'>";
+  stranka += "&lt;meta http-equiv='Refresh' content='5; url=/' />";
+  stranka += "&lt;title>HTTP webserver - Arduino + Ethernet&lt;/title>";
+  stranka += "&lt;/head>";
+  stranka += "&lt;body>";
+  stranka += "&lt;center>&lt;h3>Server prijal data z formulára:&lt;/h3>";
+  stranka += "&lt;li>&lt;b>Referenčná teplota: &lt;/b>" + String(server.arg("fname")) + "&lt;/li>";
+  stranka += "&lt;li>&lt;b>Hysteréza: &lt;/b>" + String(server.arg("fname2")) + "&lt;/li>";
+  stranka += "&lt;b>Presmerovanie... Prosim cakajte&lt;/b>&lt;/center>";
+  stranka += "&lt;/body>";
+  stranka += "&lt;/html>";
   server.send(200, "text/html", stranka);
 }
 
@@ -403,7 +403,7 @@ void loop() {
       Serial.println("RELE ZAP");
       stav = "ZAP";
       digitalWrite(rele, LOW);
-    } else if (rozdiel < minus_hystereza_teplota) {
+    } else if (rozdiel &lt; minus_hystereza_teplota) {
       Serial.println("RELE VYP");
       stav = "VYP";
       digitalWrite(rele, HIGH);
@@ -413,7 +413,6 @@ void loop() {
   server.handleClient();
   yield();
 }
-
 </pre>
  </div>
 </div>
