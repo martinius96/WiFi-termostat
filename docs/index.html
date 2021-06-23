@@ -109,7 +109,12 @@ HTTP webserver bežiaci na mikrokontorléri ESP8266 / ESP32 umožňuje beh nieko
 <li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, aktuálnu a cieľovú teplotu teplotu, hysterézu</li>
 <li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do emulovanej EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
 <li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontróler, iný klient...) v JSON formáte - možno využiť s príkladom JSON klient, ktorý dáta vie odoslať na MQTT Broker, napríklad do domácej automatizácie</li>
-<li>a iné systémové podstránky pre ovládanie výstupu, zmenu režimu</li>
+<hr>
+<b>Rozšírené o HTML stránky v prípadne experimentálnej verzie s manuálnym režimom:</b>
+<li><b>/zap.html</b> - permanentné zapnutie výstupu v manuálnom režime</li>
+<li><b>/vyp.html</b> - permanentné vypnutie výstupu v manuálnom režime</li>
+<li><b>/automat.html</b> - zmena režimu na automatický (používa hysterézu a cieľovú teplotu)</li>
+<li><b>/manual.html</b> - zmena režimu na manuálny (permanentné ovládanie výstupu ZAP / VYP natvrdo)</li>
 <hr>	
 <p style="text-align: justify;">		
 <b>Rozlíšenie senzora DS18B20 pri meraní je 12-bitov, čomu rozpovedá rozlíšenie na 0.0625 °C. Dáta po OneWire zbernici môžu vrátiť do mikrokontroléru po vyžiadaní za 500 až 1000 ms.</b>	
