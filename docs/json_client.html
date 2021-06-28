@@ -86,6 +86,9 @@ MQTT i MQTTS variant využíva socket, ktorý sa používa i pre HTTP request pr
 Existujúci MQTT server môže byť v zdrojových kódoch nahradený za váš a tak môžete dáta z termostatu sprístupniť aj do systémov domácej automatizácie (Hassio, Mosquitto MQTT, Domoticz, Loxone a iné...).
 V aktuálnej programovej implementácii mikrokontróler (JSON klient) odosiela získané dáta na MQTT Broker do topicu termostat, pričom jednotlivé teploty sú odlíšené v subtopicoch.
 </p> 
+<div class="alert alert-success">
+	<h5>Zdrojové kódy pre MQTT / MQTT + JSON klientov sú dostupné na: </h5><a href="https://github.com/martinius96/WiFi-termostat/tree/main/examples">JSON klienti</a>
+</div>
 <div class="alert alert-info">
 <strong>Implementácia pre MQTTS je dostupná iba pre platformy ESP8266, ESP32.</strong> ESP8266 využíva pre šifrované spojenie fingerprint - odtlačok certifikátu MQTT servera (verejného kľúča). 
 ESP32 využíva Root CA certifikát pre šifrované spojenie s MQTT serverom. <b>Šifrovaný port MQTT servera je štandardne 8883, nešifrovaný 1883.</b> 
