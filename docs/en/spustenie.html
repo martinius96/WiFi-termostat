@@ -107,27 +107,27 @@ Therefore, it is tested in advance, compiled for you. The firmware is universal,
 </thead>
 <tbody>
 <tr>
-<td>WiFi_TERMOSTAT</td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP8266/WiFi_TERMOSTAT">WiFi_TERMOSTAT</td>
 <td>Thermostat project. Possibility to set and control domestic heating in automatic mode</td>
 </tr>
 <tr>
-<td>WiFi_TERMOSTAT_mDNS</td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP8266/WiFi_TERMOSTAT_mDNS">WiFi_TERMOSTAT_mDNS</td>
 <td>Thermostat project. Possibility to set and control home heating in automatic mode. mDNS record for the possibility of starting the thermostat on the local domain within the LAN network</td>
 </tr>
 <tr>
-<td>WiFi_TERMOSTAT_MANUAL_experimental</td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP8266/WiFi_TERMOSTAT_MANUAL_experimental">WiFi_TERMOSTAT_MANUAL_experimental</td>
 <td>Thermostat project. Possibility to set and control home heating in automatic mode. Experimental possibility of manual control of SW output by a button from a web server. Automatic / manual mode switching.</td>
 </tr>
 <tr>
-<td>WiFi_TERMOSTAT_OTA</td>
+<td><a href="#"><del>WiFi_TERMOSTAT_OTA</del></td>
 <td>Thermostat project. Possibility to set and control home heating in automatic mode. mDNS record for the possibility of starting the thermostat on the local domain within the LAN network with the possibility of updating the firmware via the Web OTA Updater service.</td>
 </tr>
 </tbody>
 </table>
 	</div></center>
 <p style="text-align: justify;">
-To upload a binary program to the ESP platform, it is necessary to use the ESPTOOL tool.
-For example, the tool also uses the Arduino IDE environment to load the program after compilation, or the development framework from Espressif Systems - ESP-IDF.
+To upload a binary program to the ESP platform, it is necessary to use the ESPTOOL tool that is available as executable .exe application in each firmware folder!
+For example, the ESPTOOL is also used the Arduino IDE environment to load the program after compilation, or the development framework from Espressif Systems - ESP-IDF is using it aswell.
 <b> With the ESP32 platform, it is necessary to hold down the BOOT button or start a pulldown on GPIO 0 until the beginning of the recording process (if the board does not have a BOOT button output).
 An automated - executable .bat script (example for the COM7 port) is prepared in the folder of each firmware, which runs the enclosed ESPTOOL and loads the program with the specific firmware located in the given folder.
 The destination port must be changed based on the COM port on which your board / microcontroller will log in.
