@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  	<meta property="og:title" content="JSON client - WiFi thermostat - MQTT Publish, ArduinoJson, deserialization, data parsing" />
+  	<meta property="og:title" content="JSON client - WiFi thermostat - MQTT Publish, ArduinoJson, deserialization, data parsing with Arduino / ESP8266 / ESP32" />
   	<meta property="og:locale" content="en" />    	
 	<meta name="robots" content="index, follow">
 	<link rel="icon" type="image/png" href="favicon.png">
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
     	<meta name='revisit-after' content='2 days'>
-    	<title>JSON client - WiFi thermostat - MQTT Publish, ArduinoJson, deserialization, data parsing</title>
+    	<titleJSON client - WiFi thermostat - MQTT Publish, ArduinoJson, deserialization, data parsing with Arduino / ESP8266 / ESP32</title>
     	<meta property='fb:admins' content='100001242570317'>
     	<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -86,6 +86,9 @@ Both the MQTT and MQTTS variants use a socket, which is also used for HTTP reque
 The existing MQTT server can be replaced in your source code by yours, so you can also make the data from the thermostat available to home automation systems (Hassio, Mosquitto MQTT, Domoticz, Loxone and others ...).
 In the current software implementation, the microcontroller (JSON client) sends the acquired data to the MQTT Broker in the thermostat topic, while the individual temperatures are differentiated in subtopics.
 </p> 
+<div class="alert alert-success">
+	<h5>Source codes for MQTT / MQTT + JSON clients are available at: </h5><a href="https://github.com/martinius96/WiFi-termostat/tree/main/examples">JSON clients example codes</a>
+</div>	
 <div class="alert alert-info">
 <strong>The implementation for MQTTS is only available for the ESP8266, ESP32 platforms. </strong> ESP8266 uses the fingerprint of the MQTT server certificate (public key) for encrypted connections.
 ESP32 uses a Root CA certificate for encrypted connection to the MQTT server. <b> The encrypted port of the MQTT server is 8883 by default, unencrypted 1883. </b>
