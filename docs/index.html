@@ -193,15 +193,17 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 <center><img src="https://i.imgur.com/iqxV12k.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - JSON output" title="WiFi termostat - JSON output"></center>        		
 
 <b>Výstup do UART monitoru - logika systému + nastavená IP adresa, mDNS záznam:</b>
-<center><img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART" title="WiFi termostat - UART"></center>        		
+<center>
+<img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART - ESP8266 - mDNS záznam" title="WiFi termostat - UART - ESP8266 - mDNS záznam">
+<img src="https://i.imgur.com/rAfC2iJ.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART - ESP32 - výstup - ovládanie kotla" title="WiFi termostat - UART - ESP32 - výstup - ovládanie kotla">
+</center>        		
 <div class="alert alert-info">
-	<b>Rozšírená verzia tohto termostatu obsahuje navyše: </b>
-	<li>Zdrojový kód (.ino)</li>
-	<li>Watchdog timer</li>
-	<li>Dostupné senzory SHT21, SHT31, DHT22, BME280, BMP280 a iné</li>
+	<b>Rozšírená verzia WiFi termostatu obsahuje: </b>
+	<li>Zdrojový kód (.ino) s možnosťou editácie</li>
+	<li>Dostupné senzory SHT21, SHT31, DHT22, BME280, BMP280 pre riadenie kotla</li>
 	<li>Režim chladenia (inverzná logika k termostatu vykurovania)</li>
 	<li>Basic OTA, OTA Web Updater, Elegant remote OTA</li>
-	<li>Možnosť ovládania cez UDP datagramy - callbacky, prostredníctvom UDP clientov (Packet Sender).</li>
+	<li>Možnosť ovládania výstupu cez callbacky volané UDP datagramami prostredníctvom UDP clientov (Packet Sender).</li>
 	<li>Interakcia s Amazon Alexa Echo Dot s možnosťou hlasového ovládania termostatu (UDP callbacky)</li>
 	<li>Možnosť Publishu dát na MQTT Broker / cez HTTP / HTTPS request na vzdialený webserver s uložením dát do MySQL databázy (bez JSON clienta)</li>
 </div>
