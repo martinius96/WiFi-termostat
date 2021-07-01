@@ -76,10 +76,10 @@
 <p style="text-align: justify;">
 JSON klient postavený na platforme Arduino, ESP8266, ESP32 umožňuje pripojenie cez websocket k WiFi termostatu.
 <b>Klient vykonáva cyklický HTTP GET request každých 15 sekúnd pre získanie obsahu podstránky /get_data.json, kde webserver distribuuje dáta o cieľovej teplote, hysteréze a aktuálne nameranej teplote senzorom DS18B20 na OneWire zbernici v JSON formáte.</b>
-Načítaný JSON payload dokáže JSON klient vyparsovať z HTTP response a následne tento reťazec deserializovať.
-Po deserializácii je možné pristupovať k jednotlivým kľúčom, ku ktorým sú priradené hodnoty a tie získať --> vyparsovať.
+Načítaný JSON payload dokáže JSON klient načétať v HTTP response (odpovedi webservera) a následn tento reťazec deserializuje.
+Po deserializácii je možné pristupovať k jednotlivým kľúčom JSON formátu, ku ktorým sú priradené hodnoty a tie vyparsovať.
 Vyparsované dáta sa vypíšu na UART - Sériovú linku - 115200 baud/s.
-V používateľskej aplikácii, ktorá môže byť do existujúcich zdrojových kódov JSON klientov doplnená je možné ovládať entity na základe týchto hodnôt, napríklad: otváranie ventilov radiátorov, solenoid, vetranie, uzavretie okien atď..
+V používateľskej aplikácii, ktorá môže byť do existujúcich zdrojových kódov JSON klientov doplnená je možné ovládať entity na základe týchto hodnôt, napríklad: otváranie ventilov radiátorov, solenoid, vetranie, uzavretie okien pri aktívnom vykurovaní atď..
 Prípadne je možné dáta archivovať - odoslať ich na webserver, kde môžu byť uložené napríklad do MySQL databázy, do Loxone domácej automatizácie.
 <b>Súčasťou firmvéru označeného ako MQTT, respektíve MQTTS (šifrované MQTT) je rozšírený JSON klient o možnosť odosielať - Publishovať na MQTT Broker IoT Industries Slovakia - slovenský free MQTT Broker určený pre vývojárov.</b>
 MQTT i MQTTS variant využíva socket, ktorý sa používa i pre HTTP request pre získanie JSON payloadu.
