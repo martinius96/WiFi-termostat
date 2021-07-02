@@ -156,9 +156,11 @@ V rozhraní je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa
 Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do STA (Station) módu a funguje už v režime termostatu, ktorý je možné plne využívať.
 Zadané údaje o WiFi sieti sú uložené do flash pamäte termostatu a už ich nie je nutné zadávať znova pri opätovnom spustení termostatu, výpadku napájania, reštartu zariadenia.
 V prípade, že daná sieť nie je dostupná, začne ESP opäť vysielať vlastné SSID: <b>WiFi_TERMOSTAT_AP</b> a opätovne je možné zadať prihlasovacie informácie.
-Termostat je dostupný na svojej IP adrese (ktorú vypíše každých 10 sekúnd aj na UART), respektíve aj na lokálnom mDNS --> <b>http://WiFi-termostat.local</b>. Služba mDNS funguje až po pripojení k existujúcej WiFi sieti.
-V momente, kedy termostat vysiela vlastné SSID, nie je možné na zariadenie pristúpiť cez doménové meno. 
-Program funguje na základe schémy zapojenia projektu a logiky z popisu.</b>
+Termostat je dostupný na svojej IP adrese (ktorú vypíše každých 10 sekúnd aj na UART), respektíve aj na lokálnom mDNS --> <b><a href="http://wifi-termostat.local">http://wifi-termostat.local</a></b>. 
+Služba mDNS funguje až po pripojení k existujúcej WiFi sieti. V momente, kedy termostat vysiela vlastné SSID, nie je možné na zariadenie pristúpiť cez doménové meno.
+<b>V operačnom systéme Windows je nutné povoliť mDNS (Multicast DNS), aby bolo možné na doménové meno s postfixom local pristúpiť! 
+V prípade MacOS je možné službu využívať mDNS doménové meno po doinštalovaní aplikácie Bonjour!</b> 
+Program funguje na základe schémy zapojenia projektu a logiky z popisu.
 		</p>
 <center>
 <hr>	
