@@ -87,11 +87,8 @@
 <hr><center><h2>WiFi termostat - ESP8266 / ESP32</h2></center><hr>
 <p style="text-align: justify;">
 Programová implementácia je navrhnutá pre mikrokontrólerové platformy od výrobcu Espressif Systems s WiFi konektivitou. 
-Konkrétne mikrokontróler ESP8266 vo verzii 12E až F využívaný v platformách Wemos D1 Mini, NodeMCU v2, v3.
-<b>Mikrokontroléry ESP8266-01 / ESP8266-01S a podobné standalone čipy pred generáciou 12E nie sú kompatibilné pre projekt z hľadiska nahrávania programu, nakoľko nevyužívajú flash metódu DIO, pre ktorú sú navrhnuté volania nástroja ESPTOOL v projekte, úpravou flash metódy je možné zabezpečiť nahratie firmvéru aj do týchto zariadení.</b>
-Pre mikrokontrolér z rady ESP32 je možné využívať standalone čipy ESP32-WROOM-32 od Espressifu i ekvivalent ESP-32S od AI-Thinker. 
-Kompatibilné sú aj všetky DevKity obsiahnuté s týmito čipmi, sú plné kompatibilné (napríklad DevKit v1 / DevKiTC-v4).
-WiFi termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu.
+Podporované WiFi (2,4 GHz) mikrokontroléry ESP8266 a ESP32.
+WiFi termostat je prístupný z LAN siete v ktorej sa nachádza, pričom je vybavený webovým rozhraním ktoré slúži na konfiguráciu všetkých prvkov termostatu a zároveň pre vizualizáciu aktuálnych stavov.
 Termostat riadi kotol na základe nameranej, cieľovej teploty a hysterézy nezávisle na webaplikácii, ktorá slúži na konfiguráciu a rozhodovací prah termostatu.
 Okrem dostupnosti termostatu na konkrétnej IP adrese je možné termostat doplniť o mDNS záznam, ktorý generuje lokálnu doménu (hostname.local) prístupnú iba v LAN sieti v rámci tejto multicastovej služby. 
 Konfigurácia termostatu (z pohľadu konektivity) na domácu WiFi LAN sieť je zabezpečená prostredníctvom WiFiManagera, ktorý údaje o WiFi sieti (SSID a heslo) ukladá do flash pamäte mikrokontroléru.
