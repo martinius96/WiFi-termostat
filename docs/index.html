@@ -111,7 +111,8 @@ HTTP webserver bežiaci na mikrokontorléri ESP8266 / ESP32 umožňuje beh nieko
 <li><b>/manual.html</b> - zmena režimu na manuálny (permanentné ovládanie výstupu ZAP / VYP natvrdo)</li>
 <hr>	
 <p style="text-align: justify;">		
-<b>Rozlíšenie senzora DS18B20 pri meraní je 12-bitov, čomu rozpovedá rozlíšenie na 0.0625 °C. Dáta po OneWire zbernici môžu vrátiť do mikrokontroléru po vyžiadaní za 500 až 1000 ms.</b>	
+<b>Rozlíšenie senzora DS18B20 pri meraní je 12-bitov, čomu rozpovedá rozlíšenie teploty na 0.0625 °C, čo je zároveň aj minimálny krok medzi rôznými nameranými hodnotami. 
+Dáta po OneWire zbernici môžu vrátiť do mikrokontroléru po vyžiadaní za 500 až 1000 ms v závislosti od počtu senzorov, dĺžky zbernice.</b>	
 Elektromagnetické relé SRD-5VDC-SL-C, ktoré je v projekte použité umožňuje spínať až 10A pri 230V - výkon 2300W. 
 V prípade spínania jednosmerného obvodu (záťaže) je možné spínať 300W (10A pri 30V DC). 
 Prípadne je pre schému zapojenia plne kompatibilné aj SSR relé OMRON G3MB-202P, ktoré je vhodné iba pre neindukčnú záťaž a výhradne pre obvod so striedavým napätím. 
