@@ -136,6 +136,7 @@ Pre nahratie binárneho programu do platformy ESP je potrebné použiť nástroj
 Nástroj využíva napríklad aj prostredie Arduino IDE pre nahratie programu po kompilácii, alebo aj vývojový framework od Espressif Systems - ESP-IDF.
 <b>Pri platforme ESP32 je potrebné do začiatku procesu nahrávania držať tlačidlo BOOT, respektíve urobiť pulldown na GPIO 0 (ak doska nemá BOOT tlačidlo vyvedené).</b>
 V priečinku každého firmvéru je pripravený automatizovaný - spustiteľný .bat script (vzorovo pre port COM7 u ESP8266 a COM17 u ESP32), ktorý spustí priložený ESPTOOL a vykoná nahratie programu s konkrétnym firmvérom, ktorý sa v danej zložke nachádza.
+<hr>
 Cieľový port je nutné pozmeniť na základe COM portu, na ktorom sa prihlási vaša doska / mikrokontróler (možno zistiť cez Správcu periférii a ovládačov, na ktorom COM porte je ESP prihlásené).
 Programová implementácia pre ESP8266 predpokladá, že má doska nahraté základné časti flash pamäte - tabuľka partícii a podobne...
 Binárny program je výlučne aplikáciou termostatu bez ďalších pribalených častí programu.
@@ -157,6 +158,7 @@ Po pripojení na domácu WiFi sieť ESP prestáva vysielať SSID, prepne sa do S
 Zadané údaje o WiFi sieti sú uložené do flash pamäte termostatu a už ich nie je nutné zadávať znova pri opätovnom spustení termostatu, výpadku napájania, reštartu zariadenia.
 V prípade, že daná sieť nie je dostupná, začne ESP opäť vysielať vlastné SSID: <b>WiFi_TERMOSTAT_AP</b> a opätovne je možné zadať prihlasovacie informácie.
 Termostat je dostupný na svojej IP adrese (ktorú vypíše každých 10 sekúnd aj na UART), respektíve aj na lokálnom mDNS --> <b><a href="http://wifi-termostat.local">http://wifi-termostat.local</a></b> za predpokladu, že je použitý mDNS firmvér. 
+<hr>
 Služba mDNS funguje až po pripojení k existujúcej WiFi sieti. V momente, kedy termostat vysiela vlastné SSID, nie je možné na zariadenie pristúpiť cez doménové meno.
 <b>V operačnom systéme Windows je nutné povoliť mDNS (Multicast DNS), aby bolo možné na doménové meno s postfixom local pristúpiť! 
 V prípade MacOS je možné službu využívať mDNS doménové meno po doinštalovaní aplikácie Bonjour!</b> 
