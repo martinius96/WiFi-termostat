@@ -117,14 +117,15 @@ Elektromagnetické relé SRD-5VDC-SL-C, ktoré je v projekte použité umožňuj
 V prípade spínania jednosmerného obvodu (záťaže) je možné spínať 300W (10A pri 30V DC). 
 Prípadne je pre schému zapojenia plne kompatibilné aj SSR relé OMRON G3MB-202P, ktoré je vhodné iba pre neindukčnú záťaž a výhradne pre obvod so striedavým napätím. 
 Maximálny spínaný výkon 460W (230V, 2A). <b>Termostat je možné používať celoročne. V prípade nepotrebného riadenia je možné výstup fyzicky odpojiť a termostat využívať ako WiFi teplomer pre zisk dát z miestnosti, kde sa nachádza.</b>
+</p>
 <hr>
+<p style="text-align: justify;">
 V prípade firmvéru s podporou manuálneho ovládania GPIO výstupu mikrokontroléru ESP je možné termostat fyzicky vypnúť bez nutnosti jeho odpojenia zo svorkovnice relé. 
 Logika termostatu sa vykonáva každých 10 sekúnd nezávisle na webserveri a pripojených klientoch, nevyžaduje sa keep-alive spojenie pre jej vykonanie. 
 Vždy pri vykonaní logiky vypíše na UART termostat aj informáciu o aktuálnej IP adrese, respektíve aj mDNS zázname (ak sa s mDNS firmvér používa) a dá tak používateľovi informáciu, kde v LAN sieti je termostat dosiahnuteľný so svojim webovým rozhraním.
 Okrem toho vypíše aj dynamickú voľnú pamäť - HEAP, ktorá sa pohybuje na úrovni 40 až 44kB a taktiež aj aktuálny stav výstupu s oznámením zmeny ak k nej dôjde --> (ak pretečie rozhodovací threshold do + respektíve do -).
 <b>3V3 operačná logika GPIO mikrokontrolérov ESP8266 a ESP32 postačuje pre digitálny signál zmeny, relé však musí byť napájané na 5V z VUSB, respektíve VIN.</b>
 </p>
-
 <b>Webové rozhranie pre WiFi termostat umožňuje:</b>
 <li>Prehliadať v reálnom čase teplotu zo senzora DS18B20, uptime zariadenia, hodnotu výstupu s dynamickou zmenou, aktuálne nastavené konfiguračné údaje pre termostat t.j. cieľovú teplotu a hysterézu</li>
 <li>Modifikovať cieľovú (referenčnú) teplotu <del>v rozsahu 5 až 50 °C s 0,25 °C krokom</del></li>
@@ -150,13 +151,17 @@ Aby ostali nastavené hodnoty termostatu zachované aj po výpadku napájania, s
 Referenčná teplota na offset 10, hysteréza na offset 100. Každá z hodnôt zaberá maximálne 5B v EEPROM pamäti + ukončovací znak. 
 Dáta sa prepisujú iba pri odoslaní HTML formulára, prevádzka termostatu je tak maximálne šetrná k EEPROM pamäti pre jej maximálnu trvácnosť. 
 Stav výstupu existuje iba v RAM pamäti, neukladá sa do flash pamäte.
+</p>
 <hr>
+<p style="text-align: justify;">
 V prípade, že zariadenie pri prvom spustení nemá nič uložené na spomenutých EEPROM offsetoch, vykoná sa automatický zápis s predvolenými hodnotami - referencia: 20.25 °C, hysteréza 0.00 °C, tzv. fail-safe riešenie.
 ESP8266 a ESP32 pre prácu s EEPROM pamäťou využíva funkcie EEPROM.put() v spojitosti s EEPROM.commit() a pre čítanie dát z EEPROM EEPROM.get(), ktoré podporujú akýkoľvek dátový typ, v tomto prípade je použitý dátový typ float() 32-bit pre uloženie každej riadiacej hodnoty.
 Prostredníctvom meta tagu Refresh vykonáva webserver obnovu celej stránky každých 30 sekúnd a prostredníctvom Javascriptu sa vypisuje do HTML stránky aj orientačný čas do refreshu. 
 Do tohto času je potrebné stihnúť zapísať zmenu pre termostat, inak sa input okná pre číselné vstupy do formulára resetujú pri obnovení stránky. 
 Nakoľko built-in knižnica Ethernet neobsahuje využitie asynchrónneho webservera (ktorý je možné využiť napríklad u mikrokontrolérov Espressif ESP8266 / ESP32), je nutné prepisovať celú stránku. 
+</p>
 <hr>
+<p style="text-align: justify;">
 Dynamický údaj, ktorý sa predovšetkým mení je aktuálna hodnota výstupu - <b><font color="#27AE60">Zapnutý</font></b> / <b><font color="red">Vypnutý</font></b>, ktorý informuje prevádzkovateľa o skutočnom stave výstupu spoločne aj s farebným označením. 
 Nakoľko sa logika systému  vykonáva nezávisle na webserveri, do refreshu môže už byť výstup v inom stave, ako aktuálne vypísanom vo webaplikácii. Zmena výstupu je ihneď vypísaná napríklad na UART monitor.
 Na webovej stránke termostatu nájde používateľ aj informácie o uptime zariadenia (ako dlho beží), t.j. čas v dňoch, hodinách, minútach a sekundách. <b>Termostat je určený iba pre interiérové teploty!</b> (nad 0°C), čomu je prispôsobená aj logika systému! 
