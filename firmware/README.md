@@ -1,7 +1,7 @@
 # Inštrukcie - WiFi termostat firmvér
 * Popis funkcií jednotlivých firmvérov nájdete na: https://martinius96.github.io/WiFi-termostat/spustenie.html
 * Každá zložka firmvéru obsahuje nástroj esptool.exe a .bat súbor pre automatizované nahratie firmvéru do mikrokontroléru ESP8266 / ESP32
-* **V .bat súbore je nutné zmeniť COM port (vzorovo nastavený pre COM3)**
+* **V .bat súbore je nutné zmeniť COM port (vzorovo nastavený pre COM7 v ESP8266 firmvér, resp. COM17 pre ESP32 firmvér)**
 * Aktuálny port, kde je prihlásený mikrokontróler nájdete v Správcovi zariadení
 * Zariadenie je najčastejšie označené ako CH340 device, alebo CP210X v závislosti od použitého USB-UART prevodníka
 * Po nahratí firmvéru sa okno príkazového riadku (CLI) automaticky zatvorí a firmvér je pripravený na použitie
