@@ -6,7 +6,7 @@
 * Zariadenie je najčastejšie označené ako CH340 device, alebo CP210X v závislosti od použitého USB-UART prevodníka
 * Po nahratí firmvéru sa okno príkazového riadku (CLI) automaticky zatvorí a firmvér je pripravený na použitie
 * Pri nahrávaní do mikrokontroléru ESP32 je často nutné prepnúť mikrokontróler do Upload režimu držaním tlačidla BOOT, respektíve privedením GND na GPIO0
-
+![ESP8266 / ESP32 COM port](https://i.imgur.com/M0U6HkC.png)
 # Konfigurácia WiFi termostatu - WiFi Manager
 * Po úspešnom nahratí binárneho programu - firmvéru je termostat plne pripravený na prevádzku.
 * V prípade, že vo flash pamäti nemá uložené mikrokontróler údaje o WiFi sieti, začne vysielať vlastné SSID - WiFi_TERMOSTAT_AP. 
