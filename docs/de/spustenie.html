@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>Firmware-Upload - WiFi-Thermostat - ESP8266 / ESP32 - Kesselsteuerung</title>
+	<meta name="description" content="Anleitung zum Hochladen - Hochladen der Firmware des WiFi-Thermostat-Projekts auf die WiFi-Mikrocontroller ESP8266 und ESP32.">
+	<meta name="keywords" content="thermostat, digital, arduino ide, wemos d1 mini, nodemcu, wifi, esp8266, heizung, heizung, webserver, steckdose, http, web, ip, ipv4, ds18b20, onewire, 1-wire">
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/WiFi-termostat/de/spustenie.html">
+	<meta property="og:title" content="Firmware-Upload - WiFi-Thermostat - ESP8266 / ESP32 - Kesselsteuerung">
+	<meta property="og:description" content="Anleitung zum Hochladen - Hochladen der Firmware des WiFi-Thermostat-Projekts auf die WiFi-Mikrocontroller ESP8266 und ESP32.">
+	<meta property="og:image" content="">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/WiFi-termostat/de/spustenie.html">
+	<meta property="twitter:title" content="Firmware-Upload - WiFi-Thermostat - ESP8266 / ESP32 - Kesselsteuerung">
+	<meta property="twitter:description" content="Anleitung zum Hochladen - Hochladen der Firmware des WiFi-Thermostat-Projekts auf die WiFi-Mikrocontroller ESP8266 und ESP32.">
+	<meta property="twitter:image" content="">
+	
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>  
+	<style>
+	table td {
+  border: 1px solid black;
+}	table th {
+  border: 1px solid black;
+}
+	#right {
+  position: absolute;
+  right: 0px;
+}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">WiFi Thermostat</a>
+    </div>
+    <ul class="nav navbar-nav">
+      	<li class=""><a href="index.html">Überblick</a></li>
+	<li><a href="zapojenie.html">Beteiligung</a></li>      
+	<li class="active"><a href="spustenie.html">WLAN-Thermostat starten</a></li>
+  <li><a href="json_client.html">JSON-Client</a></li>
+      	<li><a href="kontakt.html">Kontakt</a></li>
+<a href="../en/spustenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<li style="float: right; "><a href="https://martinius96.github.io/termostat-ethernet/" class="btn btn-danger" role="button" title="Ändern Sie das Projekt in einen Ethernet-Thermostat"><img src="https://www.flaticon.com/svg/static/icons/svg/908/908547.svg" width=16px height=16px> <font color="white">Ethernet-Thermostat</font></a></li>  </ul>
+  </div>
+</nav>  
+				<div class="alert alert-success">
+					<strong>Repository-Projekt - Github: </strong><a href="https://github.com/martinius96/WiFi-termostat">WLAN-Thermostat</a>
+				</div>	
+<span class="label label-default">ESP8266</span>
+<span class="label label-primary">ESP32</span>
+<span class="label label-success">WiFi</span>
+<span class="label label-info">DS18B20</span>
+<span class="label label-warning">OneWire</span>
+<span class="label label-danger">Dallas</span>
+<span class="label label-default">HTML</span>
+<span class="label label-primary">Webserver</span>
+<span class="label label-success">WebSocket</span>
+<span class="label label-info">JSON</span>
+<span class="label label-warning">mDNS</span>	
+<span class="label label-danger">UART</span>				
+<hr><center><h2>Start des WiFi-Thermostat-Projekts - ESP8266 / ESP32</h2></center><hr>
+<p style="text-align: justify;">
+Das WiFi-Thermostat-Projekt existiert in mehreren Versionen, die auf Githube im Repository des gesamten Projekts verfügbar sind.
+Die Versionen unterscheiden sich in der Funktionalität nur in der Möglichkeit des Zugriffs auf den WiFi-Thermostat über einen Domänennamen im mDNS-Dienst und in der Möglichkeit des manuellen Ausgangssteuerungsmodus - GPIO.
+Die Firmware liegt in kompilierter - binärer Form vor, die für die Zielplattform ausführbar ist.
+Somit ist es vorgetestet und für die Zielplattform getestet.
+Die Firmware ist universell, was garantiert, dass sie mit dem geklonten Binärprogramm auf allen Mikrocontrollern gleich funktioniert.
+Die Zugangsdaten zum WiFi-Netzwerk werden im ESP32-Speicher gespeichert, Sie müssen ihn nur einmal konfigurieren, wenn der Datensatz nicht bereits aus früheren Projekten gespeichert wurde.
+<div class="alert alert-danger">
+	<b>Die kostenlose Version ist nur in Form eines kompilierten Binärprogramms ohne Zugriff auf eine im .ino-Format geschriebene Anwendung verfügbar.</b>
+</div>	
+</p>
+<hr><center><h2>Firmware-Verteilung basierend auf unterstützten WiFi-Plattformen</h2></center><hr>
+<li><b>ESP8266</b> - Zielplattform mit ESP8266-Chip in den Versionen 12E bis 12F (zB Wemos D1 Mini, NodeMCU) - (konditioniert durch DIO-Flash-Methode)</li>
+<li><b>ESP32</b> - Zielplattform mit ESP-32S-Chip (AI-Thinker), ESP-WROOM32 (Espressif Systems) - (konditioniert durch DIO-Flash-Methode)</li>
+<hr><center><h2>Firmwareverteilung nach Funktion</h2></center><hr>
+			<center>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th>Der Name des Firmware-Ordners</th>
+<th>Firmware-Funktionen</th>
+<th>ESP8266</th>
+<th>ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>WiFi_TERMOSTAT</b></td>
+<td>Thermostat mit der Möglichkeit, die Solltemperatur und Hysterese über ein Webinterface einzustellen, automatisch gesteuert</td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP8266/WiFi_TERMOSTAT" class="btn btn-success" role="button">ESP8266 Firmware</a></td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP32/WiFi_TERMOSTAT" class="btn btn-danger" role="button">ESP32 Firmware</a></td>
+</tr>
+<tr>
+<td><b>WiFi_TERMOSTAT_mDNS</b></td>
+<td>Thermostat mit der Möglichkeit, die Solltemperatur und Hysterese über ein Webinterface einzustellen, automatisch gesteuert. Möglichkeit zur Verwendung des Domainnamens im LAN-Netzwerk (mDNS-Record)</td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP8266/WiFi_TERMOSTAT_mDNS" class="btn btn-success" role="button">ESP8266 Firmware</a></td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP32/WiFi_Termostat_mDNS" class="btn btn-danger" role="button">ESP32 Firmware</a></td>
+</tr>
+<tr>
+<td><b>WiFi_TERMOSTAT_MANUAL_experimental</b></td>
+<td>Thermostat mit der Möglichkeit, die Solltemperatur und Hysterese über ein Webinterface einzustellen, automatisch gesteuert. Experimentelle Möglichkeit der manuellen Steuerung der SW-Ausgabe durch eine Schaltfläche von einem Webserver. Umschalten der Heizungssteuerungsmodi automatisch / manuell.</td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP8266/WiFi_TERMOSTAT_MANUAL_experimental" class="btn btn-success" role="button">ESP8266 Firmware</a></td>
+<td><a href="https://github.com/martinius96/WiFi-termostat/tree/main/firmware/ESP32/WiFi_TERMOSTAT_MANUAL_experimental" class="btn btn-danger" role="button">ESP32 Firmware</a></td>
+</tr>
+</tbody>
+</table>
+	</div></center>
+<p style="text-align: justify;">
+Um ein Binärprogramm auf die ESP-Plattform hochzuladen, muss das ESPTOOL-Tool verwendet werden.
+Das Tool verwendet beispielsweise auch die Arduino IDE-Umgebung zum Hochladen eines Programms nach der Kompilierung oder das Entwicklungsframework von Espressif Systems - ESP-IDF.
+<b> Bei der ESP32-Plattform ist es erforderlich, die BOOT-Taste bis zum Beginn des Aufnahmevorgangs gedrückt zu halten oder einen Pulldown auf GPIO 0 durchzuführen (wenn das Board keinen BOOT-Tastenausgang hat). </b>
+Im Ordner jeder Firmware befindet sich ein automatisch ausführbares .bat-Skript (Beispiel für den COM7-Port für ESP8266 und COM17 für ESP32), das das beiliegende ESPTOOL startet und das Programm mit der im angegebenen Ordner befindlichen spezifischen Firmware lädt.
+<hr>
+Der Zielport muss entsprechend dem COM-Port geändert werden, an dem sich Ihr Board / Mikrocontroller anmeldet (kann über den Peripherals and Drivers Manager herausfinden, an welchem ​​COM-Port der ESP angemeldet ist).
+Die Programmimplementierung für ESP8266 geht davon aus, dass das Board die grundlegenden Teile des Flash-Speichers geladen hat - die Partitionstabelle und dergleichen ...
+Das Binärprogramm ist ausschließlich eine Thermostatanwendung ohne andere gebündelte Teile des Programms.
+Nach dem Laden des Programms schließt sich das ESPTOOL-Programmfenster automatisch und führt einen Software-Neustart der ESP-Plattform durch, die dann die neue Firmware bootet und den WiFi-Thermostat für die Verwendung vorbereitet.
+Die Firmware für ESP32 enthält außerdem eine Partitionstabelle, die auf Offset 0x8000 geschrieben wird, der Bootloader auf Offset 0x1000. Die Firmware selbst wird auf den Standard-Offset 0x10000 geschrieben.
+</p>				
+<center>
+	<img src="https://i.imgur.com/Nz4Uryz.png" style="display: block; max-width: 100%; height: auto;" alt="XLoader - Arduino - AVRDUDE - Termostat - Ethernet" title="XLoader - Arduino - AVRDUDE - Termostat - Ethernet">	
+</center>
+<b>Nach erfolgreichem Laden des Binärprogramms - Firmware ist der Thermostat voll betriebsbereit.</b> 
+<p style="text-align: justify;">
+Wenn sein Flash-Speicher keine Daten für ein vorhandenes WiFi-Netzwerk speichert (z. B. von einer zuvor aufgezeichneten Skizze), beginnt er mit der Übertragung seiner eigenen SSID - <b> WiFi_TERMOSTAT_AP </b>.
+Nach der Verbindung zu einem WiFi-Netzwerk mit einem Smartphone / Computer steht unter <b> 192.168.4.1 </b> die WiFi Manager-Weboberfläche zur Verfügung, die die Möglichkeit bietet, einen WiFi-Thermostat für Ihr WiFi-Heimnetzwerk zu konfigurieren.
+In der Benutzeroberfläche ist es möglich, den Namen und das Passwort des bestehenden WiFi-Netzwerks einzugeben, mit dem sich der WiFi-Thermostat verbindet.
+<div class="alert alert-danger">
+<strong>Die Thermostatfunktion wird erst nach Anschluss des ESP8266 / ESP32 Mikrocontrollers an Ihr LAN gestartet! Nachdem Sie eine IP-Adresse für die Konnektivität in Ihrem Netzwerk zugewiesen haben.</strong>
+</div>	
+Nach der Verbindung mit dem heimischen WiFi-Netzwerk stoppt der ESP die Übertragung der SSID, wechselt in den STA (Station)-Modus und arbeitet bereits im Thermostat-Modus, der vollständig genutzt werden kann.
+Die eingegebenen Daten über das WLAN-Netzwerk werden im Flash-Speicher des Thermostats gespeichert und müssen bei Neustart des Thermostats, Stromausfall, Geräteneustart nicht mehr neu eingegeben werden.
+Wenn das Netzwerk nicht verfügbar ist, sendet ESP erneut seine eigene SSID: <b> WiFi_TERMOSTAT_AP </b> und die Anmeldeinformationen können erneut eingegeben werden.
+Der Thermostat ist über seine IP-Adresse (die er alle 10 Sekunden auch auf dem UART druckt) oder auf dem lokalen mDNS verfügbar --> <b><a href="http://wifi-termostat.local">http://wifi-termostat.local</a></b> sofern die mDNS-Firmware verwendet wird. 
+<hr>
+Der mDNS-Dienst funktioniert nur, wenn er mit einem bestehenden WLAN-Netzwerk verbunden ist. In dem Moment, in dem der Thermostat seine eigene SSID übermittelt, ist es nicht möglich, über einen Domainnamen auf das Gerät zuzugreifen.
+<b> Unter Windows müssen Sie Multicast DNS (mDNS) aktivieren, um auf den lokalen Postfix-Domänennamen zuzugreifen!
+Unter MacOS kann der Dienst nach der Installation von Bonjour den mDNS-Domainnamen verwenden! </b>
+Das Programm arbeitet auf Basis des Projektschaltplans und der Logik aus der Beschreibung.
+		</p>
+<center>
+<hr>	
+<h4>WLAN-Netzwerkthermostat im AP-Modus - Windows Client</h4>	
+	<hr>
+	<img src="https://i.imgur.com/cJb6DR9.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť" title="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť">	
+<hr>	
+<h4>WLAN-Netzwerkthermostat im AP-Modus - Android Client</h4>	
+<hr>	
+<img src="https://i.imgur.com/iZ0JoSY.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti" title="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti">	
+<hr>	
+<h4>WLAN-Thermostatnetzwerk im AP-Modus - Captive Portal - Umleitung zur Konfigurationsseite des WLAN-Managers</h4>	
+<hr>	
+<img src="https://i.imgur.com/s9ubg0n.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Captive Portal" title="WiFi termostat - ESP8266 AP - Captive Portal">	
+<hr>	
+<h4>WiFi Manager - WiFi-Netzwerkkonfiguration - Hauptmenü - WiFi-Thermostat</h4>
+<hr>	
+<img src="https://i.imgur.com/2oizcO6.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
+<hr>
+<h4>WiFi Manager - Auswahl des WiFi-Netzwerks mit Signalstärke - RSSI - Passworteinstellung</h4>
+<hr>	
+<img src="https://i.imgur.com/fbBasd2.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
+<hr>
+<h4>WiFi-Thermostat - HTTP-Webserver - Funktionsthermostat nach Verbindung mit dem LAN-Netzwerk</h4>
+<hr>		
+<img src="https://i.imgur.com/nxVXgWU.png" style="display: block; max-width: 100%; height: auto;" alt="Fungujúci WiFi termostat na IP adrese v lokálnej WiFi sieti" title="Fungujúci WiFi termostat na IP adrese v lokálnej WiFi sieti">
+<hr>
+<h4>WiFi Manager - UART-Ausgang - Systeminformationen und Logikliste</h4>
+<hr>
+<img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - UART výpis - logika systému - ovládanie kotla, pridelená IP adresa v domácej LAN sieti" title="ESP - WiFi termostat - UART výpis - logika systému - ovládanie kotla, pridelená IP adresa v domácej LAN sieti">
+</center>
+	<hr>
+	</div>
+		</div>
+</div>
+</body>
+</html>
