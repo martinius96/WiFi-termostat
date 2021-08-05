@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+<head>
+	<!-- Primary Meta Tags -->
+	<title>WiFi-Thermostat - ESP8266 - ESP32 - Verbindung</title>
+	<meta name="title" content="WiFi-Thermostat - ESP8266 - ESP32 - Verbindung">
+	<meta name="description" content="WiFi-Thermostat entwickelt auf der Espressif-Plattform - ESP8266, ESP32. Anschluss des Dallas DS18B20 Temperatursensors an den OneWire Bus und ein Relais zur Steuerung des Gaskessels.">
+	<meta name="keywords" content="Termostat, digitálny, arduino ide, wemos d1 mini, nodemcu, wifi, esp8266, vykurovanie, kúrenie, webserver, socket, http, web, ip, ipv4, ds18b20, onewire, 1-wire, zapojenie, schéma, elektrotechnika">
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://martinius96.github.io/WiFi-termostat/de/zapojenie.html">
+	<meta property="og:title" content="WiFi-Thermostat - ESP8266 - ESP32 - Verbindung">
+	<meta property="og:description" content="WiFi-Thermostat entwickelt auf der Espressif-Plattform - ESP8266, ESP32. Anschluss des Dallas DS18B20 Temperatursensors an den OneWire Bus und ein Relais zur Steuerung des Gaskessels.">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://martinius96.github.io/WiFi-termostat/de/zapojenie.html">
+	<meta property="twitter:title" content="WiFi-Thermostat - ESP8266 - ESP32 - Verbindung">
+	<meta property="twitter:description" content="WiFi-Thermostat entwickelt auf der Espressif-Plattform - ESP8266, ESP32. Anschluss des Dallas DS18B20 Temperatursensors an den OneWire Bus und ein Relais zur Steuerung des Gaskessels.">
+	
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />
+	<meta name="google-site-verification" content="UwZZh2EXv3iWUAi_1Z0hLxVCz6ySJ4UdY_BPoLtejwo" />    	
+	<meta property='fb:admins' content='100001242570317'>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+    		window.smartlook||(function(d) {
+    			var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+    			var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+    			c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
+    		})(document);
+    		smartlook('init', 'db50efe9fff280a17db52b82be221240cbbd3dbe');
+	</script>  
+	<style>
+	#right {
+  position: absolute;
+  right: 0px;
+}
+	</style>
+</head>
+<body>
+	<div class="container">
+  		<div class="row">
+    			<div class="col-sm-12">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">WiFi Thermostat</a>
+    </div>
+    <ul class="nav navbar-nav">
+      	<li><a href="index.html">Überblick</a></li>
+	<li class="active"><a href="zapojenie.html">Beteiligung</a></li>      
+	<li class=""><a href="spustenie.html">WLAN-Thermostat starten</a></li>
+  <li><a href="json_client.html">JSON-Client</a></li>
+      	<li><a href="kontakt.html">Kontakt</a></li>
+<a href="../en/zapojenie.html"><img src="https://www.flaticon.com/svg/static/icons/svg/299/299688.svg" alt="English.png, 2,2kB" title="English" height="32" width="32"></a>
+<li style="float: right; "><a href="https://martinius96.github.io/termostat-ethernet/" class="btn btn-danger" role="button" title="Ändern Sie das Projekt in einen Ethernet-Thermostat"><img src="https://www.flaticon.com/svg/static/icons/svg/908/908547.svg" width=16px height=16px> <font color="white">Ethernet-Thermostat</font></a></li>
+	  </ul>
+  </div>
+</nav>  
+<div class="alert alert-success">
+	<strong>Repository-Projekt - Github: </strong><a href="https://github.com/martinius96/WiFi-termostat/">WiFi Thermostat</a>
+</div>	
+<span class="label label-default">ESP8266</span>
+<span class="label label-primary">ESP32</span>
+<span class="label label-success">WiFi</span>
+<span class="label label-info">DS18B20</span>
+<span class="label label-warning">OneWire</span>
+<span class="label label-danger">Dallas</span>
+<span class="label label-default">HTML</span>
+<span class="label label-primary">Webserver</span>
+<span class="label label-success">WebSocket</span>
+<span class="label label-info">JSON</span>
+<span class="label label-warning">mDNS</span>	
+<span class="label label-danger">UART</span>									
+  <div class="row">
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/sMrQ8Es.png" width="128px" height="128px" style="border-radius: 50%;" alt="DS18B20 Temperatursensor im TO-92 Gehäuse" title="DS18B20 Temperatursensor im TO-92 Gehäuse"><br><b>Dallas DS18B20 - Gehäuse TO-92</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/FNWTjFE.png" width="128px" height="128px" style="border-radius: 50%;" alt="Temperatursensor DS18B20 - wasserdichte Ausführung" title="Temperatursensor DS18B20 - wasserdichte Ausführung"><br><b>Dallas DS18B20 - Außendesign</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/eMp0SSr.png" width="128px" height="128px" style="border-radius: 50%;" alt="SSR Relais OMRON G3MB-202P" title="SSR relé OMRON G3MB-202P"><br><b>SSR Relais OMRON G3MB-202P</b></center></div>
+  <div class="col-sm-3"><center><img src="https://i.imgur.com/cqaEQJ7.png" width="128px" height="128px" style="border-radius: 50%;" alt="Elektromagnetische Relais SRD-05VDC-SL-C" title="Elektromagnetische Relais SRD-05VDC-SL-C"><br><b>Elm. Relais SRD-05VDC-SL-C</b></center></div>
+</div>					
+<h3>Pinbelegung des DS18B20 Sensors im TO-92 Gehäuse oder in einer Wassertestversion</h3>				
+<center><img src="https://i.imgur.com/IeVkEgU.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Pinout OneWire senzora DS18B20" title="WiFi termostat - Pinout OneWire senzora DS18B20"></center>								
+<hr>
+<center><h2>ESP8266 (ESP8266-12E, NodeMCU, Wemos D1 Mini)</h2></center>
+<hr>
+<h3>Tabellenanschluss der Klemmen - ESP8266</h3>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<td align="left" style="background-color:#27AE60"><strong>ESP8266</strong></td>
+<td align="right" style="background-color:#27AE60"><strong>Relais</strong></td>
+</tr>
+<tr>
+<td align="left" style="background-color:#27AE60">GND</td>
+<td align="right" style="background-color:#27AE60">GND</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#27AE60">VIN / VUSB (Abhängig vom Netzteil)</td>
+<td align="right" style="background-color:#27AE60">Vcc</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#27AE60">D2 (GPIO 4)</td>
+<td align="right" style="background-color:#27AE60">IO</td>
+</tr>	
+<tr>
+<td align="left" style="background-color:#C0392B"><strong>ESP8266</strong></td>
+<td align="right" style="background-color:#C0392B"><strong>DS18B20</strong></td>
+</tr>
+<tr>
+<td align="left" style="background-color:#C0392B">GND</td>
+<td align="right" style="background-color:#C0392B">GND</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#C0392B">3V3</td>
+<td align="right" style="background-color:#C0392B">Vcc (PIO)</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#C0392B">D1 (GPIO 5)</td>
+<td align="right" style="background-color:#C0392B">DATA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Schaltplan - WiFi-Thermostat - ESP8266 (NodeMCU, Wemos D1 Mini):</h2>
+<img src="https://i.imgur.com/hFl5T8e.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Schéma zapojenia - plynové kúrenie" title="WiFi termostat - Schéma zapojenia - plynové kúrenie">        			
+<h2>Connected WiFi Thermostat - Development Kit NodeMCU v3 Lolin v mit Sensor DS18B20 auf OneWire Bus über Steckbrett:</h2>
+<img src="https://i.imgur.com/k82TGwg.jpg" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Zapojenie cez breadboard" title="WiFi termostat - Zapojenie cez breadboard"> 	
+<hr>
+<center><h2>ESP32 (WROOM-32, DevKit V1, DevKitC V4)</h2></center>
+<hr>				
+<h3>Tabellenanschluss der Klemmen - ESP32</h3>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<td align="left" style="background-color:#27AE60"><strong>ESP32</strong></td>
+<td align="right" style="background-color:#27AE60"><strong>Relais</strong></td>
+</tr>
+<tr>
+<td align="left" style="background-color:#27AE60">GND</td>
+<td align="right" style="background-color:#27AE60">GND</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#27AE60">VIN</td>
+<td align="right" style="background-color:#27AE60">Vcc</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#27AE60">D22 (GPIO 22)</td>
+<td align="right" style="background-color:#27AE60">IO</td>
+</tr>	
+<tr>
+<td align="left" style="background-color:#C0392B"><strong>ESP32</strong></td>
+<td align="right" style="background-color:#C0392B"><strong>DS18B20</strong></td>
+</tr>
+<tr>
+<td align="left" style="background-color:#C0392B">GND</td>
+<td align="right" style="background-color:#C0392B">GND</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#C0392B">3V3</td>
+<td align="right" style="background-color:#C0392B">Vcc (PIO)</td>
+</tr>
+<tr>
+<td align="left" style="background-color:#C0392B">D23 (GPIO 23)</td>
+<td align="right" style="background-color:#C0392B">DATA</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2>Schaltplan - WiFi-Thermostat - ESP32 (DevKit):</h2>
+<img src="https://i.imgur.com/PtMinUm.png" style="display: block; max-width: 100%; height: auto;" alt="Elektrotechnická schéma zapojenia pre WiFi termostat - platforma ESP32" title="Elektrotechnická schéma zapojenia pre WiFi termostat - platforma ESP32"> 		  			
+<h2>Connected WiFi Thermostat - Entwicklungskit ESP32 Devkit V1 mit Sensor DS18B20, SSR-Relais OMRON G3MB-202P:</h2>
+<img src="https://i.imgur.com/cShsCEl.jpeg" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Zapojenie cez breadboard - SSR relé OMRON G3MB-202P, OneWire DS18B20, ESP32" title="WiFi termostat - Zapojenie cez breadboard - SSR relé OMRON G3MB-202P, OneWire DS18B20, ESP32"> 					
+<h2> Die folgenden Thermostattypen können ersetzt werden: </h2>
+<li>WLAN-Thermostat kann anstelle eines bestehenden Raumthermostats mit COM- und NO-Kontakt ohne Verbindungsänderung integriert werden. </li>
+<li>Nach Anschluss des Kessels an die COM- und NO-Kontakte kann dieser sofort verwendet und mit den eingestellten Daten im Webinterface gesteuert werden. </li>
+<b> Thermostate während des Testlaufs des WLAN-Thermostats ausgetauscht: - <font color = "red"> von Thermostatbenutzern gemeldet </font> </b>
+<li>EMOS Thermo</li>
+<li>SALUS 091FL</li>
+<li>EBERLE 525</li>
+<li>HONEYWELL CM27</li>
+<li>TECH CS-296</li>
+			</div>
+		</div>
+</div>
+</body>
+</html>
