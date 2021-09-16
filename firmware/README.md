@@ -18,6 +18,9 @@
 * Po pripojení smartfónom / počítačom do tejto WiFi siete je na adrese 192.168.4.1 dostupné webové rozhranie WiFi Manager
 * Rozhranie poskytuje možnosť konfigurácie WiFi termostatu pre vašu domácu WiFi sieť. 
 * V rozhraní je možné zadať meno a heslo existujúcej WiFi siete, na ktorú sa WiFi termostat pripojí.
+<p align="center">
+  <img src="https://i.imgur.com/cJb6DR9.png" />
+</p>
 
 # Aktivita WiFi termostatu
 * Funkcia termostatu je spustená až po pripojení ESP mikrokontroléru do vašej LAN siete! 
@@ -27,3 +30,6 @@
 * V prípade, že daná sieť nie je dostupná, začne ESP opäť vysielať vlastné SSID: WiFi_TERMOSTAT_AP a opätovne je možné zadať prihlasovacie informácie. 
 * Termostat je dostupný na svojej IP adrese (ktorú vypíše každých 10 sekúnd aj na UART), respektíve aj na lokálnom mDNS --> http://WiFi-termostat.local - iba mDNS firmvér
 * Služba mDNS funguje až po pripojení k existujúcej WiFi sieti (nefunguje teda pri režime AP s WiFi Managerom). 
+<p align="center">
+  <img src="https://i.imgur.com/f1mF6Fk.png" />
+</p>
