@@ -162,7 +162,7 @@ Da die eingebaute Ethernet-Bibliothek die Verwendung eines asynchronen Webserver
 </p>
 <hr>
 <p style="text-align: justify;">
-Die sich hauptsächlich ändernden dynamischen Daten sind der aktuelle Wert der Ausgabe - <b> <font color = "# 27AE60"> Zapnutý (ON) </font> </b> / <b> <font color = "red"> Vypnutý (OFF) </font> </b>, die den Bediener über den aktuellen Zustand der Ausgabe zusammen mit der Farbcodierung informiert.
+Die sich hauptsächlich ändernden dynamischen Daten sind der aktuelle Wert der Ausgabe - <b> <font color = "#27AE60"> EIN </font> </b> / <b> <font color = "red"> AUS </font> </b>, die den Bediener über den aktuellen Zustand der Ausgabe zusammen mit der Farbcodierung informiert.
 Da die Systemlogik unabhängig vom Webserver ausgeführt wird, kann sich die Ausgabe bereits in einem anderen Zustand befinden als aktuell in der Webanwendung aufgelistet. Die Ausgabeänderung wird z. B. sofort auf den UART-Monitor geschrieben.
 Auf der Website des Thermostats findet der Benutzer auch Informationen über die Betriebszeit des Geräts (wie lange es in Betrieb war), d. Zeit in Tagen, Stunden, Minuten und Sekunden. <b>Der Thermostat ist nur für Innentemperaturen gedacht!</b> (über 0°C), an die die Systemlogik angepasst ist!
 Der Thermostat kann verwendet werden, um einen vorhandenen Raumthermostat zu ersetzen, die Heizung im Aquarium / Terrarium kann vorübergehend ersetzt werden, um eine konstante Temperatur zu halten.
@@ -173,15 +173,16 @@ Der Thermostat kann verwendet werden, um einen vorhandenen Raumthermostat zu ers
 <b> Hauptseite zur Änderung der Zieltemperatur und der Hysterese - Demo auf: </b>
 <div class="alert alert-info">
 	<strong> Beispieldaten </strong>
-<li> <b>Zieltemperatur: </b>22,75 °C</li>
-<li> <b> Hysterese: </b> 0,25 ° C </li>
-<li> <b>Messdaten: </b> 21,59 ° C </li>
-<li> <b> Ausgabe: </b>  <font color="#27AE60">Zapnutý (ON)</font></li>
+<li> <b>Zieltemperatur: </b> 22.75 °C</li>
+<li> <b> Hysterese: </b> 0.25 ° C </li>
+<li> <b>Messdaten: </b> 22.49 ° C </li>
+<li> <b> Ausgabe: </b>  <font color="#27AE60">EIN</font></li>
 	<hr>
 	<p style="text-align: justify;">
-		Der Thermostat heizt ab einer gemessenen Temperatur von 22,49°C und darunter.
-Wenn die Temperatur 23,01 ° C erreicht, wird der Ausgang ausgeschaltet, das Melderelais öffnet und der Gaskessel hört auf zu heizen.
-Das Aufheizen und Abkühlen des Raumes, in dem die Messungen durchgeführt werden, erfolgt. Der Thermostat wird erst wieder aktiviert, wenn die Temperatur 22,49 ° C oder niedriger erreicht.
+		Der Thermostat heizt ab einer gemessenen Temperatur von 22.49 °C und darunter.
+Wenn die Temperatur 23.01 °C erreicht, wird der Ausgang ausgeschaltet, das Melderelais öffnet und der Gaskessel hört auf zu heizen.
+Das Aufheizen und Abkühlen des Raumes, in dem die Messungen durchgeführt werden, erfolgt. 
+Der Thermostat wird erst wieder aktiviert, wenn die Temperatur 22.49 °C oder niedriger erreicht.
 	</p>	
 </div>
 
