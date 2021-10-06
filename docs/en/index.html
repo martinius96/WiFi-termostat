@@ -167,7 +167,7 @@ The thermostat can replace an existing room thermostat, it can temporarily repla
 	<li><b>Target temperature:</b>  22.75 °C</li>
 	<li><b>Hysteresis:</b>  0.25 °C</li>
 	<li><b>Measured data:</b>  22.49 °C</li>
-	<li><b>Output:</b>  <font color="#27AE60">Zapnutý</font></li>
+	<li><b>Output:</b>  <font color="#27AE60">ON</font></li>
 	<hr>
 	<p style="text-align: justify;">
 		The thermostat heats from a measured temperature of 22.49 °C and below.
@@ -272,7 +272,7 @@ void loop() {
 <pre style="background-color:#3498DB;">
           Client handling  
           HTTP header
-    int days = millis() / day ;                                //number of days
+  int days = millis() / day ;                                //number of days
   unsigned int hours = (millis() % day) / hour;                       //the remainder from days division (in milliseconds) divided by hours, this gives the full hours
   unsigned int minutes = ((millis() % day) % hour) / minute ;         //and so on...
   unsigned int seconds = (((millis() % day) % hour) % minute) / second;
