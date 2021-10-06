@@ -272,7 +272,7 @@ void loop() {
 <pre style="background-color:#3498DB;">
           Client handling  
           HTTP header
-  int days = millis() / day ;                                //number of days
+    int days = millis() / day ;                                //number of days
   unsigned int hours = (millis() % day) / hour;                       //the remainder from days division (in milliseconds) divided by hours, this gives the full hours
   unsigned int minutes = ((millis() % day) % hour) / minute ;         //and so on...
   unsigned int seconds = (((millis() % day) % hour) % minute) / second;
@@ -289,30 +289,30 @@ void loop() {
   stranka += F("var downloadTimer = setInterval(function(){");
   stranka += F("if(timeleft &lt;= 0){");
   stranka += F("clearInterval(downloadTimer);");
-  stranka += F("document.getElementById(\"countdown\").innerHTML = \"Reštart...\";");
+  stranka += F("document.getElementById(\"countdown\").innerHTML = \"Refreshing...\";");
   stranka += F("} else {");
-  stranka += F("document.getElementById(\"countdown\").innerHTML = timeleft + \" sekúnd do reštartu\";");
+  stranka += F("document.getElementById(\"countdown\").innerHTML = timeleft + \" seconds to refresh\";");
   stranka += F("}");
   stranka += F("timeleft -= 1;");
   stranka += F("}, 1000);");
   stranka += F("&lt;/script>");
-  stranka += F("&lt;title>WiFi termostat - ESP8266&lt;/title>");
+  stranka += F("&lt;title>WiFi thermostat - ESP8266&lt;/title>");
   stranka += F("&lt;/head>");
   stranka += F("&lt;body>");
-  stranka += F("&lt;center>&lt;h3>Zadajte dáta pre webserver:&lt;/h3>");
+  stranka += F("&lt;center>&lt;h3>Enter datas for web server:&lt;/h3>");
   stranka += F("&lt;form action='/action.html' method='post'>");
-  stranka += "&lt;b>Referenčná teplota:&lt;/b>&lt;br>&lt;input type='text' id='fname' name='fname' min='5' max='50' step='0.25' value=" + String(read_String(10)) + ">&lt;br>";
-  stranka += "&lt;b>Hysteréza:&lt;/b>&lt;br>&lt;input type='text' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + String(read_String(100)) + ">&lt;br>";
-  stranka += F("&lt;input type='submit' class='btn btn-success' value='Zapísať'>");
+  stranka += "&lt;b>Target temperature:&lt;/b>&lt;br>&lt;input type='text' id='fname' name='fname' min='5' max='50' step='0.25' value=" + String(read_String(10)) + ">&lt;br>";
+  stranka += "&lt;b>Hysteresis:&lt;/b>&lt;br>&lt;input type='text' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + String(read_String(100)) + ">&lt;br>";
+  stranka += F("&lt;input type='submit' class='btn btn-success' value='Send'>");
   stranka += F("&lt;/form>&lt;hr>");
-  if (stav == "ZAP") { //Glob premenna drziaca stav vystupu na zaklade prepoctu mimo HTML stranky
-    stranka += F("&lt;b>&lt;font color='green'>Výstup: Zapnutý&lt;/font>&lt;/b>");
+  if (stav == "ON") {
+    stranka += F("&lt;b>&lt;font color='green'>Output: ON&lt;/font>&lt;/b>");
   }
-  if (stav == "VYP") {
-    stranka += F("&lt;b>&lt;font color='red'>Výstup: Vypnutý&lt;/font>&lt;/b>");
+  if (stav == "OFF") {
+    stranka += F("&lt;b>&lt;font color='red'>Output: OFF&lt;/font>&lt;/b>");
   }
   stranka += F("&lt;div id=\"countdown\">&lt;/div>");
-  stranka += F("&lt;b>Aktuálna teplota senzora DS18B20:&lt;/b> ");
+  stranka += F("&lt;b>Current sensor DS18B20 temperature:&lt;/b> ");
   stranka += String(teplota);
   stranka += F(" °C");
   stranka += F("&lt;hr>");
@@ -328,12 +328,9 @@ void loop() {
   stranka += F(" ");
   stranka += String(seconds);
   stranka += F("s");
-  stranka += F("&lt;h3>Autor: Martin Chlebovec - martinius96@gmail.com - https://martinius96.github.io/WiFi-termostat/&lt;/h3>");
-  stranka += F("&lt;h4>Verzia free - 1.0.3 build: 22. Jan. 2021&lt;/h4>");
+  stranka += F("&lt;h3>Author: Martin Chlebovec - martinius96@gmail.com - https://martinius96.github.io/WiFi-termostat/&lt;/h3>");
+  stranka += F("&lt;h4>Free version - 1.0.4 build: 06. Oct. 2021&lt;/h4>");
   stranka += F("&lt;/center>");
-  stranka += F("&lt;div class='alert alert-info'>");
-  stranka += F("Finálny build projektu WiFi termostat. Ďakujem za vyskúšanie webaplikácie. Rozšírené verzie projektu sú platené.&lt;br>&lt;strong>Obsah platených verzií:&lt;/strong>&lt;li>Async Webserver - AJAX update&lt;/li>&lt;li>Manuálny režim&lt;/li>&lt;li>OTA aktualizácie&lt;/li>&lt;li>Ovládanie hlasom cez Amazon Alexa&lt;/li>&lt;li>Ovládanie cez UDP callbacky&lt;/li>&lt;li>Možnosť publikácie dát na MQTT Broker (Loxone, IoT Industries Slovakia, Blynk...),&lt;/li>&lt;li>Dostupné senzory Bosch, Sensirion, DHT&lt;/li>&lt;li>Watchdog Timer&lt;/li>&lt;li>Zdrojový kód (.ino) pre aplikáciu.&lt;/li>&lt;li>Auto-test periférii, fail-safe riešenie&lt;/li>&lt;li>JSON output rozšírený o systémové dáta (WiFi sieť, RSSI, uptime, napájacie napätie...)&lt;/li>");
-  stranka += F("&lt;/div>");
   stranka += F("&lt;/body>");
   stranka += F("&lt;/html>");
 	  SEND TO CLIENT
@@ -353,13 +350,13 @@ void loop() {
   stranka += F("&lt;head>");
   stranka += F("&lt;meta charset='utf-8'>");
   stranka += F("&lt;meta http-equiv='Refresh' content='5; url=/' />");
-  stranka += F("&lt;title>WiFi termostat - ESP8266 - spracovanie riadiach dát&lt;/title>");
+  stranka += F("&lt;title>WiFi thermostat - ESP8266 - data processing&lt;/title>");
   stranka += F("&lt;/head>");
   stranka += F("&lt;body>");
-  stranka += F("&lt;center>&lt;h3>Server prijal data z formulára:&lt;/h3>");
-  stranka += "&lt;li>&lt;b>Referenčná teplota: &lt;/b>" + String(read_String(10)) + " °C&lt;/li>";
-  stranka += "&lt;li>&lt;b>Hysteréza: &lt;/b>" + String(read_String(100)) + " °C&lt;/li>";
-  stranka += F("&lt;b>Presmerovanie... Prosím čakajte&lt;/b>&lt;/center>");
+  stranka += F("&lt;center>&lt;h3>Server received datas from HTML form:&lt;/h3>");
+  stranka += "&lt;li>&lt;b>Target temperature: &lt;/b>" + String(read_String(10)) + " °C&lt;/li>";
+  stranka += "&lt;li>&lt;b>Hysteresis: &lt;/b>" + String(read_String(100)) + " °C&lt;/li>";
+  stranka += F("&lt;b>Redirecting... Please wait&lt;/b>&lt;/center>");
   stranka += F("&lt;/body>");
   stranka += F("&lt;/html>");
 	    SEND TO CLIENT
