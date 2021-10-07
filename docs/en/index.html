@@ -153,7 +153,9 @@ ESP8266 and ESP32 use the EEPROM.put() function in conjunction with EEPROM.commi
 Using the Refresh meta tag, the web server refreshes the entire page every 30 seconds, and the approximate time to refresh is also written to the HTML page via Javascript.
 By this time it is necessary to write the change for the thermostat, otherwise the input windows for numerical inputs to the form will be reset when the page is refreshed.
 As the built-in Ethernet library does not include the use of an asynchronous web server (which can be used, for example, with the Espressif ESP8266 / ESP32 microcontrollers), it is necessary to rewrite the entire page.
+</p>
 <hr>
+<p style="text-align: justify;">
 The dynamic data that is mainly changing is the current value of the output - <b><font color="#27AE60">Turned on</font></b> / <b><font color="red">Turned off</font></b>, which informs the operator about the actual state of the output together with the color coding. 
 Since the system logic is executed independently of the web server, the output may already be in a different state than currently currently listed in the web application. The change of output is immediately written to the UART monitor, for example.
 On the thermostat's website, the user will also find information about the device's uptime (how long it has been running), i. time in days, hours, minutes and seconds. <b> The thermostat is only intended for indoor temperatures! </b> (above 0 ° C), to which the system logic is adapted!
