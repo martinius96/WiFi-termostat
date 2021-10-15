@@ -131,8 +131,8 @@ Darüber hinaus listet es auch den dynamischen freien Speicher - HEAP, der von 4
 </p>
 <b> Die Webschnittstelle des WiFi-Thermostats ermöglicht Ihnen: </b>
 <li> Sehen Sie in Echtzeit die Temperatur des DS18B20-Sensors, die Betriebszeit des Geräts, den Ausgabewert mit dynamischer Änderung, die aktuell eingestellten Konfigurationsdaten für den Thermostat, d. Solltemperatur und Hysterese </li>
-<li>Ändern Sie die Ziel-(Referenz-)Temperatur <del> im Bereich von 5 bis 50 °C in Schritten von 0,25 °C </del> </li>
-<li> Ändern <del> Hysterese von 0 bis 10 ° C in Schritten von 0,25 ° C </del> </li>
+<li>Ändern Sie die Ziel-(Referenz-)Temperatur <del>im Bereich von 5 bis 50 °C in Schritten von 0,25 °C</del> <img src="https://image.flaticon.com/icons/svg/788/788893.svg" width="20px" height="20px" data-toggle="tooltip2" data-placement="right" title="Umfang in Version 1.0.2 aufgrund der Unterstützung von Nicht-Dezimalkomma für die Eingabetypnummer auf Android-Betriebssystem entfernt"></li>
+<li> Ändern <del>Hysterese von 0 bis 10 ° C in Schritten von 0,25 ° C</del> <img src="https://image.flaticon.com/icons/svg/788/788893.svg" width="20px" height="20px" data-toggle="tooltip2" data-placement="right" title="Umfang in Version 1.0.2 aufgrund der Unterstützung von Nicht-Dezimalkomma für die Eingabetypnummer auf Android-Betriebssystem entfernt"></li>
 <div class="alert alert-danger">
   <strong>Die Programmimplementierung eines Thermostats mit automatischer und manueller Leistungsregelung ist experimentell!</strong>
 </div>
@@ -381,4 +381,9 @@ void loop() {
 </div>
 </div>
 </body>
+        <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip2"]').tooltip();   
+});
+</script>
 </html>
