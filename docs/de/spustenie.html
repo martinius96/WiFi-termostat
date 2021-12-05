@@ -138,14 +138,14 @@ Das Tool verwendet beispielsweise auch die Arduino IDE-Umgebung zum Hochladen ei
 <b> Bei der ESP32-Plattform ist es erforderlich, die BOOT-Taste bis zum Beginn des Aufnahmevorgangs gedrückt zu halten oder einen Pulldown auf GPIO 0 durchzuführen (wenn das Board keinen BOOT-Tastenausgang hat). </b>
 Im Ordner jeder Firmware befindet sich ein automatisch ausführbares .bat-Skript (Beispiel für den COM7-Port für ESP8266 und COM17 für ESP32), das das beiliegende ESPTOOL startet und das Programm mit der im angegebenen Ordner befindlichen spezifischen Firmware lädt.
 <hr>
-Der Zielport muss entsprechend dem COM-Port geändert werden, an dem sich Ihr Board / Mikrocontroller anmeldet (kann über den Peripherals and Drivers Manager herausfinden, an welchem ​​COM-Port der ESP angemeldet ist).
+Der Zielport muss entsprechend dem COM-Port geändert werden, an dem sich Ihr Board / Mikrocontroller anmeldet (kann über den Peripherals and Drivers Manager herausfinden, an welchem COM-Port der ESP angemeldet ist).
 Die Programmimplementierung für ESP8266 geht davon aus, dass das Board die grundlegenden Teile des Flash-Speichers geladen hat - die Partitionstabelle und dergleichen ...
 Das Binärprogramm ist ausschließlich eine Thermostatanwendung ohne andere gebündelte Teile des Programms.
 Nach dem Laden des Programms schließt sich das ESPTOOL-Programmfenster automatisch und führt einen Software-Neustart der ESP-Plattform durch, die dann die neue Firmware bootet und den WiFi-Thermostat für die Verwendung vorbereitet.
 Die Firmware für ESP32 enthält außerdem eine Partitionstabelle, die auf Offset 0x8000 geschrieben wird, der Bootloader auf Offset 0x1000. Die Firmware selbst wird auf den Standard-Offset 0x10000 geschrieben.
 </p>				
 <center>
-	<img src="https://i.imgur.com/Nz4Uryz.png" style="display: block; max-width: 100%; height: auto;" alt="XLoader - Arduino - AVRDUDE - Termostat - Ethernet" title="XLoader - Arduino - AVRDUDE - Termostat - Ethernet">	
+	<img src="https://i.imgur.com/Nz4Uryz.png" style="display: block; max-width: 100%; height: auto;" alt="Firmware-Upload auf ESP-Mikrocontroller über ESPTOOL" title="Firmware-Upload auf ESP-Mikrocontroller über ESPTOOL">	
 </center>
 <b>Nach erfolgreichem Laden des Binärprogramms - Firmware ist der Thermostat voll betriebsbereit.</b> 
 <p style="text-align: justify;">
@@ -169,11 +169,11 @@ Das Programm arbeitet auf Basis des Projektschaltplans und der Logik aus der Bes
 <hr>	
 <h4>WLAN-Netzwerkthermostat im AP-Modus - Windows Client</h4>	
 	<hr>
-	<img src="https://i.imgur.com/cJb6DR9.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť" title="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť">	
+	<img src="https://i.imgur.com/cJb6DR9.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - Broadcast SSID zur Konfiguration an bestehendes WiFi-Netzwerk" title="ESP - WiFi termostat - Broadcast SSID zur Konfiguration an bestehendes WiFi-Netzwerk">	
 <hr>	
 <h4>WLAN-Netzwerkthermostat im AP-Modus - Android Client</h4>	
 <hr>	
-<img src="https://i.imgur.com/iZ0JoSY.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti" title="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti">	
+<img src="https://i.imgur.com/iZ0JoSY.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Android - Netzwerkverbindung" title="WiFi termostat - ESP8266 AP - Android - Netzwerkverbindung">	
 <hr>	
 <h4>WLAN-Thermostatnetzwerk im AP-Modus - Captive Portal - Umleitung zur Konfigurationsseite des WLAN-Managers</h4>	
 <hr>	
@@ -181,19 +181,19 @@ Das Programm arbeitet auf Basis des Projektschaltplans und der Logik aus der Bes
 <hr>	
 <h4>WiFi Manager - WiFi-Netzwerkkonfiguration - Hauptmenü - WiFi-Thermostat</h4>
 <hr>	
-<img src="https://i.imgur.com/2oizcO6.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
+<img src="https://i.imgur.com/2oizcO6.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks" title="WiFi termostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks">
 <hr>
 <h4>WiFi Manager - Auswahl des WiFi-Netzwerks mit Signalstärke - RSSI - Passworteinstellung</h4>
 <hr>	
-<img src="https://i.imgur.com/fbBasd2.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
+<img src="https://i.imgur.com/fbBasd2.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi-Thermostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks" title="WiFi-Thermostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks">
 <hr>
 <h4>WiFi-Thermostat - HTTP-Webserver - Funktionsthermostat nach Verbindung mit dem LAN-Netzwerk</h4>
 <hr>		
-<img src="https://i.imgur.com/dBXiDLN.png" style="display: block; max-width: 100%; height: auto;" alt="Fungujúci WiFi termostat na IP adrese v lokálnej WiFi sieti" title="Fungujúci WiFi termostat na IP adrese v lokálnej WiFi sieti">
+<img src="https://i.imgur.com/dBXiDLN.png" style="display: block; max-width: 100%; height: auto;" alt="Funktionierender WiFi-Thermostat an der IP-Adresse im lokalen WiFi-Netzwerk" title="Funktionierender WiFi-Thermostat an der IP-Adresse im lokalen WiFi-Netzwerk">
 <hr>
 <h4>WiFi Manager - UART-Ausgang - Systeminformationen und Logikliste</h4>
 <hr>
-<img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - UART výpis - logika systému - ovládanie kotla, pridelená IP adresa v domácej LAN sieti" title="ESP - WiFi termostat - UART výpis - logika systému - ovládanie kotla, pridelená IP adresa v domácej LAN sieti">
+<img src="https://i.imgur.com/gWm9izE.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi thermostat - UART-Anweisung - Systemlogik - Kesselsteuerung, zugewiesene IP-Adresse im Heim-LAN" title="ESP - WiFi thermostat - UART-Anweisung - Systemlogik - Kesselsteuerung, zugewiesene IP-Adresse im Heim-LAN">
 </center>
 	<hr>
 	</div>
