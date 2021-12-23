@@ -91,12 +91,11 @@ In der aktuellen Software-Implementierung sendet der Mikrocontroller (JSON-Clien
 	<h5>Quellcodes für MQTT / MQTT + JSON-Clients sind verfügbar unter: </h5><a href="https://github.com/martinius96/WiFi-termostat/tree/main/examples">JSON-Clients</a>
 </div>
 <div class="alert alert-info">
-<strong> Die Implementierung für MQTTS ist nur für die Plattformen ESP8266, ESP32 verfügbar. </strong> ESP8266 verwendet einen Fingerabdruck – den Fingerabdruck des MQTT-Zertifikats (öffentlicher Schlüssel) des Servers – für verschlüsselte Verbindungen.
-ESP32 verwendet ein Root-CA-Zertifikat für die verschlüsselte Verbindung zum MQTT-Server. <b> Der verschlüsselte Port des MQTT-Servers ist standardmäßig 8883, unverschlüsselt 1883. </b>
-Um einen Fingerabdruck, also ein Root-CA-Zertifikat für einen bestimmten MQTT-Server (Domäne) zu erhalten, kann das OpenSSL-Tool verwendet werden, das ein einfaches Abrufen und Anzeigen der betreffenden Informationen ermöglicht.
-<br> <b> Befehl zum Abrufen des MQTT-Server-Fingerabdrucks: </b> <br>
-<code>openssl s_client -connect mqttserver.com:8883 -showcerts < /dev/null 2>/dev/null | openssl x509 -in /dev/stdin -sha1 -noout -fingerprint</code>
-<br> <b> Befehl zum Abrufen des Root-CA-Zertifikats, das das Zertifikat für den MQTT-Server (Aussteller) ausgestellt hat: </b> <br>
+<strong> Die MQTTS-Implementierung ist nur für ESP8266- und ESP32-Plattformen verfügbar. </strong>
+Beide Mikrocontroller verwenden ein Root-CA-Zertifikat für die verschlüsselte Verbindung zum MQTT-Server. <b> Der verschlüsselte Port des MQTT-Servers ist standardmäßig 8883, unverschlüsselt 1883. </b>
+Um ein Root-CA-Zertifikat für einen bestimmten MQTT-Server (Domäne) zu erhalten, kann das OpenSSL-Tool verwendet werden, das ein einfaches Abrufen und Anzeigen der betreffenden Informationen ermöglicht.
+Die Anweisung ist in der Chain of Trust-Hierarchie implementiert, d. das erste Zertifikat ist Root CA, gefolgt von Intermediate CA.
+<br> <b> Root-CA-Zertifikatbefehl für Server: </b> <br>
 <code>openssl s_client -showcerts -verify 5 -connect mqttserver.com:8883 < /dev/null</code>
 </div>	
 <h4>Die für Publish on MQTT Broker verwendeten Themen sind:</h4> 
