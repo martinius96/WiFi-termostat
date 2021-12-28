@@ -138,7 +138,7 @@ Prístupové údaje k WiFi sieti sú uložené v pamäti ESP32, stačí raz nako
 <p style="text-align: justify;">
 Pre nahratie binárneho programu do platformy ESP je potrebné použiť nástroj ESPTOOL.
 Nástroj využíva napríklad aj prostredie Arduino IDE pre nahratie programu po kompilácii, alebo aj vývojový framework od Espressif Systems - ESP-IDF.
-<b>Pri platforme ESP32 je potrebné do začiatku procesu nahrávania držať tlačidlo BOOT, respektíve urobiť pulldown na GPIO 0 (ak doska nemá BOOT tlačidlo vyvedené).</b>
+<b>Pri platforme ESP32 je potrebné do začiatku procesu nahrávania "Connecting........_____....." držať tlačidlo BOOT, respektíve urobiť pulldown na GPIO 0 (ak doska nemá BOOT tlačidlo vyvedené).</b>
 V priečinku každého firmvéru je pripravený automatizovaný - spustiteľný .bat script (vzorovo pre port COM7 u ESP8266 a COM17 u ESP32), ktorý spustí priložený ESPTOOL a vykoná nahratie programu s konkrétnym firmvérom, ktorý sa v danej zložke nachádza.
 <hr>
 Cieľový port je nutné pozmeniť na základe COM portu, na ktorom sa prihlási vaša doska / mikrokontróler (možno zistiť cez Správcu periférii a ovládačov, na ktorom COM porte je ESP prihlásené).
