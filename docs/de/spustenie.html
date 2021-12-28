@@ -138,7 +138,7 @@ Die Zugangsdaten zum WiFi-Netzwerk werden im ESP32-Speicher gespeichert, Sie mü
 <p style="text-align: justify;">
 Um ein Binärprogramm auf die ESP-Plattform hochzuladen, muss das ESPTOOL-Tool verwendet werden.
 Das Tool verwendet beispielsweise auch die Arduino IDE-Umgebung zum Hochladen eines Programms nach der Kompilierung oder das Entwicklungsframework von Espressif Systems - ESP-IDF.
-<b> Bei der ESP32-Plattform ist es erforderlich, die BOOT-Taste bis zum Beginn des Aufnahmevorgangs gedrückt zu halten oder einen Pulldown auf GPIO 0 durchzuführen (wenn das Board keinen BOOT-Tastenausgang hat). </b>
+<b> Bei der ESP32-Plattform ist es erforderlich, die BOOT-Taste bis zum Beginn des Aufnahmevorgangs "Connecting........_____....." gedrückt zu halten oder einen Pulldown auf GPIO0 durchzuführen (wenn das Board keinen BOOT-Tastenausgang hat). </b>
 Im Ordner jeder Firmware befindet sich ein automatisch ausführbares .bat-Skript (Beispiel für den COM7-Port für ESP8266 und COM17 für ESP32), das das beiliegende ESPTOOL startet und das Programm mit der im angegebenen Ordner befindlichen spezifischen Firmware lädt.
 <hr>
 Der Zielport muss entsprechend dem COM-Port geändert werden, an dem sich Ihr Board / Mikrocontroller anmeldet (kann über den Peripherals and Drivers Manager herausfinden, an welchem COM-Port der ESP angemeldet ist).
