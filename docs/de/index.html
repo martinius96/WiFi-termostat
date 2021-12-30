@@ -215,17 +215,6 @@ Der Thermostat wird erst wieder aktiviert, wenn die Temperatur 22.49 °C oder ni
 <li> Möglichkeit zur Veröffentlichung von Daten an MQTT Broker / per HTTP / HTTPS-Anfrage an einen entfernten Webserver mit Datenspeicherung in einer MySQL-Datenbank (ohne JSON-Client) </li>
 </div>
 <hr>
-<h3><font color="#C0392B">Beispielanweisung im JSON-Format</font></h3>
-<li> Fähigkeit, JSON-Clients zu verarbeiten (mit kompatibler Firmware für Arduino + Ethernet / ESP8266 / ESP32 - im Repository verfügbar) </li>
-<li> Möglichkeit, Daten an MQTT Broker zu senden und an andere Clients zu verteilen, die das Zielthema abonnieren können </li>
-<li> Fähigkeit, das JSON-Format von anderen Clients zu lesen - JSON-Parser, Editor, Viewer und andere ... </li>
-<div class="alert alert-danger">
-	{<br>
-		"Hysteresis":0.25,<br>
-		"Target_Temperature":21.75,<br>
-		"Actual_Temperature":21.43<br>
-	}
-</div>
 <h3><font color="#2ECC71">Thermostat - Quellcode</font></h3>
 <li>Thermostatlogik in minimaler Implementierung, ohne Webserver, WiFi-Konnektivität und emuliertem EEPROM-Speicher - allgemeine Implementierung </li>
 <li> Muster für Ethernet- und WiFi-Thermostat für alle Mikrocontroller - Arduino, ESP8266, ESP32 mit demselben Quellcode </li>
