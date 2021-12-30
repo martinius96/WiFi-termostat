@@ -88,8 +88,45 @@ Der vorhandene MQTT-Server kann in Ihrem Quellcode durch Ihren ersetzt werden, s
 In der aktuellen Software-Implementierung sendet der Mikrocontroller (JSON-Client) die erfassten Daten im Thermostat-Thema an den MQTT-Broker, während die einzelnen Temperaturen in Unterthemen differenziert werden.
 </p> 
 <div class="alert alert-success">
-	<h5>Quellcodes für MQTT / MQTT + JSON-Clients sind verfügbar unter: </h5><a href="https://github.com/martinius96/WiFi-termostat/tree/main/examples">JSON-Clients</a>
+	<strong>Quellcodes für MQTT / MQTT + JSON-Clients sind verfügbar unter: </strong><a href="https://github.com/martinius96/WiFi-termostat/tree/main/examples">JSON-Clients</a>
 </div>
+<hr><center><h4>Verfügbare Bibliotheken für Mikrocontroller (Arduino / ESP) - JSON-Clients</h4></center><hr>
+<div class="alert alert-danger">
+	Bibliotheksarchiv (.zip) erweitern auf <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Name der Bibliothek</th>
+<th style="width: 50%">Bibliotheksfunktion</th>
+<th style="width: 25%">Herunterladen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>PubSubClient</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für AVR-Mikrocontroller (ATmega) Arduino Uno / Nano / Mega, ESP8266 und ESP32.
+Es ermöglicht die Kommunikation über das MQTT-Protokoll, es ist auch möglich, eine verschlüsselte Verbindung mit dem MQTT-Broker zu realisieren, die Verwendung der WiFiClientSecure-Klasse ist für ESP-Mikrocontroller erforderlich und das Einfügen eines Root-CA-Zertifikats im .pem-Format. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/PubSubClient" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>ArduinoJson</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für AVR-Mikrocontroller (ATmega) Arduino Uno / Nano / Mega, ESP8266 und ESP32.
+Es ermöglicht Ihnen, einen String in einer JSON-Struktur zu deserialisieren, es kann den Wert analysieren, der einem Schlüssel zugewiesen ist.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/hladinomer-studna-scripty/tree/master/src/ArduinoJson" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+</tbody>
+</table>
+	</div>
 <div class="alert alert-info">
 <strong> Die MQTTS-Implementierung ist nur für ESP8266- und ESP32-Plattformen verfügbar. </strong>
 Beide Mikrocontroller verwenden ein Root-CA-Zertifikat für die verschlüsselte Verbindung zum MQTT-Server. <b> Der verschlüsselte Port des MQTT-Servers ist standardmäßig 8883, unverschlüsselt 1883. </b>
