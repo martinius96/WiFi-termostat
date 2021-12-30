@@ -217,17 +217,6 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 	<li>Možnosť Publishu dát na MQTT Broker / cez HTTP / HTTPS request na vzdialený webserver s uložením dát do MySQL databázy (bez JSON clienta)</li>
 </div>
 <hr>
-<h3><font color="#C0392B">Ukážkový výpis vo formáte JSON</font></h3>
-<li>Možnosť spracovať JSON klientom (s kompatibilným firmvérom pre Arduino + Ethernet / ESP8266 / ESP32 - dostupný v repozitári)</li>
-<li>Možnosť odoslať dáta na MQTT Broker a distribuovať ich iným klientom, ktorí môžu cieľový topic odoberať</li>
-<li>Možnosť čítania JSON formátu inými klientami - JSON Parser, Editor, Viewer a iné...</li>
-<div class="alert alert-danger">
-	{<br>
-		"Hysteresis":0.25,<br>
-		"Target_Temperature":21.75,<br>
-		"Actual_Temperature":21.43<br>
-	}
-</div>
 <h3><font color="#2ECC71">Termostat - zdrojový kód</font></h3>
 <li>Logika termostatu v minimálnej implementácii, bez Web servera, WiFi konektivity a emulovanej EEPROM pamäte - všeobecná implementácia </li>
 <li>Pattern použitý pre Ethernet i WiFi termostat pre všetky mikrokontroléry - Arduino, ESP8266, ESP32 s totožným zdrojovým kódom</li>
