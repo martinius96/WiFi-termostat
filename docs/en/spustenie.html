@@ -100,6 +100,9 @@ Therefore, it is tested in advance, compiled for you. The firmware is universal,
 <li><b>ESP8266</b> - target platform with ESP8266 chip in versions 12E to 12F (conditioned by flash DIO method)</li>
 <li><b>ESP32</b> - target platform with ESP-32S chip (AI-Thinker), ESP32-WROOM-32 (Espressif Systems)</li>
 <hr><center><h2>Firmware distribution by function</h2></center><hr>
+<div class="alert alert-info">
+ 	<strong> Available firmware (.bin) for ESP8266 and ESP32 microcontrollers.</strong> Firmware upload is done via esptool - part of the downloaded .zip firmware archive.
+</div>	
 			<center>
 <div class="table-responsive">   
 <table class="table" style="border: 1px solid black;">
@@ -163,33 +166,23 @@ The program works on the basis of the project wiring diagram and the logic from 
 		</p>
 <center>
 <hr>	
-<h5>WiFi network thermostat in AP mode - Windows Client</h5>	
-	<hr>
-	<img src="https://i.imgur.com/cJb6DR9.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť" title="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť">	
+<h4>WiFi thermostat settings (ESP8266 / ESP32) via WiFiManager</h4>	
 <hr>	
-<h5>WiFi network thermostat in AP mode - Android Client</h5>	
-<hr>	
-<img src="https://i.imgur.com/iZ0JoSY.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti" title="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti">	
-<hr>	
-<h5>WiFi network thermostat in AP mode - Captive portal - redirect to the WiFi Manager configuration page</h5>	
-<hr>	
-<img src="https://i.imgur.com/s9ubg0n.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Captive Portal" title="WiFi termostat - ESP8266 AP - Captive Portal">	
-<hr>	
-<h5>WiFi Manager - WiFi network configuration - main menu - WiFi thermostat</h5>
-<hr>	
-<img src="https://i.imgur.com/2oizcO6.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
+<img src="https://i.imgur.com/nLqT6Y0.gif" style="display: block; max-width: 100%; height: auto;" alt="WiFi thermostat - ESP8266 / ESP32 - Android - network connection via WiFiManager" title="WiFi thermostat - ESP8266 / ESP32 - Android - network connection via WiFiManager">	
 <hr>
-<h5>WiFi Manager - selection of WiFi network with signal strength - RSSI - password setting</h5>
-<hr>	
-<img src="https://i.imgur.com/fbBasd2.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
-<hr>
-<h5>WiFi thermostat - HTTP webserver - functional thermostat after connection to the LAN network</h5>
+<h4>WiFi thermostat - HTTP web server - functional thermostat after connecting to the LAN network</h4>
 <hr>		
-<img src="https://i.imgur.com/dBXiDLN.png" style="display: block; max-width: 100%; height: auto;" alt="Running WiFi thermostat at ESP8266 / ESP32 in LAN network - configured" title="Running WiFi thermostat at ESP8266 / ESP32 in LAN network - configured">
+<div class="alert alert-info">
+ 	<strong>Refresh the web interface automatically every 30 seconds</strong>
+</div>	
+<img src="https://i.imgur.com/dBXiDLN.png" style="display: block; max-width: 100%; height: auto;" alt="A working WiFi thermostat at an IP address in the local WiFi network available to clients" title="A working WiFi thermostat at an IP address in the local WiFi network available to clients">
 <hr>
-<h5>WiFi Manager - UART output - system information and logic listing</h5>
+<h4>WiFiManager - UART output - system information and logic listing</h4>
 <hr>
-<img src="https://i.imgur.com/gWm9izE.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - UART výpis - logika systému - ovládanie kotla, pridelená IP adresa v domácej LAN sieti" title="ESP - WiFi termostat - UART výpis - logika systému - ovládanie kotla, pridelená IP adresa v domácej LAN sieti">
+<div class="alert alert-info">
+ 	<strong>Output to UART automatically every 10 seconds + temperature measurement on the OneWire bus by the DS18B20 sensor</strong>
+</div>	
+<img src="https://i.imgur.com/gWm9izE.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi thermostat - UART statement - system logic - boiler control, assigned IP address in the home LAN" title="ESP - WiFi thermostat - UART statement - system logic - boiler control, assigned IP address in the home LAN">
 </center>
 	<hr>
 	</div>
