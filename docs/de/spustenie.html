@@ -154,6 +154,7 @@ Im Fall des ESP32-Mikrocontrollers ist der am häufigsten verwendete USB-UART-Ko
 Die Programmimplementierung für ESP8266 geht davon aus, dass das Board die grundlegenden Teile des Flash-Speichers geladen hat - die Partitionstabelle und so weiter ...
 Das Binärprogramm ist ausschließlich eine Thermostatanwendung ohne andere gebündelte Teile des Programms.
 Nach dem Laden des Programms fährt das ESPTOOL-Programmfenster automatisch herunter und führt einen Software-Neustart der ESP-Plattform durch, die dann die neue Firmware bootet und den WiFi-Thermostat für den Einsatz vorbereitet.
+Beim ESP8266-Mikrocontroller wird die Firmware auf den Standard-Offset 0x00000 geschrieben - (die Partitionstabelle ist nicht Bestandteil der Firmware, sie wird nicht benötigt).
 Die Firmware für ESP32 enthält außerdem eine Partitionstabelle, die auf Offset 0x8000 geschrieben wird, der Bootloader auf Offset 0x1000. Die Firmware selbst wird auf den Standard-Offset 0x10000 geschrieben.
 </p>		
 <center>
