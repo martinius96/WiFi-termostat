@@ -102,6 +102,9 @@ Die Zugangsdaten zum WiFi-Netzwerk werden im ESP32-Speicher gespeichert, Sie mü
 <li><b>ESP8266</b> - Zielplattform mit ESP8266-Chip in den Versionen 12E bis 12F (zB Wemos D1 Mini, NodeMCU) - (konditioniert durch DIO-Flash-Methode)</li>
 <li><b>ESP32</b> - Zielplattform mit ESP-32S-Chip (AI-Thinker), ESP32-WROOM-32 (Espressif Systems) - (konditioniert durch DIO-Flash-Methode)</li>
 <hr><center><h2>Firmwareverteilung nach Funktion</h2></center><hr>
+<div class="alert alert-info">
+ 	<strong>Verfügbare Firmware (.bin) für ESP8266- und ESP32-Mikrocontroller.</strong> Der Firmware-Upload erfolgt über das esptool-Tool – Teil des heruntergeladenen .zip-Firmware-Archivs.
+</div>	
 			<center>
 <div class="table-responsive">   
 <table class="table" style="border: 1px solid black;">
@@ -170,33 +173,23 @@ Das Programm arbeitet auf Basis des Projektschaltplans und der Logik aus der Bes
 		</p>
 <center>
 <hr>	
-<h4>WLAN-Netzwerkthermostat im AP-Modus - Windows Client</h4>	
-	<hr>
-	<img src="https://i.imgur.com/cJb6DR9.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - Broadcast SSID zur Konfiguration an bestehendes WiFi-Netzwerk" title="ESP - WiFi termostat - Broadcast SSID zur Konfiguration an bestehendes WiFi-Netzwerk">	
+<h4>WiFi-Thermostateinstellungen (ESP8266 / ESP32) über WiFiManager</h4>	
 <hr>	
-<h4>WLAN-Netzwerkthermostat im AP-Modus - Android Client</h4>	
-<hr>	
-<img src="https://i.imgur.com/iZ0JoSY.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Android - Netzwerkverbindung" title="WiFi termostat - ESP8266 AP - Android - Netzwerkverbindung">	
-<hr>	
-<h4>WLAN-Thermostatnetzwerk im AP-Modus - Captive Portal - Umleitung zur Konfigurationsseite des WLAN-Managers</h4>	
-<hr>	
-<img src="https://i.imgur.com/s9ubg0n.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Captive Portal" title="WiFi termostat - ESP8266 AP - Captive Portal">	
-<hr>	
-<h4>WiFi Manager - WiFi-Netzwerkkonfiguration - Hauptmenü - WiFi-Thermostat</h4>
-<hr>	
-<img src="https://i.imgur.com/2oizcO6.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks" title="WiFi termostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks">
-<hr>
-<h4>WiFi Manager - Auswahl des WiFi-Netzwerks mit Signalstärke - RSSI - Passworteinstellung</h4>
-<hr>	
-<img src="https://i.imgur.com/fbBasd2.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi-Thermostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks" title="WiFi-Thermostat - WiFi Manager - Konfiguration eines bestehenden WLAN-Netzwerks">
+<img src="https://i.imgur.com/nLqT6Y0.gif" style="display: block; max-width: 100%; height: auto;" alt="WiFi-Thermostat - ESP8266 AP - Android - Netzwerkverbindung" title="WiFi-Thermostat - ESP8266 AP - Android - Netzwerkverbindung">	
 <hr>
 <h4>WiFi-Thermostat - HTTP-Webserver - Funktionsthermostat nach Verbindung mit dem LAN-Netzwerk</h4>
 <hr>		
+<div class="alert alert-info">
+ 	<strong>Aktualisieren Sie das Webinterface automatisch alle 30 Sekunden</strong>
+</div>	
 <img src="https://i.imgur.com/dBXiDLN.png" style="display: block; max-width: 100%; height: auto;" alt="Funktionierender WiFi-Thermostat an der IP-Adresse im lokalen WiFi-Netzwerk" title="Funktionierender WiFi-Thermostat an der IP-Adresse im lokalen WiFi-Netzwerk">
 <hr>
-<h4>WiFi Manager - UART-Ausgang - Systeminformationen und Logikliste</h4>
+<h4>WiFiManager - UART-Ausgabe - Systeminformationen und Logikliste</h4>
 <hr>
-<img src="https://i.imgur.com/gWm9izE.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi thermostat - UART-Anweisung - Systemlogik - Kesselsteuerung, zugewiesene IP-Adresse im Heim-LAN" title="ESP - WiFi thermostat - UART-Anweisung - Systemlogik - Kesselsteuerung, zugewiesene IP-Adresse im Heim-LAN">
+<div class="alert alert-info">
+ 	<strong>Ausgabe an UART automatisch alle 10 Sekunden + Temperaturmessung auf dem OneWire-Bus durch den DS18B20-Sensor</strong>
+</div>	
+<img src="https://i.imgur.com/gWm9izE.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi-Thermostat - UART-Anweisung - Systemlogik - Kesselsteuerung, zugewiesene IP-Adresse im Heim-LAN" title="ESP - WiFi-Thermostat - UART-Anweisung - Systemlogik - Kesselsteuerung, zugewiesene IP-Adresse im Heim-LAN">
 </center>
 	<hr>
 	</div>
