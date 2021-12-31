@@ -145,7 +145,7 @@ Nástroj využíva napríklad aj prostredie Arduino IDE pre nahratie programu po
 V priečinku každého firmvéru je pripravený automatizovaný - spustiteľný .bat script (vzorovo má nastavený COM port mikrokontroléra na COM7 pre ESP8266 a COM17 pre ESP32), ktorý spustí priložený ESPTOOL a vykoná nahratie programu s konkrétnym firmvérom, ktorý sa v danej zložke nachádza.
 </p>
 <center>
-	<img src="https://i.imgur.com/M0U6HkC.png" style="display: block; max-width: 100%; height: auto;" alt="XLoader - Arduino - AVRDUDE - Termostat - Ethernet" title="XLoader - Arduino - AVRDUDE - Termostat - Ethernet">	
+	<img src="https://i.imgur.com/M0U6HkC.png" style="display: block; max-width: 100%; height: auto;" alt="Správca zariadení v systéme Windows - dostupný mikrokontróler ESP32 na COM porte 17" title="Správca zariadení v systéme Windows - dostupný mikrokontróler ESP32 na COM porte 17">	
 </center>
 <p style="text-align: justify;">
 <b><font color="red">Cieľový COM port je nutné pozmeniť na základe COM portu, na ktorom sa prihlási vaša doska / mikrokontróler</font></b> - (možno zistiť cez Správcu periférii a ovládačov, na ktorom COM porte je ESP prihlásené).
@@ -154,10 +154,11 @@ V prípade mikrokontroléru ESP32 je najčastejšie použitý USB-UART prevodní
 Programová implementácia pre ESP8266 predpokladá, že má doska nahraté základné časti flash pamäte - tabuľka partícii a podobne...
 Binárny program je výlučne aplikáciou termostatu bez ďalších pribalených častí programu.
 Po nahratí programu sa okno programu ESPTOOL automaticky vypne a vykoná softvérový reštart ESP platformy, ktorá následne bootuje nový firmvér a pripravuje WiFi termostat na použitie.
+Pre mikrokontróler ESP8266 sa firmvér zapisuje na štandardný ofset 0x00000 - (tabuľka partícii nie je súčasťou firmvéru, nie je potrebná).
 Firmvér pre ESP32 obsahuje naviac aj tabuľku partícii, ktorá sa zapisuje na ofset 0x8000, bootloader na ofset 0x1000. Samotný firmvér je zapísaný na štandardný ofset 0x10000.
 </p>				
 <center>
-	<img src="https://i.imgur.com/Nz4Uryz.png" style="display: block; max-width: 100%; height: auto;" alt="XLoader - Arduino - AVRDUDE - Termostat - Ethernet" title="XLoader - Arduino - AVRDUDE - Termostat - Ethernet">	
+	<img src="https://i.imgur.com/Nz4Uryz.png" style="display: block; max-width: 100%; height: auto;" alt="ESPTOOL - nástroj pre nahratie firmvéru do mikrokontroléra ESP8266 / ESP32" title="ESPTOOL - nástroj pre nahratie firmvéru do mikrokontroléra ESP8266 / ESP32">	
 </center>
 <div class="alert alert-info">
 <b>Po úspešnom nahratí binárneho programu - firmvéru je termostat plne pripravený na prevádzku.</b> 
