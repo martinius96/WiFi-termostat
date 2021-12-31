@@ -152,6 +152,7 @@ In the case of the ESP32 microcontroller, the most commonly used USB-UART conver
 The program implementation for ESP8266 assumes that the board has loaded the basic parts of the flash memory - the partition table and so on ...
 The binary program is exclusively a thermostat application without other bundled parts of the program.
 After loading the program, the ESPTOOL program window automatically shuts down and performs a software restart of the ESP platform, which then boots the new firmware and prepares the WiFi thermostat for use.
+For the ESP8266 microcontroller, the firmware is written to the standard offset 0x00000 - (the partition table is not part of the firmware, it is not required).
 The firmware for ESP32 also contains a partition table that is written to offset 0x8000, the bootloader to offset 0x1000. The firmware itself is written to the standard offset 0x10000.
 </p>				
 <center>
