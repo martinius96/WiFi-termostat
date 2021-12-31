@@ -99,6 +99,9 @@ Prístupové údaje k WiFi sieti sú uložené v pamäti ESP32, stačí raz nako
 </div>	
 </p>
 <hr><center><h2>Rozdelenie firmvéru na základe podporovaných WiFi platforiem</h2></center><hr>
+<div class="alert alert-info">
+ 	<strong>Dostupný firmvér (.bin) pre mikrokontroléry ESP8266 a ESP32.</strong> Nahrávanie firmvéru sa realizuje cez nástroj esptool - súčasť stihnutého .zip archívu firmvéru.
+</div>	
 <li><b>ESP8266</b> - cieľová platforma s čipom ESP8266 vo verzii 12E až 12F (napr. Wemos D1 Mini, NodeMCU) - (podmienené flash metódou DIO)</li>
 <li><b>ESP32</b> - cieľová platforma s čipom ESP-32S (AI-Thinker), ESP32-WROOM-32 (Espressif Systems) - (podmienené flash metódou DIO)</li>
 <hr><center><h2>Rozdelenie firmvéru na základe funkcie</h2></center><hr>
@@ -170,25 +173,9 @@ Program funguje na základe schémy zapojenia projektu a logiky z popisu.
 		</p>
 <center>
 <hr>	
-<h4>WiFi sieť termostatu v AP režime - Windows Client</h4>	
-	<hr>
-	<img src="https://i.imgur.com/cJb6DR9.png" style="display: block; max-width: 100%; height: auto;" alt="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť" title="ESP - WiFi termostat - vysielanie SSID pre konfiguráciu na existujúcu WiFi sieť">	
+<h4>Nastavenie WiFi termostatu (ESP8266 / ESP32) cez WiFiManager</h4>	
 <hr>	
-<h4>WiFi sieť termostatu v AP režime - Android Client</h4>	
-<hr>	
-<img src="https://i.imgur.com/iZ0JoSY.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti" title="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti">	
-<hr>	
-<h4>WiFi sieť termostatu v AP režime - Captive portal - presmerovanie na konfiguráčnu stránku WiFi Managera</h4>	
-<hr>	
-<img src="https://i.imgur.com/s9ubg0n.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Captive Portal" title="WiFi termostat - ESP8266 AP - Captive Portal">	
-<hr>	
-<h4>WiFi Manager - konfigurácia WiFi siete - hlavné menu - WiFi termostat</h4>
-<hr>	
-<img src="https://i.imgur.com/2oizcO6.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
-<hr>
-<h4>WiFi Manager - výber WiFi siete so silou signálu - RSSI - nastavenie hesla</h4>
-<hr>	
-<img src="https://i.imgur.com/fbBasd2.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete" title="WiFi termostat - WiFi Manager - konfigurácia existujúcej WLAN siete">
+<img src="https://i.imgur.com/nLqT6Y0.gif" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti" title="WiFi termostat - ESP8266 AP - Android - pripojenie k sieti">	
 <hr>
 <h4>WiFi termostat - HTTP webserver - funkčný termostat po pripojení k LAN sieti</h4>
 <hr>		
