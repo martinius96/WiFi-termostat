@@ -76,7 +76,7 @@
 <hr><center><h2>JSON-Clients - WLAN-Thermostat</h2></center><hr>
 <p style="text-align: justify;">
 Der auf der Arduino-Plattform ESP8266, ESP32 basierende JSON-Client ermöglicht die Verbindung über einen Websocket mit einem WLAN-Thermostat.
-<b> Der Client führt alle 15 Sekunden eine zyklische HTTP-GET-Anfrage aus, um den Inhalt der Unterseite /get_data.json abzurufen, auf der der Webserver Zieltemperatur-, Hysterese- und aktuelle Temperaturdaten an den DS18B20-Sensor auf dem OneWire-Bus im JSON-Format verteilt . </b>
+<b> Der Client führt alle 15 Sekunden eine zyklische HTTP-GET-Anfrage aus, um den Inhalt der Unterseite <a href="../get_data.json">/get_data.json</a> abzurufen, auf der der Webserver Zieltemperatur-, Hysterese- und aktuelle Temperaturdaten an den DS18B20-Sensor auf dem OneWire-Bus im JSON-Format verteilt . </b>
 Die geladene JSON-Payload kann vom JSON-Client in einer HTTP-Antwort (Webserver-Antwort) gelesen werden und deserialisiert dann diesen String.
 Nach der Deserialisierung ist es möglich, auf die einzelnen Schlüssel des JSON-Formats, denen die Werte zugeordnet sind, zuzugreifen und diese zu parsen.
 Die übereinstimmenden Daten werden auf den UART geschrieben - Serielle Leitung - 115200 Baud / s.
