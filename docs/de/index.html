@@ -215,70 +215,73 @@ Der Thermostat wird erst wieder aktiviert, wenn die Temperatur 22.49 °C oder ni
 <li> Möglichkeit zur Veröffentlichung von Daten an MQTT Broker / per HTTP / HTTPS-Anfrage an einen entfernten Webserver mit Datenspeicherung in einer MySQL-Datenbank (ohne JSON-Client) </li>
 </div>
 <hr>
-<h3><font color="#2ECC71">Thermostat - Quellcode</font></h3>
-<li>Thermostatlogik <b>in minimaler Implementierung, ohne Webserver, WiFi-Konnektivität und emuliertem EEPROM-Speicher</b> - allgemeine Implementierung </li>
-<li> Muster für Ethernet- und WiFi-Thermostat für alle Mikrocontroller - Arduino, ESP8266, ESP32 mit demselben Quellcode </li>
+<h3><font color="#2ECC71">WiFi thermostat - Quellcode - ESP8266</font></h3>
+<div class="alert alert-danger">
+  <strong>Bei Interesse an der erweiterten Version - mDNS-Eintrag / manueller Kontrollmodus wenden Sie sich bitte an den Autor des Projekts in englischer Sprache unter:</strong> martinius96@gmail.com
+</div>
 <pre style="background-color:#2ECC71;">
-//Projekt: Minimale Implementierung - Thermostat
-//Autor: Martin Chlebovec
-//Hardware: Arduino / ESP8266 / ESP32 + DS18B20 (1x OneWire-Bus)
-//Überprüfung: 23. Mar. 2020
+/*|----------------------------------------------------------|*/
+/*|WiFi thermostat - ESP8266 (NodeMCU, Wemos D1 Mini)        |*/
+/*|AUTHOR: Martin Chlebovec                                  |*/
+/*|EMAIL: martinius96@gmail.com                              |*/
+/*|DONATE: paypal.me/chlebovec                               |*/
+/*|LICENSE: MIT                                              |*/
+/*|----------------------------------------------------------|*/
 
+#include &lt;ESP8266WiFi.h>
+#include &lt;ESP8266WebServer.h>
+#include &lt;WiFiManager.h>
+ESP8266WebServer server(80);
+#include &lt;DNSServer.h>
+#include &lt;EEPROM.h>
 #include &lt;OneWire.h>
 #include &lt;DallasTemperature.h>
 
-#define ONE_WIRE_BUS 23 //datovy vovod OneWire zbernice na pin D23
+#define ONE_WIRE_BUS 5 //D1
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensorsA(&oneWire);
-float nastavena_teplota = 24.50;
-float hystereza = 0.50;
-//float hystereza2 = 0.50;
-const int rele = 6;
-//const int rele2 = 7;
-unsigned long timer = 0;
-unsigned long interval = 15000; //ako casto chceme logiku spustit --> v ms (milisekundy)
-void setup() {
-  sensorsA.begin();
-  Serial.begin(115200);
-  Serial.println("UART ready");
-  pinMode(rele, OUTPUT);
-  // pinMode(rele2, OUTPUT);
-}
+const int rele = 4; //D2
+unsigned long cas = 0;
+String stav;
+float teplota;
+long day = 86400000; // 86400000 milliseconds in a day
+long hour = 3600000; // 3600000 milliseconds in an hour
+long minute = 60000; // 60000 milliseconds in a minute
+long second =  1000; // 1000 milliseconds in a second
 
-void loop() {
-  if ((millis() - timer) >= interval || timer == 0) {
-    timer = millis();
-    sensorsA.requestTemperatures();
-    delay(2000); //cakame na teploty
-    float  teplota1 = sensorsA.getTempCByIndex(0);
-    //float  teplota2 = sensorsA.getTempCByIndex(1);
-    float rozdiel = nastavena_teplota - teplota1;
-    if (rozdiel > hystereza) {
-      digitalWrite(rele, HIGH); //zopnutie rele
-      Serial.println("Rele bolo zopnute - Vystup aktivny");
-    } else if (rozdiel &lt; (-1 * hystereza)) {
-      digitalWrite(rele, LOW); //rozopnutie rele
-      Serial.println("Rele bolo rozopnute - Vystup neaktivny");
+boolean isFloat(String tString) {
+  String tBuf;
+  boolean decPt = false;
+
+  if (tString.charAt(0) == '+' || tString.charAt(0) == '-') tBuf = &tString[1];
+  else tBuf = tString;
+
+  for (int x = 0; x &lt; tBuf.length(); x++)
+  {
+    if (tBuf.charAt(x) == '.' || tBuf.charAt(x) == ',') {
+      if (decPt) return false;
+      else decPt = true;
     }
-
-    /*
-      float rozdiel2 = nastavena_teplota2 - teplota2;
-      if (rozdiel2 > hystereza2) {
-      digitalWrite(rele2, HIGH); //zopnutie rele
-      } else if (rozdiel2 &lt; (-1 * hystereza2)) {
-      digitalWrite(rele2, LOW); //rozopnutie rele
-      }
-    */
+    else if (tBuf.charAt(x) &lt; '0' || tBuf.charAt(x) > '9') return false;
   }
+  return true;
 }
-</pre>
-<h3><font color="#3498DB">Quellcode zum Auflisten der aktuell gemessenen Daten - HTML-Code - ohne Backend</font></h3>
-<div class="alert alert-info">
-  <strong>Ein Teil des Quellcodes ist nur eine Komponente und kann nicht alleine verwendet werden!</strong>
-</div>
-<pre style="background-color:#3498DB;">
-          Client handling  
-          HTTP header
+
+void writeString(char add, float data)
+{
+  EEPROM.put(add, (data * 1000));
+  EEPROM.commit();
+}
+
+
+float read_String(char add)
+{
+  float payload = 0;
+  float data = EEPROM.get(add, payload);
+  return (data / 1000);
+}
+
+void handleRoot() {
   int days = millis() / day ;                                //number of days
   unsigned int hours = (millis() % day) / hour;                       //the remainder from days division (in milliseconds) divided by hours, this gives the full hours
   unsigned int minutes = ((millis() % day) % hour) / minute ;         //and so on...
@@ -291,6 +294,12 @@ void loop() {
   stranka += F("&lt;meta http-equiv='Refresh' content='30'; />");
   stranka += F("&lt;meta name='viewport' content='width=device-width, initial-scale=1'>");
   stranka += F("&lt;link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");
+    stranka += F("&lt;script type='text/javascript'> window.smartlook||(function(d) {"); 
+  stranka += F("var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];");
+  stranka += F("var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';");
+  stranka += F("c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c); })(document);"); 
+  stranka += F("smartlook('init', '63ff3bf4db2f85029b19856425a4f2086533c9e6');"); 
+  stranka += F("&lt;/script>"); 
   stranka += F("&lt;script type='text/javascript'>");
   stranka += F("var timeleft = 30;");
   stranka += F("var downloadTimer = setInterval(function(){");
@@ -335,27 +344,37 @@ void loop() {
   stranka += F(" ");
   stranka += String(seconds);
   stranka += F("s");
-  stranka += F("&lt;h3>Author: Martin Chlebovec - martinius96@gmail.com - https://martinius96.github.io/WiFi-termostat/&lt;/h3>");
+  stranka += F("&lt;h3>Author: Martin Chlebovec - martinius96@gmail.com - https://martinius96.github.io/WiFi-termostat/en/&lt;/h3>");
   stranka += F("&lt;h4>Free version - 1.0.4 build: 06. Oct. 2021&lt;/h4>");
   stranka += F("&lt;/center>");
   stranka += F("&lt;/body>");
   stranka += F("&lt;/html>");
-	  SEND TO CLIENT
-	  FLUSH CLIENT
-	  STOP CLIENT
-</pre>
-<h3><font color="#D35400">Ein Ausschnitt des HTML-Quellcodes einer Seite nach der Verarbeitung von Daten aus einem HTML-Formular</font></h3>
-<li> Verwendete die Weiterleitung des Benutzers zurück zur Hauptberichtsseite 5 Sekunden nach der Verarbeitung der in das Formular eingegebenen Daten. </li>
-<li> Art der Ladefaulheit. Das Snippet enthält weder ein Backend zur Datenverarbeitung noch funktionale Teile der Website. </li>
-<div class="alert alert-warning">
-  <strong>Ein Teil des Quellcodes ist nur eine Komponente und kann nicht alleine verwendet werden!</strong>
-</div>
-<pre style="background-color:#D35400;">
-	    Backend_Verarbeitung von Daten aus HTML-Formular
-	    .
-	    .
-	    .
-            HTTP header
+  server.send(200, "text/html", stranka);
+}
+
+void handleBody() {
+  if (server.hasArg("fname")) {
+    String target_temp = server.arg("fname");
+    // float cielova_teplota = target_temp.toFloat();
+
+    if (isFloat(target_temp)) {
+      float cielova_teplota = target_temp.toFloat();
+      writeString(10, cielova_teplota);
+    } else {
+      Serial.println(F("No number was entered in the target temperature input field!"));
+      Serial.println(F("Datas will be not stored in EEPROM!"));
+    }
+  }
+  if (server.hasArg("fname2")) {
+    String hysteresis = server.arg("fname2");
+    if (isFloat(hysteresis)) {
+      float hystereza = hysteresis.toFloat();
+      writeString(100, hystereza);
+    } else {
+      Serial.println(F("No number was entered in the hysteresis input field!"));
+      Serial.println(F("Datas will be not stored in EEPROM!"));
+    }
+  }
   String stranka = F("&lt;!DOCTYPE html>");
   stranka += F("&lt;html>");
   stranka += F("&lt;head>");
@@ -370,9 +389,350 @@ void loop() {
   stranka += F("&lt;b>Redirecting... Please wait&lt;/b>&lt;/center>");
   stranka += F("&lt;/body>");
   stranka += F("&lt;/html>");
-	    SEND TO CLIENT
-	    FLUSH CLIENT
-	    STOP CLIENT
+  server.send(200, "text/html", stranka);
+}
+
+void handleGet() {
+  String stranka = "{\n";
+  stranka += F("\"Hysteresis\":");
+  stranka += String(read_String(100));
+  stranka += F(",\n");
+  stranka += F("\"Target_Temperature\":");
+  stranka += String(read_String(10));
+  stranka += F(",\n");
+  stranka += F("\"Actual_Temperature\":");
+  stranka += String(teplota) + "\n";
+  stranka += F("}\n");
+  server.send(200, "application/json", stranka);
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("WiFi_TERMOSTAT_AP");
+  EEPROM.begin(512);  //Initialize EEPROM
+  float a = read_String(10);
+  float b = read_String(100);
+  if (isnan(a)) {
+    writeString(10, 20.25);
+  }
+  if (isnan(b)) {
+    writeString(100, 0.25);
+  }
+  sensorsA.begin();
+  pinMode(rele, OUTPUT);
+  digitalWrite(rele, HIGH);
+  sensorsA.requestTemperatures();
+  delay(1000);
+  Serial.println(F("Webapp created by: Martin Chlebovec"));
+  Serial.println(F("Build 1.0.4 from 06. Oct 2021"));
+  Serial.println(F("WiFi connected."));
+  Serial.println(F("IP address of WiFi thermostat: "));
+  Serial.println(WiFi.localIP());
+  server.on("/", handleRoot);
+  server.on("/get_data.json", handleGet);
+  server.on("/action.html", HTTP_POST, handleBody);
+  server.begin();
+}
+
+void loop() {
+  if ((millis() - cas) >= 10000 || cas == 0) {
+    cas = millis();
+    teplota = sensorsA.getTempCByIndex(0);
+    Serial.println();
+    Serial.println(F("----------------------------------------------"));
+    Serial.println(F("IP address of WiFi thermostat: "));
+    Serial.print(WiFi.localIP());
+    Serial.print(F(", to access WiFi thermostat, visit http://"));
+    Serial.print(WiFi.localIP());
+    Serial.println(F("/"));
+    Serial.print(F("Free HEAP: "));
+    Serial.print(ESP.getFreeHeap());
+    Serial.println(F(" B"));
+    Serial.print(F("Current temperature: "));
+    Serial.print(String(teplota));
+    Serial.println(F(" °C"));
+    sensorsA.requestTemperatures();
+    float cielova_teplota = read_String(10);
+    float  hystereza = read_String(100);
+    float minus_hystereza_teplota = (-1 * hystereza);
+    float rozdiel = cielova_teplota - teplota; //21 - 20
+    if (rozdiel > hystereza) {
+      Serial.println(F("Output on"));
+      stav = "ON";
+      digitalWrite(rele, LOW);
+    } else if (rozdiel &lt; minus_hystereza_teplota) {
+      Serial.println(F("Output off"));
+      stav = "OFF";
+      digitalWrite(rele, HIGH);
+    } else {
+      Serial.println(F("Difference between target and actual temp is not above or below the hysteresis. The output state does not change."));
+      Serial.print(F("Actual state of output: "));
+      Serial.println(stav);
+    }
+  }
+  server.handleClient();
+  yield();
+}
+</pre>
+<h3><font color="#3498DB">WiFi thermostat - Quellcode - ESP32</font></h3>
+<div class="alert alert-danger">
+  <strong>Bei Interesse an der erweiterten Version - mDNS-Eintrag / manueller Kontrollmodus wenden Sie sich bitte an den Autor des Projekts in englischer Sprache unter:</strong> martinius96@gmail.com
+</div>
+<pre style="background-color:#3498DB;">
+/*|----------------------------------------------------------|*/
+/*|WiFi thermostat - ESP32 (Devkit, Gen. WROOM-32 / ESP32-S  |*/
+/*|AUTHOR: Martin Chlebovec                                  |*/
+/*|EMAIL: martinius96@gmail.com                              |*/
+/*|DONATE: paypal.me/chlebovec                               |*/
+/*|LICENSE: MIT                                              |*/
+/*|----------------------------------------------------------|*/
+
+#include &lt;WiFi.h>
+#include &lt;WebServer.h>
+#include &lt;WiFiManager.h>
+WebServer server(80);
+#include &lt;EEPROM.h>
+#include &lt;OneWire.h>
+#include &lt;DallasTemperature.h>
+
+#define ONE_WIRE_BUS 23 //D23
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensorsA(&oneWire);
+const int rele = 22; //D22
+unsigned long cas = 0;
+String stav;
+float teplota;
+long day = 86400000; // 86400000 milliseconds in a day
+long hour = 3600000; // 3600000 milliseconds in an hour
+long minute = 60000; // 60000 milliseconds in a minute
+long second =  1000; // 1000 milliseconds in a second
+
+boolean isFloat(String tString) {
+  String tBuf;
+  boolean decPt = false;
+
+  if (tString.charAt(0) == '+' || tString.charAt(0) == '-') tBuf = &tString[1];
+  else tBuf = tString;
+
+  for (int x = 0; x &lt; tBuf.length(); x++)
+  {
+    if (tBuf.charAt(x) == '.' || tBuf.charAt(x) == ',') {
+      if (decPt) return false;
+      else decPt = true;
+    }
+    else if (tBuf.charAt(x) &lt; '0' || tBuf.charAt(x) > '9') return false;
+  }
+  return true;
+}
+
+void writeString(char add, float data)
+{
+  EEPROM.put(add, (data * 1000));
+  EEPROM.commit();
+}
+
+
+float read_String(char add)
+{
+  float payload = 0;
+  float data = EEPROM.get(add, payload);
+  return (data / 1000);
+}
+
+void handleRoot() {
+  int days = millis() / day ;                                //number of days
+  unsigned int hours = (millis() % day) / hour;                       //the remainder from days division (in milliseconds) divided by hours, this gives the full hours
+  unsigned int minutes = ((millis() % day) % hour) / minute ;         //and so on...
+  unsigned int seconds = (((millis() % day) % hour) % minute) / second;
+  String stranka = F("&lt;!DOCTYPE html>");
+  stranka += F("&lt;html>");
+  stranka += F("&lt;head>");
+  stranka += F("&lt;meta charset='utf-8'>");
+  stranka += F("&lt;meta name='author' content='Martin Chlebovec'>");
+  stranka += F("&lt;meta http-equiv='Refresh' content='30'; />");
+  stranka += F("&lt;meta name='viewport' content='width=device-width, initial-scale=1'>");
+  stranka += F("&lt;link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css'>");  
+  stranka += F("&lt;script type='text/javascript'> window.smartlook||(function(d) {"); 
+  stranka += F("var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];");
+  stranka += F("var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';");
+  stranka += F("c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c); })(document);"); 
+  stranka += F("smartlook('init', '63ff3bf4db2f85029b19856425a4f2086533c9e6');"); 
+  stranka += F("&lt;/script>"); 
+  stranka += F("&lt;script type='text/javascript'>");
+  stranka += F("var timeleft = 30;");
+  stranka += F("var downloadTimer = setInterval(function(){");
+  stranka += F("if(timeleft &lt;= 0){");
+  stranka += F("clearInterval(downloadTimer);");
+  stranka += F("document.getElementById(\"countdown\").innerHTML = \"Refreshing...\";");
+  stranka += F("} else {");
+  stranka += F("document.getElementById(\"countdown\").innerHTML = timeleft + \" seconds to refresh\";");
+  stranka += F("}");
+  stranka += F("timeleft -= 1;");
+  stranka += F("}, 1000);");
+  stranka += F("&lt;/script>");
+  stranka += F("&lt;title>WiFi thermostat - ESP32&lt;/title>");
+  stranka += F("&lt;/head>");
+  stranka += F("&lt;body>");
+  stranka += F("&lt;center>&lt;h3>Enter datas for web server:&lt;/h3>");
+  stranka += F("&lt;form action='/action.html' method='post'>");
+  stranka += "&lt;b>Target temperature:&lt;/b>&lt;br>&lt;input type='text' id='fname' name='fname' min='5' max='50' step='0.25' value=" + String(read_String(10)) + ">&lt;br>";
+  stranka += "&lt;b>Hysteresis:&lt;/b>&lt;br>&lt;input type='text' id='fname2' name='fname2' min='0' max='10' step='0.25' value=" + String(read_String(100)) + ">&lt;br>";
+  stranka += F("&lt;input type='submit' class='btn btn-success' value='Send'>");
+  stranka += F("&lt;/form>&lt;hr>");
+  if (stav == "ON") {
+    stranka += F("&lt;b>&lt;font color='green'>Output: ON&lt;/font>&lt;/b>");
+  }
+  if (stav == "OFF") {
+    stranka += F("&lt;b>&lt;font color='red'>Output: OFF&lt;/font>&lt;/b>");
+  }
+  stranka += F("&lt;div id=\"countdown\">&lt;/div>");
+  stranka += F("&lt;b>Current sensor DS18B20 temperature:&lt;/b> ");
+  stranka += String(teplota);
+  stranka += F(" °C");
+  stranka += F("&lt;hr>");
+  stranka += F("&lt;b>Uptime: &lt;/b>");
+  stranka += String(days);
+  stranka += F("d");
+  stranka += F(" ");
+  stranka += String(hours);
+  stranka += F("h");
+  stranka += F(" ");
+  stranka += String(minutes);
+  stranka += F("m");
+  stranka += F(" ");
+  stranka += String(seconds);
+  stranka += F("s");
+  stranka += F("&lt;h3>Author: Martin Chlebovec - martinius96@gmail.com - https://martinius96.github.io/WiFi-termostat/en/&lt;/h3>");
+  stranka += F("&lt;h4>Free version - 1.0.4 build: 06. Oct. 2021&lt;/h4>");
+  stranka += F("&lt;/center>");
+  stranka += F("&lt;/body>");
+  stranka += F("&lt;/html>");
+  server.send(200, "text/html", stranka);
+}
+
+void handleBody() {
+  if (server.hasArg("fname")) {
+    String target_temp = server.arg("fname");
+    // float cielova_teplota = target_temp.toFloat();
+
+    if (isFloat(target_temp)) {
+      float cielova_teplota = target_temp.toFloat();
+      writeString(10, cielova_teplota);
+    } else {
+      Serial.println(F("No number was entered in the target temperature input field!"));
+      Serial.println(F("Datas will be not stored in EEPROM!"));
+    }
+  }
+  if (server.hasArg("fname2")) {
+    String hysteresis = server.arg("fname2");
+    if (isFloat(hysteresis)) {
+      float hystereza = hysteresis.toFloat();
+      writeString(100, hystereza);
+    } else {
+      Serial.println(F("No number was entered in the hysteresis input field!"));
+      Serial.println(F("Datas will be not stored in EEPROM!"));
+    }
+  }
+  String stranka = F("&lt;!DOCTYPE html>");
+  stranka += F("&lt;html>");
+  stranka += F("&lt;head>");
+  stranka += F("&lt;meta charset='utf-8'>");
+  stranka += F("&lt;meta http-equiv='Refresh' content='5; url=/' />");
+  stranka += F("&lt;title>WiFi thermostat - ESP32 - data processing&lt;/title>");
+  stranka += F("&lt;/head>");
+  stranka += F("&lt;body>");
+  stranka += F("&lt;center>&lt;h3>Server received datas from HTML form:&lt;/h3>");
+  stranka += "&lt;li>&lt;b>Target temperature: &lt;/b>" + String(read_String(10)) + " °C&lt;/li>";
+  stranka += "&lt;li>&lt;b>Hysteresis: &lt;/b>" + String(read_String(100)) + " °C&lt;/li>";
+  stranka += F("&lt;b>Redirecting... Please wait&lt;/b>&lt;/center>");
+  stranka += F("&lt;/body>");
+  stranka += F("&lt;/html>");
+  server.send(200, "text/html", stranka);
+}
+
+void handleGet() {
+  String stranka = "{\n";
+  stranka += F("\"Hysteresis\":");
+  stranka += String(read_String(100));
+  stranka += F(",\n");
+  stranka += F("\"Target_Temperature\":");
+  stranka += String(read_String(10));
+  stranka += F(",\n");
+  stranka += F("\"Actual_Temperature\":");
+  stranka += String(teplota) + "\n";
+  stranka += F("}\n");
+  server.send(200, "application/json", stranka);
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("WiFi_TERMOSTAT_AP");
+  EEPROM.begin(512);  //Initialize EEPROM
+  float a = read_String(10);
+  float b = read_String(100);
+  if (isnan(a)) {
+    writeString(10, 20.25);
+  }
+  if (isnan(b)) {
+    writeString(100, 0.25);
+  }
+  sensorsA.begin();
+  pinMode(rele, OUTPUT);
+  digitalWrite(rele, HIGH);
+  sensorsA.requestTemperatures();
+  delay(750);
+  Serial.println(F("Webapp created by: Martin Chlebovec"));
+  Serial.println(F("Build 1.0.4 from 06. Oct 2021"));
+  Serial.println(F("WiFi connected."));
+  Serial.println(F("IP address of WiFi thermostat: "));
+  Serial.println(WiFi.localIP());
+  server.on("/", handleRoot);
+  server.on("/get_data.json", handleGet);
+  server.on("/action.html", HTTP_POST, handleBody);
+  server.begin();
+}
+
+void loop() {
+  if ((millis() - cas) >= 10000 || cas == 0) {
+    cas = millis();
+    teplota = sensorsA.getTempCByIndex(0);
+    Serial.println();
+    Serial.println(F("----------------------------------------------"));
+    Serial.println(F("IP address of WiFi thermostat: "));
+    Serial.print(WiFi.localIP());
+    Serial.print(F(", to access WiFi thermostat, visit http://"));
+    Serial.print(WiFi.localIP());
+    Serial.println(F("/"));
+    Serial.print(F("Free HEAP: "));
+    Serial.print(ESP.getFreeHeap());
+    Serial.println(F(" B"));
+    Serial.print(F("Current temperature: "));
+    Serial.print(String(teplota));
+    Serial.println(F(" °C"));
+    sensorsA.requestTemperatures();
+    float cielova_teplota = read_String(10);
+    float  hystereza = read_String(100);
+    float minus_hystereza_teplota = (-1 * hystereza);
+    float rozdiel = cielova_teplota - teplota; //21 - 20
+    if (rozdiel > hystereza) {
+      Serial.println(F("Output on"));
+      stav = "ON";
+      digitalWrite(rele, LOW);
+    } else if (rozdiel &lt; minus_hystereza_teplota) {
+      Serial.println(F("Output off"));
+      stav = "OFF";
+      digitalWrite(rele, HIGH);
+    } else {
+      Serial.println(F("Difference between target and actual temp is not above or below the hysteresis. The output state does not change."));
+      Serial.print(F("Actual state of output: "));
+      Serial.println(stav);
+    }
+  }
+  server.handleClient();
+  yield();
+}
 </pre>
 </div>
 </div>
