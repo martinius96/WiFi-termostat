@@ -214,6 +214,53 @@ Der Thermostat wird erst wieder aktiviert, wenn die Temperatur 22.49 °C oder ni
 <li> Interaktion mit Amazon Alexa Echo Dot mit der Möglichkeit der Sprachsteuerung des Thermostats (UDP-Rückrufe) </li>
 <li> Möglichkeit zur Veröffentlichung von Daten an MQTT Broker / per HTTP / HTTPS-Anfrage an einen entfernten Webserver mit Datenspeicherung in einer MySQL-Datenbank (ohne JSON-Client) </li>
 </div>
+<hr><center><h4>Verfügbare Bibliotheken für Mikrocontroller (ESP)</h4></center><hr>
+<div class="alert alert-danger">
+	Bibliotheksarchiv (.zip) expandieren zu <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Name der Bibliothek</th>
+<th style="width: 50%">Bibliotheksfunktion</th>
+<th style="width: 25%">Herunterladen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Dallas</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für ESP8266- und ESP32-Mikrocontroller.
+Es ermöglicht die Kommunikation mit dem Dallas DS18B20-Sensor auf dem OneWire-Bus. Kommunikationsmöglichkeit nach normaler oder parasitärer Verbindung. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/termostat-ethernet/tree/master/src/dallas" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>WiFiManager</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Bibliothek für ESP8266- und ESP32-Mikrocontroller.
+Erstellt einen Zugangspunkt (AP) und ein Captive-Portal zum Konfigurieren eines WLAN-Thermostats in einem WLAN-Heimnetzwerk.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/WiFiManager-0.16.0" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>DNS Server</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ESP32-Mikrocontroller-Bibliothek.
+Erforderlich, damit die WiFiManager-Bibliothek ordnungsgemäß funktioniert. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/DNSServer---esp32-master" class="btn btn-success" role="button">Herunterladen</a></td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 <h3><font color="#2ECC71">WiFi thermostat - Quellcode - ESP8266</font></h3>
 <pre style="background-color:#2ECC71;">
