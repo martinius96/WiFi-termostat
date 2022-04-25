@@ -205,6 +205,53 @@ Termostatom je možné nahradiť už existujúci izbový termostat, možno doča
 <img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART - ESP8266 - mDNS záznam" title="WiFi termostat - UART - ESP8266 - mDNS záznam">
 <img src="https://i.imgur.com/rAfC2iJ.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART - ESP32 - výstup - ovládanie kotla" title="WiFi termostat - UART - ESP32 - výstup - ovládanie kotla">
 </center>        		
+<hr><center><h4>Dostupné knižnice pre mikrokontroléry (ESP)</h4></center><hr>
+<div class="alert alert-danger">
+	Archív knižnice (.zip) rozbaliť do <strong>C:/Používatelia/[Používateľ]/Dokumenty/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Názov knižnice</th>
+<th style="width: 50%">Funkcia knižnice</th>
+<th style="width: 25%">Stiahnuť</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Dallas</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Knižnica pre mikrokontroléry ESP8266 a ESP32.
+Umožňuje komunikáciu so senzorom Dallas DS18B20 na OneWire zbernici. Možnosť komunikácie po normálnom, alebo parazitnom zapojení. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/termostat-ethernet/tree/master/src/dallas" class="btn btn-success" role="button">Stiahnuť</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>WiFiManager</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Knižnica pre mikrokontroléry ESP8266 a ESP32.
+Vytvára prístupový bod (AP) a Captive portal pre konfiguráciu WiFi termostatu na domácu WiFi sieť. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/WiFiManager-0.16.0" class="btn btn-success" role="button">Stiahnuť</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>DNS Server</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Knižnica pre mikrokontróler ESP32. 
+Vyžaduje sa pre správne fungovanie knižnice WiFiManager. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/DNSServer---esp32-master" class="btn btn-success" role="button">Stiahnuť</a></td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 <h3><font color="#2ECC71">WiFi termostat - zdrojový kód - ESP8266</font></h3>
 <pre style="background-color:#2ECC71;">
