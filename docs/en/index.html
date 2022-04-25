@@ -192,6 +192,53 @@ Thermostat is not reactivated until the temperature reaches 22.49 °C or lower.
 
 <b>Output to UART monitor - system logic + set IP address, mDNS record:</b>
 <center><img src="https://i.imgur.com/gWm9izE.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART output with mDNS record, IP address of thermostat" title="WiFi termostat - UART output with mDNS record, IP address of thermostat"></center>        		
+<hr><center><h4>Available libraries for microcontrollers (ESP)</h4></center><hr>
+<div class="alert alert-danger">
+	Library archive (.zip) expand to <strong>C:/Users/[User]/Documents/Arduino/libraries</strong>
+</div>
+<div class="table-responsive">   
+<table class="table" style="border: 1px solid black;">
+<thead>
+<tr>
+<th style="width: 25%">Library name</th>
+<th style="width: 50%">Library function</th>
+<th style="width: 25%">Download</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="width: 25%"><b>Dallas</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Library for ESP8266 and ESP32 microcontrollers.
+It allows communication with the Dallas DS18B20 sensor on the OneWire bus. Possibility of communication after normal or parasitic connection. 
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/termostat-ethernet/tree/master/src/dallas" class="btn btn-success" role="button">Download</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>WiFiManager</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+Library for ESP8266 and ESP32 microcontrollers.
+Creates an access point (AP) and Captive portal for configuring a WiFi thermostat on a home WiFi network.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/WiFiManager-0.16.0" class="btn btn-success" role="button">Download</a></td>
+</tr>
+<tr>
+<td style="width: 25%"><b>DNS Server</b></td>
+<td style="width: 50%">
+<p style="text-align: justify;">
+ESP32 microcontroller library.
+Required for WiFiManager library to work properly.
+</p>
+</td>
+<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/DNSServer---esp32-master" class="btn btn-success" role="button">Download</a></td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 <h3><font color="#2ECC71">WiFi thermostat - source code - ESP8266</font></h3>
 <pre style="background-color:#2ECC71;">
