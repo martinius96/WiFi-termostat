@@ -2,20 +2,20 @@
 <html lang="de-DE">
 <head>
 	<!-- Primary Meta Tags -->
-	<title>WiFi-Thermostat - ESP8266 / ESP32 - Webserver - Kesselsteuerung im Automatikmodus mit Hysterese / manueller Steuerung</title>
-	<meta name="description" content="Raumthermostat entwickelt auf der Espressif-Plattform - ESP8266 / ESP32. Thermostat für Hausheizung mit Gaskesselsteuerung.">
+	<title>Smartes WiFi-Thermostat - ESP8266 / ESP32 - Webserver - Effiziente Kesselsteuerung im Automatikmodus mit Hysterese</title>
+	<meta name="description" content="Raumthermostat entwickelt auf der Espressif-Plattform - ESP8266 / ESP32. Intelligentes Thermostat für effiziente Hausheizung mit präziser Gaskesselsteuerung.">
 	<meta name="keywords" content="termostat, digitálny, arduino ide, wemos d1 mini, nodemcu, wifi, esp8266, vykurovanie, kúrenie, wifimanager, webserver, socket, http, web, ip, ipv4, ds18b20, onewire, 1-wire, esp32, nodemcu">
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://martinius96.github.io/WiFi-termostat/de/">
-	<meta property="og:title" content="WiFi-Thermostat - ESP8266 / ESP32 - Webserver - Kesselsteuerung im Automatikmodus mit Hysterese / manueller Steuerung">
-	<meta property="og:description" content="Raumthermostat entwickelt auf der Espressif-Plattform - ESP8266 / ESP32. Thermostat für Hausheizung mit Gaskesselsteuerung.">
+	<meta property="og:title" content="Smartes WiFi-Thermostat - ESP8266 / ESP32 - Webserver - Effiziente Kesselsteuerung im Automatikmodus mit Hysterese">
+	<meta property="og:description" content="Raumthermostat entwickelt auf der Espressif-Plattform - ESP8266 / ESP32. Intelligentes Thermostat für effiziente Hausheizung mit präziser Gaskesselsteuerung.">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
 	<meta property="twitter:url" content="https://martinius96.github.io/WiFi-termostat/de/">
-	<meta property="twitter:title" content="WiFi-Thermostat - ESP8266 / ESP32 - Webserver - Kesselsteuerung im Automatikmodus mit Hysterese / manueller Steuerung">
-	<meta property="twitter:description" content="Raumthermostat entwickelt auf der Espressif-Plattform - ESP8266 / ESP32. Thermostat für Hausheizung mit Gaskesselsteuerung.">
+	<meta property="twitter:title" content="Smartes WiFi-Thermostat - ESP8266 / ESP32 - Webserver - Effiziente Kesselsteuerung im Automatikmodus mit Hysterese">
+	<meta property="twitter:description" content="Raumthermostat entwickelt auf der Espressif-Plattform - ESP8266 / ESP32. Intelligentes Thermostat für effiziente Hausheizung mit präziser Gaskesselsteuerung.">
 	
 	<link rel="icon" type="image/png" href="favicon.png">
 	<link rel="sitemap" type="application/xml" title="Sitemap" href="../../sitemap.xml" />
@@ -90,14 +90,12 @@
 </div>					
 <hr><center><h2>WiFi Thermostat - ESP8266 / ESP32</h2></center><hr>
 <p style="text-align: justify;">
-Die Softwareimplementierung ist für Mikrocontroller-Plattformen des Herstellers Espressif Systems mit WiFi-Konnektivität ausgelegt.
-Unterstützte WiFi (2,4 GHz) ESP8266- und ESP32-Mikrocontroller.
-Der WiFi-Thermostat ist über das LAN-Netzwerk, in dem er sich befindet, zugänglich, während er mit einer Weboberfläche ausgestattet ist, die dazu dient, alle Elemente des Thermostats zu konfigurieren und gleichzeitig die aktuellen Zustände zu visualisieren.
-Der Thermostat regelt den Kessel auf Basis der gemessenen Solltemperatur und Hysterese unabhängig von der Webapplikation, die zur Konfiguration und Entscheidungsschwelle des Thermostats dient.
-Neben der Verfügbarkeit des Thermostats unter einer bestimmten IP-Adresse kann der Thermostat mit einem mDNS-Record ergänzt werden, der innerhalb dieses Multicast-Dienstes eine nur im LAN-Netzwerk erreichbare lokale Domain (hostname.local) generiert.
-Die Konfiguration des Thermostats (aus Sicht der Konnektivität) im Heim-WLAN-LAN-Netzwerk wird durch den WiFiManager gesichert, der Daten über das WLAN-Netzwerk (SSID und Passwort) im Flash-Speicher des Mikrocontrollers speichert.
-Die Speicherung erfolgt einmalig und das Gerät merkt sich die Konfiguration dauerhaft. Nach dem Herstellen der Konnektivität (Zuweisung einer IP-Adresse vom Router Ihres WLAN-Heimnetzwerks) kann der Thermostat vollständig verwendet werden.
-Der HTTP-Webserver, der auf dem ESP8266 / ESP32-Mikrocontroller läuft, ermöglicht das Ausführen mehrerer unabhängiger HTML-Seiten, die informativ oder sogar funktional sein können.
+Die Softwareimplementierung ist speziell für Mikrocontroller-Plattformen von Espressif Systems mit WiFi-Konnektivität konzipiert. Sie unterstützt WiFi (2,4 GHz) auf ESP8266- und ESP32-Mikrocontrollern.
+Der WiFi-Thermostat ist über das LAN-Netzwerk zugänglich und mit einer Weboberfläche ausgestattet. Diese dient der Konfiguration aller Thermostatelemente und ermöglicht gleichzeitig die Visualisierung der aktuellen Zustände.
+Der Thermostat steuert den Kessel basierend auf der gemessenen Solltemperatur und einer Hysterese. Diese Regelung erfolgt unabhängig von der Webapplikation, die für die Konfiguration und Entscheidungsschwelle des Thermostats dient.
+Zusätzlich zur Verfügbarkeit des Thermostats unter einer bestimmten IP-Adresse kann der Thermostat durch einen mDNS-Record ergänzt werden. Dieser generiert eine lokale Domain (hostname.local) innerhalb des Multicast-Dienstes, die nur im LAN-Netzwerk erreichbar ist.
+Die Konfiguration des Thermostats im Heim-WLAN-LAN-Netzwerk wird durch den WiFiManager gesichert. Dieser speichert die WLAN-Netzwerkdaten (SSID und Passwort) im Flash-Speicher des Mikrocontrollers. Die Konfiguration wird einmalig durchgeführt, und das Gerät merkt sich die Einstellungen dauerhaft. Nach erfolgreicher Konnektivität (Zuweisung einer IP-Adresse durch den Router des WLAN-Heimnetzwerks) ist der Thermostat vollständig einsatzbereit.
+Der HTTP-Webserver auf dem ESP8266/ESP32-Mikrocontroller ermöglicht das Ausführen mehrerer unabhängiger HTML-Seiten. Diese können informativ oder sogar funktional gestaltet sein.
 </p>
 <b>In Bezug auf die Hardware verwendet das Projekt:</b>
 <li>ESP8266 / ESP32</li>
@@ -116,20 +114,15 @@ Der HTTP-Webserver, der auf dem ESP8266 / ESP32-Mikrocontroller läuft, ermögli
 <li> <b> /manual.html </b> - Wechseln Sie in den manuellen Modus (permanente EIN / AUS-Hardsteuerung) </li>
 <hr>	
 <p style="text-align: justify;">		
-<b> Die Auflösung des DS18B20 Sensors während der Messung beträgt 12 Bit, was durch die Temperaturauflösung bei 0,0625 °C angezeigt wird, was ebenfalls ein minimaler Schritt zwischen den verschiedenen Messwerten ist.
-Daten über den OneWire-Bus können bei Bedarf in 500 bis 1000 ms an den Mikrocontroller zurückgesendet werden, je nach Anzahl der Sensoren, Buslänge. </b>
-Das im Projekt verwendete elektromagnetische Relais SRD-5VDC-SL-C ermöglicht das Schalten bis 10A bei 230V - Leistung 2300W.
-Beim Schalten eines Gleichstromkreises (Last) können 300W (10A bei 30V DC) geschaltet werden.
-Alternativ ist das OMRON G3MB-202P SSR-Relais voll kompatibel zum Schaltplan, der nur für nicht induktive Lasten und ausschließlich für Wechselstromkreise geeignet ist.
-Maximale Schaltleistung 460W (230V, 2A). <b> Der Thermostat kann das ganze Jahr über verwendet werden. Im Falle einer unnötigen Steuerung ist es möglich, den Ausgang physisch zu trennen und den Thermostat als WLAN-Thermometer zu verwenden, um Daten aus dem Raum zu erhalten, in dem er sich befindet. </b>
+<b>Die Auflösung des DS18B20-Sensors beträgt während der Messung 12 Bit, was eine Temperaturauflösung von 0,0625 °C ergibt, was gleichzeitig der minimale Schritt zwischen den verschiedenen Messwerten ist. Daten über den OneWire-Bus können bei Bedarf in 500 bis 1000 ms an den Mikrocontroller zurückgesendet werden, abhängig von der Anzahl der Sensoren und der Buslänge.</b>
+<b>Das im Projekt verwendete elektromagnetische Relais SRD-5VDC-SL-C ermöglicht das Schalten bis zu 10A bei 230V, was einer Leistung von 2300W entspricht. Beim Schalten eines Gleichstromkreises (Last) können 300W (10A bei 30V DC) geschaltet werden. Als Alternative ist das OMRON G3MB-202P SSR-Relais voll kompatibel zum Schaltplan, jedoch nur für nicht induktive Lasten und ausschließlich für Wechselstromkreise geeignet, mit einer maximalen Schaltleistung von 460W (230V, 2A).</b>
+<b>Der Thermostat ist das ganze Jahr über einsatzbereit. Im Falle einer unnötigen Steuerung besteht die Möglichkeit, den Ausgang physisch zu trennen und den Thermostat als WLAN-Thermometer zu verwenden, um Daten aus dem Raum zu erhalten, in dem er sich befindet.</b>
 </p>
 <hr>
 <p style="text-align: justify;">
-Bei Firmware mit Unterstützung für die manuelle Steuerung des GPIO-Ausgangs des ESP-Mikrocontrollers kann der Thermostat physisch ausgeschaltet werden, ohne ihn von der Relaisklemme trennen zu müssen.
-Die Thermostatlogik wird unabhängig vom Webserver und angeschlossenen Clients alle 10 Sekunden ausgeführt, für die Ausführung ist keine Keep-Alive-Verbindung erforderlich.
-Bei jeder Ausführung der Logik schreibt der Thermostat auch Informationen über die aktuelle IP-Adresse oder den mDNS-Record (bei Verwendung mit mDNS-Firmware) auf den UART-Thermostat und gibt so dem Benutzer Auskunft darüber, wo der Thermostat mit seinem Webinterface im LAN erreichbar ist Netzwerk.
-Darüber hinaus listet es auch den dynamischen freien Speicher - HEAP, der von 40 bis 44 kB reicht, sowie den aktuellen Status der Ausgabe mit Benachrichtigung über die Änderung, falls sie auftritt -> (wenn die Entscheidungsschwelle nach + oder nach - fließt) ).
-<b> Die 3V3-GPIO-Betriebslogik der ESP8266- und ESP32-Mikrocontroller reicht für ein digitales Änderungssignal aus, aber das Relais muss mit 5 V von VUSB bzw. VIN versorgt werden. </b>
+Bei einer Firmware mit Unterstützung für die manuelle Steuerung des GPIO-Ausgangs des ESP-Mikrocontrollers kann der Thermostat physisch ausgeschaltet werden, ohne ihn von der Relaisklemme trennen zu müssen. Die Thermostatlogik wird unabhängig vom Webserver und den angeschlossenen Clients alle 10 Sekunden ausgeführt, und es ist keine Keep-Alive-Verbindung erforderlich.
+Bei jeder Ausführung der Logik schreibt der Thermostat Informationen über die aktuelle IP-Adresse oder den mDNS-Record (bei Verwendung mit mDNS-Firmware) auf den UART-Thermostat. Dadurch erhält der Benutzer Auskunft darüber, wo der Thermostat mit seinem Webinterface im LAN-Netzwerk erreichbar ist. Zusätzlich listet er den dynamischen freien Speicher (HEAP), der von 40 bis 44 kB reicht, sowie den aktuellen Status der Ausgabe auf, mit Benachrichtigung über Änderungen, falls sie auftreten (z. B. wenn die Entscheidungsschwelle überschritten wird).
+<b>Die 3V3-GPIO-Betriebslogik der ESP8266- und ESP32-Mikrocontroller reicht für ein digitales Änderungssignal aus, aber das Relais muss mit 5 V von VUSB bzw. VIN versorgt werden.</b>
 </p>
 <b> Die Webschnittstelle des WiFi-Thermostats ermöglicht Ihnen: </b>
 <li> Sehen Sie in Echtzeit die Temperatur des DS18B20-Sensors, die Betriebszeit des Geräts, den Ausgabewert mit dynamischer Änderung, die aktuell eingestellten Konfigurationsdaten für den Thermostat, d. Solltemperatur und Hysterese </li>
@@ -151,29 +144,25 @@ Durch den Import von CSS-Stilen von einem externen Server wird die Strom- und Sp
 </p>
 <hr>
 <p style="text-align: justify;">
-Um die eingestellten Werte des Thermostats auch nach einem Stromausfall beizubehalten, werden diese im EEPROM-Speicher ESP gespeichert, der im Flash-Speicher emuliert wird, da die Plattform keinen physikalischen EEPROM-Chip (Speicher) besitzt.
-Referenztemperatur auf Offset 10, Hysterese auf Offset 100. Jeder der Werte belegt maximal 5B im EEPROM-Speicher + das Endezeichen.
-Die Daten werden erst beim Senden des HTML-Formulars überschrieben, der Betrieb des Thermostats schont den EEPROM-Speicher für maximale Haltbarkeit.
-Der Zustand des Ausgangs existiert nur im RAM-Speicher, wo er bei der Änderung überschrieben wird. Der Wert wird nicht im emulierten EEPROM-Speicher im Flash-Speicher abgelegt.
+Um die eingestellten Werte des Thermostats auch nach einem Stromausfall zu bewahren, werden diese im EEPROM-Speicher des ESP gespeichert, der im Flash-Speicher emuliert wird, da die Plattform keinen physischen EEPROM-Chip besitzt. Die Referenztemperatur wird am Offset 10 gespeichert, die Hysterese am Offset 100. Jeder der Werte belegt maximal 5 Bytes im EEPROM-Speicher, zusätzlich zum Endzeichen.
+Die Daten werden erst beim Senden des HTML-Formulars überschrieben, und der Betrieb des Thermostats schont den EEPROM-Speicher für maximale Haltbarkeit. Der Zustand des Ausgangs existiert nur im RAM-Speicher, wo er bei Änderungen überschrieben wird. Der Wert wird nicht im emulierten EEPROM-Speicher im Flash-Speicher abgelegt.
 </p>
 <hr>
 <p style="text-align: justify;">
-Wenn das Gerät beim ersten Start nichts auf den genannten EEPROM-Offsets gespeichert hat, wird das automatische Schreiben mit Standardwerten durchgeführt - Referenz: 20,25 ° C, Hysterese 0,00 ° C. Dadurch wird sichergestellt, dass der Thermostat auf Mikrocontrollern arbeiten kann, die nichts im EEPROM-Speicher geschrieben haben - ausfallsichere Lösung.
-ESP8266 und ESP32 verwenden die Funktion EEPROM.put(), um in den EEPROM-Speicher zu schreiben, der jeden Datentyp unterstützt, und EEPROM.commit(), um das Schreiben in den Ziel-Offset zu bestätigen.
-Die Implementierung verwendet den Datentyp float() für eine 32-Bit-Zahl, die im EEPROM gespeichert wird und zur Referenz-(Soll-)Temperatur sowie Hysterese gehört.
-Mit dem Refresh-Meta-Tag aktualisiert der Webserver alle 30 Sekunden die gesamte HTML-Seite und die JavaScript-Zeit bis zum Refresh wird ebenfalls per Javascript in die HTML-Seite geschrieben.
-Zu diesem Zeitpunkt ist es notwendig, die Änderung für den Thermostaten zu schreiben, da sonst die Eingabefenster für numerische Eingaben in das Formular beim Aktualisieren der Seite zurückgesetzt werden.
-Da die eingebaute Ethernet-Bibliothek die Verwendung eines asynchronen Webservers nicht beinhaltet (der beispielsweise mit den Espressif ESP8266 / ESP32-Mikrocontrollern verwendet werden kann), ist es erforderlich, die gesamte Seite neu zu schreiben, da diese Implementierung 1:1 ist mit dem originalen Ethernet-Thermostat.
+Wenn das Gerät beim ersten Start keine Daten auf den genannten EEPROM-Offsets gespeichert hat, erfolgt automatisch ein Schreiben mit Standardwerten: Referenztemperatur 20,25 °C und Hysterese 0,00 °C. Dadurch wird sichergestellt, dass der Thermostat auf Mikrocontrollern arbeiten kann, die keine vorherigen Werte im EEPROM-Speicher gespeichert haben - eine ausfallsichere Lösung.
+ESP8266 und ESP32 verwenden die Funktion EEPROM.put() zum Schreiben in den EEPROM-Speicher, der jeden Datentyp unterstützt. Um das Schreiben in den Ziel-Offset zu bestätigen, wird EEPROM.commit() verwendet. Die Implementierung verwendet den Datentyp float() für eine 32-Bit-Zahl, die im EEPROM gespeichert wird und zur Referenz-(Soll-)Temperatur sowie zur Hysterese gehört.
+Mit dem Refresh-Meta-Tag aktualisiert der Webserver alle 30 Sekunden die gesamte HTML-Seite, und die JavaScript-Zeit bis zum Refresh wird ebenfalls per JavaScript in die HTML-Seite geschrieben. Zu diesem Zeitpunkt ist es notwendig, die Änderung für den Thermostaten zu schreiben, da sonst die Eingabefenster für numerische Eingaben im Formular beim Aktualisieren der Seite zurückgesetzt werden.
+Da die eingebaute Ethernet-Bibliothek die Verwendung eines asynchronen Webservers nicht beinhaltet (der beispielsweise mit den Espressif ESP8266/ESP32-Mikrocontrollern verwendet werden kann), ist es erforderlich, die gesamte Seite neu zu schreiben, da diese Implementierung 1:1 mit dem originalen Ethernet-Thermostat ist.
 </p>
 <hr>
 <p style="text-align: justify;">
-Die sich hauptsächlich ändernden dynamischen Daten sind der aktuelle Wert der Ausgabe - <b> <font color = "#27AE60"> EIN </font> </b> / <b> <font color = "red"> AUS </font> </b>, die den Bediener über den aktuellen Zustand der Ausgabe zusammen mit der Farbcodierung informiert.
-Da die Systemlogik unabhängig vom Webserver ausgeführt wird, kann sich die Ausgabe bereits in einem anderen Zustand befinden als aktuell in der Webanwendung aufgelistet. Die Ausgabeänderung wird z. B. sofort auf den UART-Monitor geschrieben.
-Auf der Website des Thermostats findet der Benutzer auch Informationen über die Betriebszeit des Geräts (wie lange es in Betrieb war), d. Zeit in Tagen, Stunden, Minuten und Sekunden. <b>Der Thermostat ist nur für Innentemperaturen gedacht!</b> (über 0°C), an die die Systemlogik angepasst ist!
-Der Thermostat kann verwendet werden, um einen vorhandenen Raumthermostat zu ersetzen, die Heizung im Aquarium / Terrarium kann vorübergehend ersetzt werden, um eine konstante Temperatur zu halten.
+Die sich hauptsächlich ändernden dynamischen Daten betreffen den aktuellen Wert der Ausgabe - <b><font color="#27AE60">EIN</font></b> / <b><font color="red">AUS</font></b>, der dem Bediener den aktuellen Zustand der Ausgabe zusammen mit der Farbcodierung zeigt. Es ist zu beachten, dass die Systemlogik unabhängig vom Webserver arbeitet, daher kann sich die Ausgabe bereits in einem anderen Zustand befinden als in der Webanwendung aufgeführt. Eine Änderung der Ausgabe wird beispielsweise sofort auf den UART-Monitor geschrieben.
+Auf der Website des Thermostats findet der Benutzer auch Informationen über die Betriebszeit des Geräts, wie lange es bereits in Betrieb war, angegeben in Tagen, Stunden, Minuten und Sekunden.
+<b>Der Thermostat ist ausschließlich für Innentemperaturen gedacht (über 0°C), an die die Systemlogik angepasst ist!</b>
+Der Thermostat kann vielseitig eingesetzt werden, beispielsweise um einen vorhandenen Raumthermostat zu ersetzen. Auch die Heizung im Aquarium oder Terrarium kann vorübergehend durch den Thermostat ersetzt werden, um eine konstante Temperatur aufrechtzuerhalten.
 </p>
 <div class="alert alert-danger">
-	<strong>Der Autor des WiFi-Thermostats ist nicht verantwortlich für die Funktionalität des Thermostats, Kesselausfall, Stromschlag aufgrund einer unsachgemäßen Installation des Thermostats im Netzwerk. </strong> Der Thermostat wird unter der MIT-Lizenz vertrieben.
+	<strong>Der Autor des WiFi-Thermostats übernimmt keine Verantwortung für die Funktionalität des Thermostats, Ausfälle des Kessels oder Stromschläge aufgrund unsachgemäßer Installation des Thermostats im Netzwerk. </strong>
 </div>	
 <b> Hauptseite zur Änderung der Zieltemperatur und der Hysterese - Demo auf: </b>
 <div class="alert alert-info">
