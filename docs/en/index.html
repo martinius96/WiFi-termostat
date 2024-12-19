@@ -87,87 +87,103 @@
 	<div class="col-sm-4"><center><img src="https://i.imgur.com/koSyFuW.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F" title="Control microcontroller NodeMCU v2 / v3 Lolin - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/252718027546">NodeMCU (ESP8266)</a></b></center></div>
 	<div class="col-sm-4"><center><img src="https://i.imgur.com/FV9xi6K.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F" title="Control microcontroller Wemos D1 Mini - ESP8266-12E / ESP8266-12F"><br><b><a href="https://www.ebay.com/itm/254535886946">Wemos D1 / D1 Mini (ESP8266)</a></b></center></div>
 	<div class="col-sm-4"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Control microcontroller ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b><a href="https://www.ebay.com/itm/254953129496">ESP32 DevKit</a></b></center></div></div>					
-<hr><center><h2>WiFi thermostat - ESP8266 / ESP32</h2></center><hr>
-<p style="text-align: justify;">
-The software implementation is meticulously crafted for microcontroller platforms provided by Espressif Systems, featuring robust WiFi connectivity. Specifically, it seamlessly supports ESP8266 microcontrollers in versions 12E to F, commonly found in Wemos D1 Mini and NodeMCU v2/v3 platforms.
-<b>Please note that ESP8266-01/ESP8266-01S microcontrollers and similar standalone chips predating the 12E generation are not compatible with the project's program recording requirements. They do not utilize the DIO flash method, essential for ESPTOOL calls in the project. Uploading firmware to these devices is not supported.</b>
-For the ESP32 microcontroller, standalone chips like ESP32-WROOM-32 from Espressif and the equivalent ESP-32S from AI-Thinker can be utilized. All DevKits associated with these chips, including DevKit v1/DevKitC-v4, are fully compatible.
-The WiFi thermostat is seamlessly accessible within the LAN network where it is situated, equipped with an intuitive web interface for configuring all thermostat elements. Operating independently of the web application, the thermostat efficiently manages the boiler based on the measured and target temperature, along with hysteresis.
-To enhance accessibility, the thermostat can be complemented with an mDNS record, generating a local domain (hostname.local) accessible exclusively within the LAN network via multicast service.
-Connectivity configuration for the thermostat on the home WiFi LAN network is facilitated by WiFiManager, securely storing WiFi network data (SSID and password) in the microcontroller's flash memory. The one-time storage ensures persistent configuration memory, allowing full utilization of the thermostat upon gaining connectivity.
-Running on the ESP8266/ESP32 microcontroller, the HTTP web server supports multiple independent HTML pages, offering both informative and functional content.
-</p>
-<b>In terms of hardware, the project uses:</b>
-<li>ESP8266 / ESP32</li>
-<li>DS18B20 temperature sensor on the OneWire bus</li>
-<li>Relay SRD-5VDC-SL-C / OMRON G3MB-202P used for boiler switching (Active-LOW signal)</li>
-<b>HTML pages running on ESP8266 / ESP32 platform:</b>
-<li><b>/</b> - root page containing form, current logic output for relay, current and target temperature, hysteresis</li>
-<li><b>/action.html</b> - processes values from the form, writes them to the emulated EEPROM memory, redirects the user back to the root page</li>
-<li><b>/get_data.json</b> - distributes data on current temperature, reference temperature and hysteresis to a third party (computer, microcontroller, other client ...) in JSON format - can be used with an example JSON client that can send data to MQTT Broker, for example to home automation</li>
-<li>and other system subpages to control the output, change the mode</li>
-<hr>	
-<p style="text-align: justify;">		
-<b>The DS18B20 sensor boasts a 12-bit measurement resolution, providing precision at 0.0625 °C increments. The OneWire bus efficiently returns data to the microcontroller within 500 to 1000 ms upon request.</b>
-The SRD-5VDC-SL-C electromagnetic relay, a key component in the project, facilitates switching up to 10A at 230V, translating to a power capacity of 2300W. When handling a DC circuit (load), it supports up to 300W (10A at 30V DC). Alternatively, the OMRON G3MB-202P SSR relay is fully compatible with the wiring diagram, designed exclusively for non-inductive loads and AC circuits, with a maximum switching power of 460W (230V, 2A).
-<b>The thermostat is designed for year-round use. If control is unnecessary, the output can be physically disconnected, transforming the thermostat into a WiFi thermometer for data retrieval from its location.</b>
-The thermostat's logic operates independently every 10 seconds, unrelated to the web server or connected clients, eliminating the need for a keep-alive connection. With each logic execution, the thermostat logs information about the current IP address or mDNS record (if applicable) on the UART thermostat, providing users with accessibility details within the LAN network.
-Furthermore, it displays dynamic free memory (HEAP), ranging from 40 to 44kB, and the current output state with notifications of changes, such as when the decision threshold exceeds + or -.
-<b>The 3V3 GPIO operating logic of ESP8266 and ESP32 microcontrollers suffices for digital signal changes, but it's crucial to power the relay with 5V from VUSB and VIN, respectively.</b>
-</p>
+ <hr><center><h1>WiFi Thermostat - ESP8266 / ESP32</h1></center><hr>
 
-<b>Web interface for WiFi thermostat allows:</b>
-<li>View in real time the temperature from the DS18B20 sensor, the device uptime, the output value with dynamic change, the currently set configuration data for the thermostat, i. target temperature and hysteresis</li>
-<li>Modify the target (reference) temperature <del>in the range of 5 to 50 °C with a 0.25 °C step</del><img src="https://i.imgur.com/zMsp0cr.png" width="20px" height="20px" data-toggle="tooltip2" data-placement="right" title="Scope removed in version 1.0.2 due to non-decimal point support for input type number on Android OS"></li>
-<li>Modify hysteresis <del>in the range of 0 to 10 °C with a 0.25 °C step</del><img src="https://i.imgur.com/zMsp0cr.png" width="20px" height="20px" data-toggle="tooltip2" data-placement="right" title="Scope removed in version 1.0.2 due to non-decimal point support for input type number on Android OS"></li>
-<div class="alert alert-danger">
-  <strong>Program implementation of a thermostat with automatic mode is experimental!</strong>
-</div>
-<b>Boiler ON / OFF control - automatic mode:</b> 
-<li>Example ON / OFF of heating control - <font color="red">VISUALIZATION IS NOT PART OF THE PROJECT</font></li>	
-<li>The boiler is active until the target temperature + hysteresis is reached</li>
-<li>The visualization of water temperatures shows the so-called heating run-up and subsequent cooling of the water until the heating activity is repeated, when the measured temperature is below the set target temperature - hysteresis</li>		
-<img src="https://i.imgur.com/IDWLuOr.png" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">   
-<p style="text-align: justify;">
-<b>In the basic version of the WiFi thermostat (without mDNS record), a manual control mode (hard ON / OFF) has been seamlessly integrated, offering the flexibility to switch between manual and automatic modes.</b>
-The web interface is meticulously crafted to adapt seamlessly to both larger and smaller screens, ensuring a responsive design that caters to widescreen high-definition displays and mobile devices alike.
-To enhance performance and efficiency, the interface leverages imported CSS styles from the Bootstrap framework, sourced from an external CDN server. This approach optimally loads client-side resources when accessing pages running on the ESP microcontroller.
-By importing CSS styles from an external server, the WiFi thermostat efficiently mitigates power and memory load on the microcontroller, ensuring a smooth and responsive user experience.
-</p>
-<hr>
-<p style="text-align: justify;">
-To ensure the persistence of thermostat settings even after a power outage, they are stored in the ESP's EEPROM memory, emulated within the flash memory due to the absence of a physical EEPROM chip on the platform.
-The reference temperature is assigned to offset 10, while the hysteresis is stored at offset 100. Each value utilizes a maximum of 5 bytes in the EEPROM memory, including the end character. Data overwriting occurs exclusively when the HTML form is submitted, ensuring a gentle operation that prolongs the EEPROM memory's durability.
-The output state exclusively resides in RAM memory, with no storage in the flash memory. Upon the device's initial startup, if there's no existing data on the mentioned EEPROM offsets, an automatic writing process initiates with default values—reference temperature: 20.25 °C, hysteresis: 0.00 °C, providing a fail-safe solution.
-ESP8266 and ESP32 utilize the EEPROM.put() function coupled with EEPROM.commit() for EEPROM memory read and write operations, respectively. Additionally, EEPROM.get() is employed to retrieve data from EEPROM, supporting any data type, including float() in our specific case. This comprehensive approach ensures efficient and reliable EEPROM memory management for the thermostat.
-</p>
-<p style="text-align: justify;">
-Utilizing the Refresh meta tag, the web server systematically refreshes the entire page every 30 seconds. To enhance user experience, an approximate time for the upcoming refresh is dynamically inscribed into the HTML page using Javascript.
-It is imperative to apply any changes for the thermostat within this timeframe; otherwise, numerical input windows in the form may reset upon page refresh.
-Due to the limitations of the built-in Ethernet library, which lacks support for an asynchronous web server (commonly used with microcontrollers such as Espressif ESP8266 / ESP32), a page rewrite becomes necessary to accommodate the constraints of the current implementation. This ensures a seamless and uninterrupted operation of the thermostat interface.
-</p>
-<hr>
-<p style="text-align: justify;">
-The dynamic data that undergoes frequent changes primarily includes the current output status - <b><font color="#27AE60">Turned on</font></b> / <b><font color="red">Turned off</font></b>, providing operators with real-time information about the output state, visually indicated through color coding.
-Due to the system logic operating independently of the web server, the output status may differ from the information presented in the web application. Immediate updates reflecting any change in the output are promptly communicated on the UART monitor.
-Additionally, the thermostat's website offers users insights into the device's uptime, showcasing the duration it has been operational, expressed in days, hours, minutes, and seconds. <b>The thermostat is exclusively designed for indoor temperatures!</b> (above 0 °C), with the system logic finely tuned to accommodate these conditions.
-Versatile in application, the thermostat can seamlessly replace an existing room thermostat or serve as a temporary substitute for an aquarium/terrarium heater, ensuring a consistent and controlled temperature.
-</p>
-<div class="alert alert-danger">
-	<strong>The author of the WiFi thermostat is not responsible for the functionality of the thermostat, boiler failure, electric shock due to improper installation of the thermostat in the network.</strong> The thermostat is distributed under the MIT license.
-</div>	
-<b>Main page for modification of target temperature and hysteresis - example of switched on output:</b>
-<div class="alert alert-info">
-	<strong>Sample data</strong>
-	<li><b>Target temperature:</b>  22.75 °C</li>
-	<li><b>Hysteresis:</b>  0.25 °C</li>
-	<li><b>Measured data:</b>  22.49 °C</li>
-	<li><b>Output:</b>  <font color="#27AE60">ON</font></li>
-	<hr>
-	<p style="text-align: justify;">
-		The thermostat initiates heating when the measured temperature falls to 22.49 °C and below. Upon reaching 23.01 °C, the output is disengaged, the signaling relay opens, and the gas boiler ceases heating, marking the onset of a cooling phase for the room where measurements are conducted.
-The thermostat remains inactive until the temperature drops to 22.49 °C or lower, thereby triggering a new heating cycle. This precise temperature control ensures optimal comfort and energy efficiency in maintaining the desired room temperature.
-	</p>	
+  <section>
+    <p style="text-align: justify;">
+      The WiFi thermostat is a highly efficient system designed for microcontrollers from Espressif Systems, featuring seamless integration with ESP8266 (12E, 12F, Wemos D1 Mini, NodeMCU v2/v3) and ESP32 platforms. This system enables reliable WiFi connectivity, enabling easy access to configuration via an intuitive web interface.
+      <strong>Note:</strong> ESP8266-01/ESP8266-01S and earlier microcontrollers are not compatible with the project due to limitations in firmware upload methods. ESP32 microcontrollers, including ESP32-WROOM-32, ESP-32S, and associated DevKits, are fully supported.
+    </p>
+  </section>
+
+  <section>
+    <h2>Hardware Requirements</h2>
+    <ul>
+      <li>ESP8266 / ESP32 microcontroller</li>
+      <li>DS18B20 temperature sensor (OneWire interface)</li>
+      <li>Relay: SRD-5VDC-SL-C / OMRON G3MB-202P for boiler switching (Active-LOW signal)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Web Interface Pages</h2>
+    <ul>
+      <li><strong>/</strong> - Root page displaying form, current relay output, target and current temperature, and hysteresis settings.</li>
+      <li><strong>/action.html</strong> - Processes form data, updates EEPROM, and redirects to the root page.</li>
+      <li><strong>/get_data.json</strong> - Shares temperature data in JSON format, suitable for third-party systems (e.g., MQTT brokers, home automation). </li>
+      <li>Other system pages for control and configuration adjustments.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Sensor and Relay Details</h2>
+    <p style="text-align: justify;">
+      <strong>DS18B20 Sensor:</strong> This temperature sensor provides 12-bit resolution, offering accuracy in 0.0625 °C increments. The OneWire bus allows for fast data transmission (500-1000 ms).
+    </p>
+    <p style="text-align: justify;">
+      <strong>Relay Options:</strong> The SRD-5VDC-SL-C relay can handle up to 10A at 230V AC (2300W). For DC circuits, it supports up to 300W. Alternatively, the OMRON G3MB-202P SSR is designed for AC circuits with non-inductive loads (up to 460W).
+    </p>
+  </section>
+
+  <section>
+    <h2>Features and Functionality</h2>
+    <ul>
+      <li>Automatic boiler control with real-time temperature adjustment and hysteresis</li>
+      <li>Configurable target temperature and hysteresis</li>
+      <li>Boiler ON/OFF control with automatic mode</li>
+    </ul>
+
+    <div class="alert alert-danger">
+      <strong>Important:</strong> The automatic mode implementation is experimental and may have some limitations.
+    </div>
+    
+    <p style="text-align: justify;">
+      The thermostat can also serve as a WiFi thermometer when not controlling the boiler, providing temperature data without active heating control. It operates independently of the web interface every 10 seconds.
+    </p>
+
+    <img src="https://i.imgur.com/IDWLuOr.png" alt="Boiler control with hysteresis" title="Boiler ON/OFF control with hysteresis" style="max-width: 100%; height: auto;">
+  </section>
+
+  <section>
+    <h2>Web Interface and User Experience</h2>
+    <p style="text-align: justify;">
+      The thermostat's web interface adapts for both desktop and mobile devices, ensuring a responsive and user-friendly experience. It uses Bootstrap CSS for optimal performance, reducing load on the microcontroller. The configuration is stored in EEPROM memory to persist settings after power outages, ensuring reliable operation.
+    </p>
+  </section>
+
+  <section>
+    <h2>Important Notes</h2>
+    <p style="text-align: justify;">
+      To prevent EEPROM wear, configuration data (reference temperature and hysteresis) are only updated when the form is submitted. The web page refreshes every 30 seconds to update the status, with a warning for users to save their changes before the page refresh.
+    </p>
+  </section>
+
+  <section>
+    <h2>Disclaimer</h2>
+    <div class="alert alert-danger">
+      <strong>Warning:</strong> The author of the WiFi thermostat is not responsible for any damage caused by improper installation or operation. The thermostat is provided under the MIT License.
+    </div>
+  </section>
+<section>
+  <h2>Main Page for Modifying Target Temperature and Hysteresis</h2>
+  <p><strong>Example of Switched On Output:</strong></p>
+
+  <div class="alert alert-info">
+    <strong>Sample Data:</strong>
+    <ul>
+      <li><strong>Target Temperature:</strong> 22.75 °C</li>
+      <li><strong>Hysteresis:</strong> 0.25 °C</li>
+      <li><strong>Measured Temperature:</strong> 22.49 °C</li>
+      <li><strong>Output Status:</strong> <span style="color: #27AE60;">ON</span></li>
+    </ul>
+    <hr>
+    <p style="text-align: justify;">
+      The thermostat activates the heating process when the measured temperature drops to 22.49 °C or lower. Once the temperature reaches 23.01 °C, the output is turned off, the signaling relay opens, and the gas boiler stops heating, initiating the cooling phase in the room.
+      The thermostat remains inactive until the temperature falls to 22.49 °C or below, at which point a new heating cycle begins. This precise temperature regulation helps maintain the desired room temperature while optimizing energy efficiency and ensuring comfort.
+    </p>
+  </div>
+</section>
+
 </div>
 
 <b>Main page for target temperature and hysteresis modification:</b>
