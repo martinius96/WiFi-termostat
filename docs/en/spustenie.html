@@ -86,16 +86,22 @@
 <span class="label label-info">JSON</span>
 <span class="label label-warning">mDNS</span>	
 <span class="label label-danger">UART</span>				
-<hr><center><h2>Launch of the WiFi thermostat project - ESP8266 / ESP32</h2></center><hr>
-<p style="text-align: justify;">
-The WiFi thermostat project exists in several versions, which are available on Githube in the repository of the whole project.
-Versions differ in functionality only in advanced usage options and remote firmware update options.
-The firmware is available in compiled - binary form, which is executable for the target platform.
-Therefore, it is tested in advance, compiled for you. The firmware is universal, which guarantees that it will work with the cloned binary program on all microcontrollers in the same way.
-<div class="alert alert-danger">
-	<b>The free version is available only in the form of a compiled - binary program without access to an application written in .ino format.</b>
-</div>	
-</p>
+<section>
+  <h2>Launch of the WiFi Thermostat Project - ESP8266 / ESP32</h2>
+  
+  <p style="text-align: justify;">
+    The WiFi thermostat project is available in multiple versions, which can be accessed through the official GitHub repository. Each version offers different functionalities, primarily concerning advanced usage options and the ability to update firmware remotely.
+  </p>
+
+  <p style="text-align: justify;">
+    The firmware is provided in a compiled binary form, which is pre-tested and ready for use with the target platform. This universal firmware ensures consistent functionality across various microcontrollers that are compatible with the program.
+  </p>
+  
+  <div class="alert alert-danger">
+    <strong>Note:</strong> The free version is available only as a compiled binary program, without access to the source code in .ino format.
+  </div>
+</section>
+
 <hr><center><h2>Firmware distribution based on supported WiFi platforms</h2></center><hr>
 <li><b>ESP8266</b> - target platform with ESP8266 chip in versions 12E to 12F (conditioned by flash DIO method)</li>
 <li><b>ESP32</b> - target platform with ESP-32S chip (AI-Thinker), ESP32-WROOM-32 (Espressif Systems)</li>
@@ -136,43 +142,84 @@ Therefore, it is tested in advance, compiled for you. The firmware is universal,
 </tbody>
 </table>
 	</div></center>
-<p style="text-align: justify;">
-To upload the binary program to the ESP platform, it is necessary to use the ESPTOOL tool.
-The tool also uses, for example, the Arduino IDE environment for uploading the program after compilation, or the development framework from Espressif Systems - ESP-IDF.
-<b> For the ESP32 platform, it is necessary to hold the BOOT button until the beginning of the "Connecting ........_____....." recording process, or to do a pulldown on GPIO 0 (if the development kit does not have a BOOT button on the board ). </b>
-An automated - executable .bat script is prepared in the folder of each firmware (it has a set COM port of the microcontroller set to COM7 for ESP8266 and COM17 for ESP32), which starts the enclosed ESPTOOL and loads the program with the specific firmware located in the given folder.
-</p>
-<center>
-	<img src="https://i.imgur.com/M0U6HkC.png" style="display: block; max-width: 100%; height: auto;" alt="Device Manager - Windows - a registered ESP microcontroller" title="Device Manager - Windows - a registered ESP microcontroller">	
-</center>
-<p style="text-align: justify;">
-<b> <font color = "red"> The destination COM port must be changed based on the COM port on which your board / microcontroller logs in </font> </b> - (can be found via the Peripherals and Drivers Manager on which COM port is ESP logged in).
-<b> The ESP8266 microcontroller on the NodeMCU / Wemos D1 Mini development kits most often has a CH340 USB-UART converter and also acts in the device manager under this name.
-In the case of the ESP32 microcontroller, the most commonly used USB-UART converter is CP2102 from Silicon Labs - referred to as the CP210X USB UART Bridge. </b>
-The program implementation for ESP8266 assumes that the board has loaded the basic parts of the flash memory - the partition table and so on ...
-The binary program is exclusively a thermostat application without other bundled parts of the program.
-After loading the program, the ESPTOOL program window automatically shuts down and performs a software restart of the ESP platform, which then boots the new firmware and prepares the WiFi thermostat for use.
-For the ESP8266 microcontroller, the firmware is written to the standard offset 0x00000 - (the partition table is not part of the firmware, it is not required).
-The firmware for ESP32 also contains a partition table that is written to offset 0x8000, the bootloader to offset 0x1000. The firmware itself is written to the standard offset 0x10000.
-</p>				
-<center>
-	<img src="https://i.imgur.com/Nz4Uryz.png" style="display: block; max-width: 100%; height: auto;" alt="ESPTOOL - a tool for uploading firmware to the ESP8266 / ESP32 microcontroller" title="ESPTOOL - a tool for uploading firmware to the ESP8266 / ESP32 microcontroller">	
-</center>
-<b>After successful loading of the binary program - firmware, the thermostat is fully ready for operation.</b> 
-<p style="text-align: justify;">
-If the data on the existing WiFi network is not stored in its flash memory (for example, also from a sketch recorded before), it will start broadcasting its own SSID - <b> WiFi_TERMOSTAT_AP </b>.
-After connecting to a WiFi network with a smartphone / computer, the WiFi Manager web interface is available at <b> 192.168.4.1 </b>, which provides the option of configuring a WiFi thermostat for your home WiFi network.
-In the interface it is possible to enter the name and password of the existing WiFi network to which the WiFi thermostat will connect.
-<div class="alert alert-danger">
-<strong>WiFi thermostat is uperational only after successful connection to your LAN network! After assigning an IP address for connectivity on your network.</strong>
-</div>	
-After connecting to the home WiFi network, the ESP stops broadcasting the SSID, switches to STA (Station) mode and already works in thermostat mode
-The entered data about the WiFi network are stored in the flash memory of the thermostat and it is no longer necessary to enter them again when restarting the thermostat, power failure, device restart.
-If the network is not available, ESP will start broadcasting its own SSID again: <b> WiFi_TERMOSTAT_AP </b> and you can re-enter your credentials.
-The thermostat is available on its IP address (which it prints every 10 seconds also on the UART), or on the local mDNS -> <b> http: //WiFi-termostat.local </b>. The mDNS service only works after connecting to an existing WiFi network.
-Once the thermostat is transmitting its own SSID, it is not possible to access the device via a domain name.
-The program works on the basis of the project wiring diagram and the logic from the description. </b>
-		</p>
+<section>
+  <h2>Uploading Firmware to the ESP Platform</h2>
+  
+  <p style="text-align: justify;">
+    To upload the binary program to the ESP platform, the <code>ESPTOOL</code> tool must be used. This tool can be accessed through the Arduino IDE or the Espressif Systems' development framework, ESP-IDF, for uploading compiled programs.
+  </p>
+
+  <div class="alert alert-danger">
+    <strong>Note:</strong> For the ESP32 platform, hold the BOOT button until the "Connecting ........_____....." message appears or use a pulldown on GPIO 0 if your development kit does not have a BOOT button.
+  </div>
+
+  <p style="text-align: justify;">
+    An automated executable <code>.bat</code> script is included in each firmware folder. This script has the COM port set to <code>COM7</code> for ESP8266 and <code>COM17</code> for ESP32, automatically launching <code>ESPTOOL</code> to upload the firmware to the microcontroller.
+  </p>
+  
+  <figure>
+    <img src="https://i.imgur.com/M0U6HkC.png" alt="Device Manager - Windows - a registered ESP microcontroller" title="Device Manager - Windows - a registered ESP microcontroller" style="display: block; max-width: 100%; height: auto;">
+    <figcaption>Device Manager showing a registered ESP microcontroller</figcaption>
+  </figure>
+
+  <p style="text-align: justify;">
+    <strong style="color: red;">The destination COM port must be adjusted based on the COM port where your board/microcontroller is logged in.</strong> This can be found in the Peripherals and Drivers Manager on your computer.
+  </p>
+
+  <p style="text-align: justify;">
+    The ESP8266 microcontroller on NodeMCU/Wemos D1 Mini development kits typically uses the CH340 USB-UART converter, which appears in the device manager under that name. The ESP32 often uses the CP2102 USB-UART converter from Silicon Labs, listed as the "CP210X USB UART Bridge."
+  </p>
+
+  <p style="text-align: justify;">
+    The program implementation for the ESP8266 assumes the board already has the essential parts of the flash memory loaded, such as the partition table. The binary program provided is exclusively the thermostat application, with no additional bundled parts.
+  </p>
+
+  <p style="text-align: justify;">
+    Once the firmware is loaded, <code>ESPTOOL</code> automatically shuts down and performs a software restart of the ESP platform, which boots the new firmware, preparing the WiFi thermostat for use.
+  </p>
+
+  <p style="text-align: justify;">
+    For the ESP8266, the firmware is written to the standard offset <code>0x00000</code> (no partition table included). For ESP32, the partition table is written to offset <code>0x8000</code>, the bootloader to offset <code>0x1000</code>, and the firmware itself is written to <code>0x10000</code>.
+  </p>
+
+  <figure>
+    <img src="https://i.imgur.com/Nz4Uryz.png" alt="ESPTOOL - a tool for uploading firmware to the ESP8266 / ESP32 microcontroller" title="ESPTOOL - a tool for uploading firmware to the ESP8266 / ESP32 microcontroller" style="display: block; max-width: 100%; height: auto;">
+    <figcaption>ESPTOOL tool for uploading firmware to ESP8266/ESP32 microcontrollers</figcaption>
+  </figure>
+
+  <p style="text-align: justify;">
+    <strong>Once the binary program (firmware) is successfully loaded, the thermostat is fully operational.</strong>
+  </p>
+
+  <p style="text-align: justify;">
+    If the WiFi credentials are not stored in the flash memory (e.g., after a fresh flash), the device will start broadcasting its own SSID: <strong>WiFi_TERMOSTAT_AP</strong>.
+  </p>
+
+  <p style="text-align: justify;">
+    Connect to the WiFi network using a smartphone or computer, and then access the WiFi Manager web interface at <strong>192.168.4.1</strong>. From there, you can configure the WiFi thermostat to connect to your home WiFi network by entering the network name (SSID) and password.
+  </p>
+
+  <div class="alert alert-danger">
+    <strong>Important:</strong> The WiFi thermostat will only be operational after successfully connecting to your LAN network and receiving an IP address.
+  </div>
+
+  <p style="text-align: justify;">
+    After connecting to the home WiFi network, the ESP will stop broadcasting the SSID, switch to STA (Station) mode, and operate as a thermostat. The WiFi credentials are stored in the flash memory, so there is no need to enter them again after a restart or power failure.
+  </p>
+
+  <p style="text-align: justify;">
+    If the network is unavailable, the ESP will begin broadcasting its SSID again as <strong>WiFi_TERMOSTAT_AP</strong>, allowing you to re-enter the credentials. The thermostat can be accessed by its IP address (which is also displayed every 10 seconds on the UART) or via the local mDNS address: <strong>http://WiFi-thermostat.local</strong>. The mDNS service is available only after connecting to a WiFi network.
+  </p>
+
+  <p style="text-align: justify;">
+    Once the thermostat starts broadcasting its SSID, access via the domain name will no longer be possible.
+  </p>
+
+  <p style="text-align: justify;">
+    The system operates based on the project’s wiring diagram and logic as described.
+  </p>
+</section>
+
 <center>
 <hr>	
 <h4>WiFi thermostat settings (ESP8266 / ESP32) via WiFiManager</h4>	
