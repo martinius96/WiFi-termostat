@@ -1,5 +1,5 @@
 {
-  "Hysteresis":0.25,
-  "Target_Temperature":21.75,
-  "Actual_Temperature":21.43
+  "Hysteresis":0.25, //hysteresis, set by 0,25°C step
+  "Target_Temperature":21.75, //Target (control temperature), set by 0,25°C step
+  "Actual_Temperature":21.43 //Actual temperature, 0,0625°C step as using 12-bit resolution of DS18B20
 }
