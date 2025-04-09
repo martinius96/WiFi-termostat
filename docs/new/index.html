@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>Thermostats</title>
+  <title>Termostat Duo</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+
   <style>
     * {
+      border: 0;
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -20,11 +21,11 @@
     body {
       background: var(--bg);
       display: flex;
-      gap: 2em;
-      align-items: center;
+      gap: 4em;
       justify-content: center;
-      height: 100vh;
+      align-items: center;
       font: 1em/1.5 sans-serif;
+      height: 100vh;
       overflow: hidden;
     }
 
@@ -39,13 +40,12 @@
       box-shadow: 0 -0.25em 1.5em 0.5em #0004;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      line-height: 1;
+      position: relative;
       padding: 1em;
+      text-align: center;
       width: 15em;
       height: 15em;
-      position: relative;
-      text-align: center;
     }
 
     .temp:after, .temp__dial, .temp__comet, .temp__fizz {
@@ -56,13 +56,17 @@
       border-radius: inherit;
     }
 
-    .temp:after {
-      content: "";
+    .temp:after, .temp__dial {
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+    }
+
+    .temp:after {
       background: radial-gradient(100% 100% at 67% 17%, #fff3, #fff0 6em);
+      content: "";
+      display: block;
       z-index: 2;
     }
 
@@ -76,7 +80,8 @@
     }
 
     .temp__comet {
-      background: radial-gradient(100% 100% at 50% 50%, hsl(var(--hue), 90%, 10%), hsl(var(--hue), 90%, 20%) 3.25em, hsl(var(--hue), 90%, 17%) 3.3em 3.35em, hsla(var(--hue), 90%, 17%, 0) 3.4em),
+      background:
+        radial-gradient(100% 100% at 50% 50%, hsl(var(--hue), 90%, 10%), hsl(var(--hue), 90%, 20%) 3.25em, hsl(var(--hue), 90%, 17%) 3.3em 3.35em, hsla(var(--hue), 90%, 17%, 0) 3.4em),
         conic-gradient(#fff0, #fff calc(1deg * var(--angle)), #fff0 calc(1deg * var(--angle)));
       top: calc(50% - 3.5em);
       left: calc(50% - 3.5em);
@@ -113,16 +118,10 @@
     .temp__dial {
       cursor: grab;
       z-index: 3;
-      width: 100%;
-      height: 100%;
     }
 
     .temp__dial:active {
       cursor: grabbing;
-    }
-
-    .temp.mini {
-      transform: scale(0.5);
     }
 
     @media (prefers-color-scheme: dark) {
@@ -134,6 +133,7 @@
 </head>
 <body>
 
+  <!-- Veľký termostat -->
   <div class="temp" id="main-thermostat">
     <div class="temp__logo">Nest</div>
     <div class="temp__comet"></div>
@@ -143,13 +143,16 @@
     <div class="temp__dial"></div>
   </div>
 
-  <div class="temp mini" id="mini-thermostat">
-    <div class="temp__logo">MiniNest</div>
-    <div class="temp__comet"></div>
-    <canvas class="temp__fizz"></canvas>
-    <div class="temp__label">Level</div>
-    <div class="temp__value">0</div>
-    <div class="temp__dial"></div>
+  <!-- Mini termostat v obale so scale -->
+  <div style="transform: scale(0.5); transform-origin: top left;">
+    <div class="temp" id="mini-thermostat">
+      <div class="temp__logo">Mini</div>
+      <div class="temp__comet"></div>
+      <canvas class="temp__fizz"></canvas>
+      <div class="temp__label">Temp</div>
+      <div class="temp__value">0</div>
+      <div class="temp__dial"></div>
+    </div>
   </div>
 
   <script>
@@ -159,18 +162,18 @@
     });
 
     class Thermostat {
-      constructor(selector, initial = 5, min = 5, max = 30, step = 1) {
+      constructor(selector, initialTemp, minTemp, maxTemp, step = 1) {
         this.el = document.querySelector(selector);
-        this.temp = initial;
-        this.tempMin = min;
-        this.tempMax = max;
+        this.temp = initialTemp;
+        this.tempMin = minTemp;
+        this.tempMax = maxTemp;
         this.step = step;
         this.fizz = null;
         this.fizzParticles = [];
-        this.fc = null;
         this.fW = 240;
         this.fH = 240;
         this.fS = window.devicePixelRatio;
+        this.fc = null;
         this.init();
       }
 
@@ -188,7 +191,7 @@
               minRot: this.randInt(-180, 180),
               maxRot: this.randInt(-180, 180),
               x: 0,
-              y: 0
+              y: 0,
             });
           }
           this.fizz.width = this.fW * this.fS;
@@ -202,67 +205,88 @@
           onDrag: () => this.tempAdjust("drag")
         });
 
+        window.addEventListener("keydown", this.kbdEvent.bind(this));
         this.tempAdjust(this.temp);
       }
 
       randInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        return Math.round(Math.random() * (max - min)) + min;
       }
 
       degToRad(deg) {
         return deg * (Math.PI / 180);
       }
 
-      angleFromMatrix(transform) {
-        let values = transform.split("(")[1].split(")")[0].split(",");
-        let a = values[0], b = values[1];
-        let angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
-        return (angle + 360) % 360;
+      angleFromMatrix(transVal) {
+        let matrixVal = transVal.split('(')[1].split(')')[0].split(','),
+          [cos1, sin] = matrixVal.slice(0, 2),
+          angle = Math.round(Math.atan2(sin, cos1) * (180 / Math.PI)) * -1;
+        if (angle < 0) angle += 360;
+        return 360 - angle;
+      }
+
+      kbdEvent(e) {
+        let kc = e.keyCode;
+        if (kc == 38 || kc == 39) this.tempAdjust("u");
+        else if (kc == 37 || kc == 40) this.tempAdjust("d");
       }
 
       tempAdjust(inputVal) {
-        const display = this.el.querySelector(".temp__value");
-        const dial = this.el.querySelector(".temp__dial");
-        const tempRange = this.tempMax - this.tempMin;
+        let tempDisplay = this.el.querySelector(".temp__value");
+        let tempDial = this.el.querySelector(".temp__dial");
+        let tempRange = this.tempMax - this.tempMin;
+        let hueStart = 240, hueEnd = 360;
+        let hueRange = hueEnd - hueStart;
+        let notDragged = inputVal !== "drag";
 
-        if (inputVal === "u") this.temp = Math.min(this.temp + this.step, this.tempMax);
-        else if (inputVal === "d") this.temp = Math.max(this.temp - this.step, this.tempMin);
-        else if (inputVal === "drag" && dial) {
-          const angle = this.angleFromMatrix(window.getComputedStyle(dial).transform);
-          this.temp = this.tempMin + (angle / 360) * tempRange;
-          this.temp = Math.round(this.temp / this.step) * this.step;
-        } else if (!isNaN(inputVal)) {
+        if (!isNaN(inputVal)) {
           this.temp = parseFloat(inputVal);
+        } else if (inputVal == "u") {
+          if (this.temp + this.step <= this.tempMax)
+            this.temp += this.step;
+        } else if (inputVal == "d") {
+          if (this.temp - this.step >= this.tempMin)
+            this.temp -= this.step;
+        } else if (inputVal == "drag") {
+          let trans = getComputedStyle(tempDial).getPropertyValue("transform");
+          let angle = this.angleFromMatrix(trans);
+          this.temp = ((angle / 360) * tempRange + this.tempMin);
         }
 
-        this.temp = Math.min(this.tempMax, Math.max(this.tempMin, this.temp));
-        const rel = (this.temp - this.tempMin) / tempRange;
-        const angle = rel * 360;
-        const hue = 240 + rel * 120;
+        // Clamp
+        this.temp = Math.max(this.tempMin, Math.min(this.temp, this.tempMax));
 
-        this.el.style.setProperty("--angle", angle);
-        this.el.style.setProperty("--hue", hue);
-        if (dial) dial.style.transform = `rotate(${angle}deg)`;
-        if (display) display.textContent = this.temp.toFixed(this.step < 1 ? 1 : 0);
+        // Round to step
+        this.temp = Math.round(this.temp / this.step) * this.step;
 
-        const c = this.fc;
-        if (c) {
-          c.clearRect(0, 0, this.fW, this.fH);
-          c.fillStyle = `hsla(${hue},100%,50%,0.5)`;
-          c.globalAlpha = 0.25 + (0.75 * rel);
-          const centerX = this.fW / 2, centerY = this.fH / 2;
+        let frac = (this.temp - this.tempMin) / tempRange;
+        let angle = frac * 360;
+        let newHue = hueStart + frac * hueRange;
 
+        // Draw fizz
+        if (this.fc) {
+          this.fc.clearRect(0, 0, this.fW, this.fH);
+          this.fc.fillStyle = `hsla(${newHue},100%,50%,0.5)`;
+          this.fc.globalAlpha = 0.25 + (0.75 * frac);
+          let centerX = this.fW / 2, centerY = this.fH / 2;
           this.fizzParticles.forEach(p => {
-            const dist = p.minDist + rel * (p.maxDist - p.minDist);
-            const angle = p.minRot + rel * (p.maxRot - p.minRot);
-            p.x = centerX + dist * Math.sin(this.degToRad(angle));
-            p.y = centerY + dist * Math.cos(this.degToRad(angle));
-            c.beginPath();
-            c.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            c.fill();
-            c.closePath();
+            let pd = p.minDist + frac * (p.maxDist - p.minDist);
+            let pa = p.minRot + frac * (p.maxRot - p.minRot);
+            p.x = centerX + pd * Math.sin(this.degToRad(pa));
+            p.y = centerY + pd * Math.cos(this.degToRad(pa));
+            this.fc.beginPath();
+            this.fc.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            this.fc.fill();
+            this.fc.closePath();
           });
         }
+
+        this.el.style.setProperty("--angle", angle);
+        this.el.style.setProperty("--hue", newHue);
+        if (tempDial && notDragged)
+          tempDial.style.transform = `rotate(${angle}deg)`;
+        if (tempDisplay)
+          tempDisplay.textContent = this.temp.toFixed(this.step < 1 ? 1 : 0);
       }
     }
   </script>
