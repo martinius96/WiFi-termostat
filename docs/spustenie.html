@@ -133,20 +133,20 @@ Prístupové údaje k WiFi sieti sú uložené v pamäti ESP32, stačí raz nako
 <p style="text-align: justify;">
 Pre nahratie binárneho programu do platformy ESP je potrebné použiť nástroj ESPTOOL.
 Nástroj využíva napríklad aj prostredie Arduino IDE pre nahratie programu po kompilácii, alebo aj vývojový framework od Espressif Systems - ESP-IDF.
-<b>Pri platforme ESP32 je potrebné do začiatku procesu nahrávania "Connecting........_____....." držať tlačidlo BOOT, respektíve urobiť pulldown na GPIO 0 (ak doska nemá BOOT tlačidlo vyvedené).</b>
-V priečinku každého firmvéru je pripravený automatizovaný - spustiteľný .bat script (vzorovo má nastavený COM port mikrokontroléra na COM7 pre ESP8266 a COM17 pre ESP32), ktorý spustí priložený ESPTOOL a vykoná nahratie programu s konkrétnym firmvérom, ktorý sa v danej zložke nachádza.
+<b>Pri platforme ESP32 je potrebné do začiatku procesu nahrávania "Connecting........_____....." držať tlačidlo BOOT, respektíve urobiť pulldown na GPIO 0 (ak doska nemá BOOT tlačidlo vyvedené).
+V priečinku každého firmvéru je pripravený automatizovaný - spustiteľný .BAT script</b> (vzorovo má nastavený COM port mikrokontroléra na COM7 pre ESP8266 a COM17 pre ESP32), <b>ktorý spustí priložený ESPTOOL a vykoná nahratie programu s konkrétnym firmvérom, ktorý sa v danej zložke nachádza</b>.
 </p>
 <center>
 	<img src="https://i.imgur.com/M0U6HkC.png" style="display: block; max-width: 100%; height: auto;" alt="Správca zariadení v systéme Windows - dostupný mikrokontróler ESP32 na COM porte 17" title="Správca zariadení v systéme Windows - dostupný mikrokontróler ESP32 na COM porte 17">	
 </center>
 <p style="text-align: justify;">
-<b><font color="red">Cieľový COM port je nutné pozmeniť na základe COM portu, na ktorom sa prihlási vaša doska / mikrokontróler</font></b> - (možno zistiť cez Správcu periférii a ovládačov, na ktorom COM porte je ESP prihlásené).
-<b>Mikrokontróler ESP8266 na vývojových kitoch NodeMCU / Wemos D1 Mini má najčastejšie USB-UART prevodník CH340 a pod týmto názvom aj vystupuje v správcovi zariadení.
+<b><font color="red">Cieľový COM port je nutné pozmeniť na základe COM portu, na ktorom sa prihlási vaša doska / mikrokontrolér</font></b> - (možno zistiť cez Správcu periférii a ovládačov, na ktorom COM porte je ESP prihlásené).
+<b>Mikrokontrolér ESP8266 na vývojových kitoch NodeMCU / Wemos D1 Mini má najčastejšie USB-UART prevodník CH340 a pod týmto názvom aj vystupuje v správcovi zariadení.
 V prípade mikrokontroléru ESP32 je najčastejšie použitý USB-UART prevodník CP2102 od Silicon Labs - označený ako CP210X USB UART Bridge.</b>
 Programová implementácia pre ESP8266 predpokladá, že má doska nahraté základné časti flash pamäte - tabuľka partícii a podobne...
 Binárny program je výlučne aplikáciou termostatu bez ďalších pribalených častí programu.
 Po nahratí programu sa okno programu ESPTOOL automaticky vypne a vykoná softvérový reštart ESP platformy, ktorá následne bootuje nový firmvér a pripravuje WiFi termostat na použitie.
-Pre mikrokontróler ESP8266 sa firmvér zapisuje na štandardný ofset 0x00000 - (tabuľka partícii nie je súčasťou firmvéru, nie je potrebná).
+Pre mikrokontrolér ESP8266 sa firmvér zapisuje na štandardný ofset 0x00000 - (tabuľka partícii nie je súčasťou firmvéru, nie je potrebná).
 Firmvér pre ESP32 obsahuje naviac aj tabuľku partícii, ktorá sa zapisuje na ofset 0x8000, bootloader na ofset 0x1000. Samotný firmvér je zapísaný na štandardný ofset 0x10000.
 </p>				
 <center>
