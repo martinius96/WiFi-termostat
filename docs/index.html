@@ -85,9 +85,6 @@ pre .line::before {
 </div>	
 <div class="alert alert-info">
 	Firmvér <strong>WiFi_Termostat a WiFi_Termostat_mDNS</strong> je dostupný okrem slovenského, aj v anglickom jazyku. Experimentálny firmvér s manuálnym ovládaním výstupu je dostupný iba v slovenskom jazyku.
-</div>
-<div class="alert alert-danger">
- 	<strong>Podporte projekt WiFi termostat cez PayPal. Podpora umožní pridať nové funkcionality v budúcnosti a otvorenie zdrojového kódu aplikácie: </strong><a href="https://www.paypal.com/paypalme/chlebovec" class="btn btn-primary" role="button">PayPal donate</a>
 </div>		
 <span class="label label-default">ESP8266</span>
 <span class="label label-primary">ESP32</span>
@@ -107,7 +104,7 @@ pre .line::before {
 	<div class="col-sm-4"><center><img src="https://i.imgur.com/BczG03b.png" width="128px" height="128px" style="border-radius: 50%;" alt="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S" title="Riadiaci mikrokontróler ESP32 Devkit V1 - ESP-WROOM-32 / ESP32-S"><br><b>ESP32 DevKit</b><br><a href="https://www.gme.sk/esp32-esp-32s-2-4ghz-dual-mode-wifi-bluetooth" class="btn btn-success" role="button">Kúpiť GME.sk</a><br><a href="https://rlx.sk/sk/esp32/7196-nodemcu-32s-esp32-wifibluetooth-development-board-ws-16611.html" class="btn btn-danger" role="button">Kúpiť RLX.sk</a><br><a href="https://techfun.sk/produkt/vyvojova-doska-node-mcu-esp32-wifi-bluetooth/" class="btn btn-primary" role="button">Kúpiť Techfun.sk</a></center></div></div>					
 <hr><center><h1>WiFi termostat - ESP8266 / ESP32</h1></center><hr>
 <p style="text-align: justify;">
-Naša programová implementácia je špeciálne navrhnutá pre mikrokontrólery od renomovaného výrobcu Espressif Systems, ktoré disponujú WiFi konektivitou. Podporujeme mikrokontroléry ESP8266 a ESP32 s WiFi (2,4 GHz) technológiou.
+Naša programová implementácia je špeciálne navrhnutá pre mikrokontroléry od renomovaného výrobcu Espressif Systems, ktoré disponujú WiFi konektivitou. Podporujeme mikrokontroléry ESP8266 a ESP32 s WiFi (2,4 GHz) technológiou.
 Náš WiFi termostat je ľahko prístupný prostredníctvom LAN siete, v ktorej sa nachádza. Je vybavený intuitívnym webovým rozhraním, ktoré umožňuje konfiguráciu všetkých parametrov termostatu a poskytuje vizuálny prehľad o aktuálnych stavoch.
 Termostat efektívne riadi kotol na základe nameranej teploty, cieľovej hodnoty a definovanej hysterézy, pričom je nezávislý od webovej aplikácie. Webová aplikácia slúži výhradne na konfiguráciu a stanovenie rozhodovacích prahov termostatu.
 Okrem jednoduchej dostupnosti termostatu na konkrétnej IP adrese je možné pridať mDNS záznam, ktorý vytvára lokálnu doménu (hostname.local). Táto doména je prístupná iba v rámci LAN siete, čo zvyšuje užívateľskú pohodlnosť v rámci multicastovej služby.
@@ -122,7 +119,7 @@ Náš HTTP webserver, bežiaci na mikrokontroléroch ESP8266 / ESP32, umožňuje
 <b>HTML stránky bežiace na platforme ESP8266 / ESP32:</b>
 <li><b>/</b> - root stránka obsahujúca formulár, aktuálny výpis logického výstupu pre relé, aktuálnu a cieľovú teplotu teplotu, hysterézu</li>
 <li><b>/action.html</b> - spracúvava hodnoty z formulára, zapisuje ich do emulovanej EEPROM pamäte, presmeruje používateľa späť na root stránku</li>
-<li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontróler, iný klient...) v JSON formáte - možno využiť s príkladom JSON klient, ktorý dáta vie odoslať na MQTT Broker, napríklad do domácej automatizácie</li>
+<li><b>/get_data.json</b> - distribuuje dáta o aktuálnej teplote, referenčnej teplote a hysteréza tretej strane (počítač, mikrokontrolér, iný klient...) v JSON formáte - možno využiť s príkladom JSON klient, ktorý dáta vie odoslať na MQTT Broker, napríklad do domácej automatizácie</li>
 <hr>
 <b>Rozšírené o HTML stránky v prípadne experimentálnej verzie s manuálnym režimom:</b>
 <li><b>/zap.html</b> - permanentné zapnutie výstupu v manuálnom režime</li>
@@ -248,7 +245,7 @@ Vytvára prístupový bod (AP) a Captive portal pre konfiguráciu WiFi termostat
 <td style="width: 25%"><b>DNS Server</b></td>
 <td style="width: 50%">
 <p style="text-align: justify;">
-Knižnica pre mikrokontróler ESP32. 
+Knižnica pre mikrokontrolér ESP32. 
 Vyžaduje sa pre správne fungovanie knižnice WiFiManager. 
 </p>
 </td>
