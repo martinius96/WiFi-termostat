@@ -110,27 +110,7 @@ V našom projekte využívame elektromagnetické relé SRD-5VDC-SL-C, ktoré dok
 <li>Modifikovať hysterézu <del>v rozsahu 0 až 2 °C s 0,50 °C krokom</del><img src="https://i.imgur.com/zMsp0cr.png" width="20px" height="20px" data-toggle="tooltip2" data-placement="right" title="Rozsah odobratý vo verzii 1.0.2 z dôvodu nepodpory desatinnej čiarky pre input type number na OS Android"></li>
 <b>ZAP/VYP regulácia kotla - automatický režim:</b> 
 <li>Kotol je aktívny po dobu dostiahnutia cieľovej teploty + hysterézy</li>
-<li>Na vizualizácii teplôt vody je patrný tzv. dobeh vykurovania a následné chladnutie vody až do opätovnej aktivity vykurovania, kedy je nameraná teplota pod nastavenú cieľovú teplotu - hystérzu</li>		
-<img src="https://i.imgur.com/IDWLuOr.png" style="display: block; max-width: 100%; height: auto;" alt="ZAP/VYP regulácia kotla s hysterézou" title="ZAP/VYP regulácia kotla s hysterézou">   
-<p style="text-align: justify;">
-<b>V základnej verzii nášho WiFi termostatu (bez mDNS záznamu) sme integrovali manuálny režim ovládania s možnosťou jednoduchého prepínania medzi manuálnym a automatickým režimom.</b> Webové rozhranie je flexibilné a prispôsobuje sa rôznym obrazovkám, či už ide o veľké monitory alebo malé mobilné zariadenia. Je plne responzívne, podporuje širokouhlé obrazovky s vysokým rozlíšením a zároveň je optimalizované pre používanie na mobilných zariadeniach.
-Rozhranie využíva importované CSS štýly z Bootstrap frameworku, ktoré sú načítané z externého CDN servera pri otvorení stránky bežiacej na mikrokontroléri ESP. Týmto spôsobom minimalizujeme výkonové a pamäťové zaťaženie mikrokontroléra, zabezpečujúc rýchlu a efektívnu funkcionalitu webového rozhrania.
-</p>
 <center><img src="https://i.imgur.com/8shZ0K3.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - webové rozhranie vizualizované v systéme Android - Chrome" title="WiFi termostat - webové rozhranie vizualizované v systéme Android - Chrome"></center>   		
-<hr>
-<p style="text-align: justify;">
-Pre uchovanie nastavených hodnôt termostatu aj po výpadku napájania sme zvolili ukladanie do EEPROM pamäte ESP, ktorá je emulovaná vo flash pamäti. Táto voľba je nevyhnutná, keďže platforma neobsahuje fyzický EEPROM čip (pamäť).
-V EEPROM pamäti sú uložené referenčná teplota na offsete 10 a hodnota hysterézy na offsete 100. Každá z týchto hodnôt využíva maximálne 5 bajtov v EEPROM pamäti, vrátane ukončovacieho znaku.
-Dáta sa prepisujú iba pri odoslaní HTML formulára, čo minimalizuje záťaž na EEPROM pamäť a zabezpečuje maximálnu trvanlivosť. Prevádzka termostatu je šetrná k EEPROM pamäti.
-Stav výstupu existuje výhradne v RAM pamäti, kde sa prepisuje pri každej zmene. Hodnota sa neukladá do emulovanej EEPROM pamäte vo flash pamäti, čo zabezpečuje efektívne a spoľahlivé fungovanie termostatu.
-</p>
-<hr>
-<p style="text-align: justify;">
-Pri prvom spustení zariadenia bez existujúcich údajov na EEPROM offsetoch automaticky dochádza k zápisu predvolených hodnôt, a to s referenčnou teplotou 20.25 °C a hysterézou 0.00 °C. Toto fail-safe riešenie umožňuje bezproblémový chod termostatu aj na mikrokontroléroch, ktoré nemajú žiadne predchádzajúce údaje v EEPROM pamäti.
-Pre zápis do EEPROM pamäte používame funkciu EEPROM.put(), ktorá podporuje akýkoľvek dátový typ, a následné potvrdenie zápisu pomocou EEPROM.commit() na cieľový offset. Implementácia využíva dátový typ float() pre 32-bitové číslo, ktoré je uložené v EEPROM a korešponduje s referenčnou teplotou a hysterézou.
-Webserver vykonáva obnovu celej HTML stránky každých 30 sekúnd prostredníctvom meta tagu Refresh. Zároveň vypisuje pomocou Javascriptu orientačný čas do ďalšieho obnovenia do HTML stránky. Pre zachovanie zmeny pre termostat je dôležité stihnúť ju zapísať do EEPROM pred obnovením stránky, inak sa input okná pre číselné vstupy do formulára resetujú.
-Vzhľadom na to, že built-in knižnica Ethernet neumožňuje využitie asynchrónneho webservera (čo je možné pri mikrokontroléroch Espressif ESP8266 / ESP32), je nutné prepisovať celú stránku, pretože táto implementácia je 1:1 s pôvodným Ethernet termostatom.
-</p>
 <hr>
 <p style="text-align: justify;">
 Dynamický údaj, ktorý sa predovšetkým mení je aktuálna hodnota výstupu - <b><font color="#27AE60">Zapnutý</font></b> / <b><font color="red">Vypnutý</font></b>, ktorý informuje prevádzkovateľa o skutočnom stave výstupu spoločne aj s farebným označením. 
@@ -144,78 +124,27 @@ Termostat ponúka možnosť nahradiť existujúci izbový termostat, prípadne d
 <b>Hlavná stránka pre modifikáciu cieľovej teploty a hysterézy - ukážka zapnutého:</b>
 <div class="alert alert-info">
 	<strong>Ukážkové dáta</strong>
-	<li><b>Cieľová teplota:</b>  22.75 °C</li>
-	<li><b>Hysteréza:</b>  0.25 °C</li>
-	<li><b>Namerané dáta:</b>  22.49 °C</li>
+	<li><b>Cieľová teplota:</b>  21 °C</li>
+	<li><b>Hysteréza:</b>  0.50 °C</li>
+	<li><b>Namerané dáta:</b>  20.49 °C</li>
 	<li><b>Výstup:</b>  <font color="#27AE60">Zapnutý</font></li>
 	<hr>
 	<p style="text-align: justify;">
-Termostat spúšťa vykurovanie pri teplote 22.49 °C a nižšej. Po dosiahnutí teploty 23.01 °C sa výstup vypne, signalizačné relé sa rozpojí a plynový kotol zastaví vykurovanie. Následne prebieha fáza dobehu vykurovania, ktorá prispieva k chladnutiu miestnosti, kde sa merania vykonávajú. Termostat sa opäť aktivuje až pri dosiahnutí teploty 22.49 °C alebo nižšej, spúšťajúc ďalší cyklus vykurovania podľa nastavených parametrov.
+Termostat spúšťa vykurovanie pri teplote 20.49 °C a nižšej. 
+		Po dosiahnutí teploty 21.51 °C sa výstup vypne, signalizačné relé sa rozpojí a plynový kotol zastaví vykurovanie. 
+		Následne prebieha fáza dobehu vykurovania, ktorá prispieva k chladnutiu miestnosti, kde sa merania vykonávajú. 
+		Termostat sa opäť aktivuje až pri dosiahnutí teploty 20.49 °C alebo nižšej, spúšťajúc ďalší cyklus vykurovania podľa nastavených parametrov.
 	</p>	
 </div>
 
 <b>Hlavná stránka pre modifikáciu cieľovej teploty a hysterézy:</b>
-<img src="https://i.imgur.com/YX7W2Z8.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Hlavný prehľad s modifikáciou cieľovej teploty a hysterézy - Vypnutý" title="WiFi termostat - Hlavný prehľad s modifikáciou cieľovej teploty a hysterézy - Vypnutý">        			
-
-<b>Priebeh spracovania zadaných údajov (presmerovanie používateľa):</b>
-<img src="https://i.imgur.com/ZptC0UR.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - spracovanie údajov z HTML formulára" title="WiFi termostat - spracovanie údajov z HTML formulára">        			
-
-<b>JSON výstup webservera v prehliadači / klientovi cez websocket:</b>
-<center><img src="https://i.imgur.com/iqxV12k.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - JSON output" title="WiFi termostat - JSON output"></center>        		
+<img src="https://i.imgur.com/PkCGLUn.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - Hlavný prehľad s modifikáciou cieľovej teploty a hysterézy - Vypnutý" title="WiFi termostat - Hlavný prehľad s modifikáciou cieľovej teploty a hysterézy - Vypnutý">        			
 
 <b>Výstup do UART monitoru - logika systému + nastavená IP adresa, mDNS záznam:</b>
 <center>
 <img src="https://i.imgur.com/f1mF6Fk.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART - ESP8266 - mDNS záznam" title="WiFi termostat - UART - ESP8266 - mDNS záznam">
 <img src="https://i.imgur.com/rAfC2iJ.png" style="display: block; max-width: 100%; height: auto;" alt="WiFi termostat - UART - ESP32 - výstup - ovládanie kotla" title="WiFi termostat - UART - ESP32 - výstup - ovládanie kotla">
 </center>        		
-<hr><center><h4>Dostupné knižnice pre mikrokontroléry (ESP)</h4></center><hr>
-<div class="alert alert-danger">
-	Archív knižnice (.zip) rozbaliť do <strong>C:/Používatelia/[Používateľ]/Dokumenty/Arduino/libraries</strong>
-</div>
-<div class="table-responsive">   
-<table class="table" style="border: 1px solid black;">
-<thead>
-<tr>
-<th style="width: 25%">Názov knižnice</th>
-<th style="width: 50%">Funkcia knižnice</th>
-<th style="width: 25%">Stiahnuť</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="width: 25%"><b>Dallas</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Knižnica pre mikrokontroléry ESP8266 a ESP32.
-Umožňuje komunikáciu so senzorom Dallas DS18B20 na OneWire zbernici. Možnosť komunikácie po normálnom, alebo parazitnom zapojení. 
-</p>
-</td>
-<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/termostat-ethernet/tree/master/src/dallas" class="btn btn-success" role="button">Stiahnuť</a></td>
-</tr>
-<tr>
-<td style="width: 25%"><b>WiFiManager</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Knižnica pre mikrokontroléry ESP8266 a ESP32.
-Vytvára prístupový bod (AP) a Captive portal pre konfiguráciu WiFi termostatu na domácu WiFi sieť. 
-</p>
-</td>
-<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/WiFiManager-0.16.0" class="btn btn-success" role="button">Stiahnuť</a></td>
-</tr>
-<tr>
-<td style="width: 25%"><b>DNS Server</b></td>
-<td style="width: 50%">
-<p style="text-align: justify;">
-Knižnica pre mikrokontrolér ESP32. 
-Vyžaduje sa pre správne fungovanie knižnice WiFiManager. 
-</p>
-</td>
-<td style="width: 25%"><a href="https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/martinius96/WiFi-termostat/tree/main/src/DNSServer---esp32-master" class="btn btn-success" role="button">Stiahnuť</a></td>
-</tr>
-</tbody>
-</table>
-</div>
-
 </div>
 </div>
 </body>
