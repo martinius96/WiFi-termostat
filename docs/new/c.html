@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Termostat Duo - Single Card</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+  
+  <style>
+    * {
+      border: 0;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --bg: #fff;
+      font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
+    }
+    body {
+      background: var(--bg);
+      font: 1em/1.5 sans-serif;
+      padding: 2rem 0;
+    }
+    .temp {
+      --angle: 0;
+      --hue: 240;
+      background-image:
+        radial-gradient(100% 100% at 50% 50%, hsl(var(--hue), 90%, 17%) 3.55em, hsla(var(--hue), 90%, 17%, 0) 3.6em),
+        radial-gradient(100% 100% at 50% 50%, hsl(var(--hue), 90%, 10%), hsl(var(--hue), 90%, 23%) 4.65em, hsl(var(--hue), 90%, 55%) 4.85em 4.9em, #17181c 5.1em 6.85em, #17181c00 6.9em),
+        radial-gradient(100% 100% at 50% 0, #f1f2f4, #8f95a3);
+      border-radius: 50%;
+      box-shadow: 0 -0.25em 1.5em 0.5em #0004;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+      position: relative;
+      padding: 1em;
+      text-align: center;
+      width: 15em;
+      height: 15em;
+    }
+    .temp:after, .temp__dial, .temp__comet, .temp__fizz { position: absolute; }
+    .temp:after, .temp__comet, .temp__dial { border-radius: inherit; }
+    .temp:after, .temp__dial { top: 0; left: 0; width: 100%; height: 100%; }
+    .temp:after {
+      background: radial-gradient(100% 100% at 67% 17%, #fff3, #fff0 6em);
+      content: "";
+      display: block;
+      z-index: 2;
+    }
+    .temp__logo {
+      font-family: "Baloo Paaji 2", sans-serif;
+      color: #abafba;
+      letter-spacing: -0.1em;
+      margin-bottom: 3.75em;
+      text-transform: lowercase;
+      transform: scaleY(1.1);
+    }
+    .temp__comet {
+      background:
+        radial-gradient(100% 100% at 50% 50%, hsl(var(--hue), 90%, 10%), hsl(var(--hue), 90%, 20%) 3.25em, hsl(var(--hue), 90%, 17%) 3.3em 3.35em, hsla(var(--hue), 90%, 17%, 0) 3.4em),
+        conic-gradient(#fff0, #fff calc(1deg * var(--angle)), #fff0 calc(1deg * var(--angle)));
+      top: calc(50% - 3.5em);
+      left: calc(50% - 3.5em);
+      width: 7em;
+      height: 7em;
+    }
+    .temp__fizz {
+      display: block;
+      top: calc(50% - 3.3em);
+      left: calc(50% - 3.3em);
+      width: 6.6em;
+      height: 6.6em;
+    }
+    .temp__label, .temp__value { color: #fff; font-family: "Unica One", monospace; position: relative; z-index: 1; }
+    .temp__label { font-size: 0.6em; letter-spacing: 0.5em; text-transform: uppercase; transform: translateX(0.25em) scaleY(0.9); }
+    .temp__value { font-size: 3.5em; }
+    .temp__dial { cursor: grab; z-index: 3; }
+    .temp__dial:active { cursor: grabbing; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #2e3138; } }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow-sm">
+        <div class="card-body py-5 d-flex flex-wrap justify-content-around align-items-center gap-4">
+          
+          <div class="temp" id="main-thermostat">
+            <div class="temp__logo">Thermostat</div>
+            <div class="temp__comet"></div>
+            <canvas class="temp__fizz"></canvas>
+            <div class="temp__label">°C</div>
+            <div class="temp__value">5</div>
+            <div class="temp__dial"></div>
+          </div>
+
+          <div style="transform: scale(0.7); transform-origin: center;">
+            <div class="temp" id="mini-thermostat">
+              <div class="temp__logo">Hysteresis</div>
+              <div class="temp__comet"></div>
+              <canvas class="temp__fizz"></canvas>
+              <div class="temp__label">°C</div>
+              <div class="temp__value">0</div>
+              <div class="temp__dial"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    new Thermostat("#main-thermostat", 5, 5, 30, 1);
+    new Thermostat("#mini-thermostat", 0, 0, 2, 0.5);
+  });
+
+  class Thermostat {
+    constructor(selector, initialTemp, minTemp, maxTemp, step = 1) {
+      this.el = document.querySelector(selector);
+      this.temp = initialTemp;
+      this.tempMin = minTemp;
+      this.tempMax = maxTemp;
+      this.step = step;
+      this.fizz = null;
+      this.fizzParticles = [];
+      this.fW = 240;
+      this.fH = 240;
+      this.fS = window.devicePixelRatio;
+      this.fc = null;
+      this.init();
+    }
+    init() {
+      if (!this.el) return;
+      this.fizz = this.el.querySelector(".temp__fizz");
+      if (this.fizz) {
+        this.fc = this.fizz.getContext("2d");
+        for (let i = 0; i < 600; i++) {
+          this.fizzParticles.push({
+            radius: 1,
+            minDist: this.randInt(100, 115),
+            maxDist: this.randInt(85, 115),
+            minRot: this.randInt(-180, 180),
+            maxRot: this.randInt(-180, 180),
+            x: 0,
+            y: 0,
+          });
+        }
+        this.fizz.width = this.fW * this.fS;
+        this.fizz.height = this.fH * this.fS;
+        this.fc.scale(this.fS, this.fS);
+      }
+      Draggable.create(this.el.querySelector(".temp__dial"), {
+        type: "rotation",
+        bounds: { minRotation: 0, maxRotation: 359 },
+        onDrag: () => this.tempAdjust("drag")
+      });
+      window.addEventListener("keydown", this.kbdEvent.bind(this));
+      this.tempAdjust(this.temp);
+    }
+    randInt(min, max) { return Math.round(Math.random() * (max - min)) + min; }
+    degToRad(deg) { return deg * (Math.PI / 180); }
+    angleFromMatrix(transVal) {
+      if (!transVal || transVal === 'none') return 0;
+      let matrixVal = transVal.split('(')[1].split(')')[0].split(','),
+        [cos1, sin] = matrixVal.slice(0, 2),
+        angle = Math.round(Math.atan2(sin, cos1) * (180 / Math.PI)) * -1;
+      if (angle < 0) angle += 360;
+      return 360 - angle;
+    }
+    kbdEvent(e) {
+      let kc = e.keyCode;
+      if (kc == 38 || kc == 39) this.tempAdjust("u");
+      else if (kc == 37 || kc == 40) this.tempAdjust("d");
+    }
+    tempAdjust(inputVal) {
+      let tempDisplay = this.el.querySelector(".temp__value");
+      let tempDial = this.el.querySelector(".temp__dial");
+      let tempRange = this.tempMax - this.tempMin;
+      let hueStart = 240, hueEnd = 360;
+      let hueRange = hueEnd - hueStart;
+      let notDragged = inputVal !== "drag";
+      if (!isNaN(inputVal)) { this.temp = parseFloat(inputVal); }
+      else if (inputVal == "u") { if (this.temp + this.step <= this.tempMax) this.temp += this.step; }
+      else if (inputVal == "d") { if (this.temp - this.step >= this.tempMin) this.temp -= this.step; }
+      else if (inputVal == "drag") {
+        let trans = getComputedStyle(tempDial).getPropertyValue("transform");
+        let angle = this.angleFromMatrix(trans);
+        this.temp = ((angle / 360) * tempRange + this.tempMin);
+      }
+      this.temp = Math.max(this.tempMin, Math.min(this.temp, this.tempMax));
+      this.temp = Math.round(this.temp / this.step) * this.step;
+      let frac = (this.temp - this.tempMin) / tempRange;
+      let angle = frac * 360;
+      let newHue = hueStart + frac * hueRange;
+      if (this.fc) {
+        this.fc.clearRect(0, 0, this.fW, this.fH);
+        this.fc.fillStyle = `hsla(${newHue},100%,50%,0.5)`;
+        this.fc.globalAlpha = 0.25 + (0.75 * frac);
+        let centerX = this.fW / 2, centerY = this.fH / 2;
+        this.fizzParticles.forEach(p => {
+          let pd = p.minDist + frac * (p.maxDist - p.minDist);
+          let pa = p.minRot + frac * (p.maxRot - p.minRot);
+          p.x = centerX + pd * Math.sin(this.degToRad(pa));
+          p.y = centerY + pd * Math.cos(this.degToRad(pa));
+          this.fc.beginPath(); this.fc.arc(p.x, p.y, p.radius, 0, Math.PI * 2); this.fc.fill(); this.fc.closePath();
+        });
+      }
+      this.el.style.setProperty("--angle", angle);
+      this.el.style.setProperty("--hue", newHue);
+      if (tempDial && notDragged) tempDial.style.transform = `rotate(${angle}deg)`;
+      if (tempDisplay) tempDisplay.textContent = this.temp.toFixed(this.step < 1 ? 1 : 0);
+    }
+  }
+</script>
+</body>
+</html>
